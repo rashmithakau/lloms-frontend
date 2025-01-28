@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
   const sliderExpandWidth = 90;
   const sliderNotExpandWidth = 16;
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
