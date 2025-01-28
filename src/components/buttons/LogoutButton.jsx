@@ -1,4 +1,4 @@
-import 'daisyui/dist/full.css'
+// import 'daisyui/dist/full.css'
 
 const LogoutButton = ({ children, onClick }) => {
     return (
