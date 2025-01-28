@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
       <div
         className={`transition-all duration-300 flex-1 bg-gray-50 m-0 ${
           isSidebarOpen
-            ? `pl-${sliderExpandWidth}`
+            ? `pl-90`
             : `pl-${sliderNotExpandWidth}`
         }`}
       >
