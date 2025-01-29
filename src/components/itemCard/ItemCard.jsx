@@ -1,18 +1,14 @@
 import image from '../../assets/2254.jpg_wh860.jpg';
-
 import React from 'react';
 
 function ItemCard() {
   return (
-    <div
-      className="group border-[2px] shadow-md border-pink-200 rounded-b-2xl bg-white flex flex-col items-start 
-                 transition-transform transform hover:scale-108 hover:shadow-lg hover:border-pink-500"
-    >
       {/* Product Image */}
+    <div className="group border-[2px] shadow-md border-pink-200 rounded-b-lg bg-white flex flex-col items-start space-y-2 transition-transform transform hover:scale-105 hover:shadow-lg hover:border-pink-500">
       <img
         src={image} // Use the constructed URL or default image
         alt="Product"
-        className="w-full h-40 object-cover transition-transform transform group-hover:brightness-90"
+        className="w-full h-auto object-cover transition-transform transform group-hover:brightness-90"
       />
 
       {/* Product Info */}
