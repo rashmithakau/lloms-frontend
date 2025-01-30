@@ -1,5 +1,5 @@
-import image from '../../assets/2254.jpg_wh860.jpg';
-import React from 'react';
+import image from "../../assets/2254.jpg_wh860.jpg";
+import React from "react";
 
 function ItemCard() {
   return (
@@ -19,7 +19,7 @@ function ItemCard() {
         {/* ID and Rating */}
         <div className="flex justify-between items-center">
           <p className="font-semibold text-sm text-[#432634] font-poppins">
-          PD/1001
+            PD/1001
           </p>
           <div className="bg-[#FFEBEB] text-[#FF0077] text-xs font-extrabold px-4 py-1 rounded-t-2xl rounded-b-none">
             233
@@ -28,7 +28,7 @@ function ItemCard() {
 
         {/* Product Name */}
         <p className="text-sm text-[#432634]/80 font-poppins truncate">
-        Cream Cake
+          Cream Cake
         </p>
 
         {/* Price */}
