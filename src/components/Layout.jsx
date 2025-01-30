@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
         className={`transition-all duration-300 flex-1 bg-gray-50 m-0 ${
           isSidebarOpen
             ? `pl-90`
-            : `pl-${sliderNotExpandWidth}`
+            : `pl-16`
         }`}
       >
         <main className="p-5 bg-white h-full">{children}</main>
