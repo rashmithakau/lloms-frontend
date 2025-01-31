@@ -57,7 +57,7 @@ const Sidebar = (
             size={10} // Adjust size in rem
             border={true}
           />
-          <h2 className="mt-4 text-lg font-semibold text-pink-700">Mathara Outlet</h2>
+          <h2 className="mt-4 text-lg font-semibold text-pink-700">Matara Outlet</h2>
         </div>
       )}
 

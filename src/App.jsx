@@ -2,7 +2,7 @@
 import CardContainer from "./components/cardContainer/CardContainer";
 import ItemCard from "./components/itemCard/ItemCard";
 import Layout from "./components/Layout";
-
+import DisplayTotal from "./components/displayTotal/DisplayTotal";
 
 import "./styles/App.css";
 function App() {
@@ -17,7 +17,11 @@ function App() {
             ))}
           </CardContainer>
         </div>
+        <div>
+          <DisplayTotal />
+        </div>
       </Layout>
+    
 
     </>
   );
