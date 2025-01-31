@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
-const SearchBar = ({categoryList}) => {
+const SearchBar = ({ categoryList }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All categories");
 
@@ -14,10 +15,11 @@ const SearchBar = ({categoryList}) => {
   return (
     <form className="max-w-lg mx-auto w-700">
       <div className="flex relative">
+        {/* Category Button */}
         <button
           type="button"
           onClick={toggleDropdown}
-          className="shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100"
+          className="shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:outline-none focus:ring-0 transition duration-300 transform hover:scale-105"
         >
           {selectedCategory}
           <svg
@@ -36,14 +38,22 @@ const SearchBar = ({categoryList}) => {
             />
           </svg>
         </button>
+
+        {/* Category Dropdown with Animation */}
         {isOpen && (
-          <div className="absolute top-full left-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+            className="absolute top-full left-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44"
+          >
             <ul className="py-2 text-sm text-gray-700">
               {categories.map((category) => (
                 <li key={category}>
                   <button
                     type="button"
-                    className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+                    className="inline-flex w-full px-4 py-2 hover:bg-pink-100 transition duration-200"
                     onClick={() => selectCategory(category)}
                   >
                     {category}
@@ -51,18 +61,20 @@ const SearchBar = ({categoryList}) => {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         )}
+
+        {/* Search Input with Improved Focus Styles */}
         <div className="relative w-full">
           <input
             type="search"
-            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-pink-500 focus:border-pink-500 focus:outline-none"
+            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:outline-none focus:ring-0 transition transform duration-200 ease-in-out focus:scale-105"
             placeholder="Search for products"
             required
           />
           <button
             type="submit"
-            className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-pink-400 rounded-e-lg border border-pink-500 hover:bg-pink-500 focus:ring-4 focus:outline-none focus:ring-pink-300"
+            className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-pink-400 rounded-e-lg border border-pink-500 hover:bg-pink-500 focus:outline-none focus:ring-0 transition duration-300 transform hover:scale-105"
           >
             <svg
               className="w-4 h-4"
@@ -79,7 +91,6 @@ const SearchBar = ({categoryList}) => {
                 d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
               />
             </svg>
-            <span className="sr-only">Search</span>
           </button>
         </div>
       </div>
