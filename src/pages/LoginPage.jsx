@@ -2,79 +2,83 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!email || !password) {
+    if (!username || !password) {
       setError("Please fill in all fields.");
       return;
     }
-    console.log("Logging in with", email, password);
     setError("");
+    console.log("Logging in with", username, password);
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-pink-100 relative">
+      {/* Background Image */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <img
           src="src/assets/background_images/loginbg.jpg"
           alt="Bakery Background"
-          className="w-full h-full object-cover blur-sm" // Apply blur here
+          className="w-full h-full object-cover blur-md opacity-100"
         />
       </div>
+
+      {/* Login Form */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-white/40 shadow-2xl rounded-3xl p-10 w-120 relative backdrop-blur-md border border-pink-300"
+        className="bg-white/40 shadow-2xl rounded-3xl p-10 w-110 relative backdrop-blur-lg border border-pink-300"
       >
-        <h2 className="text-3xl font-extrabold text-center text-pink-700 mb-6">
-          Welcome Back!
+        <h2 className="text-3xl font-extrabold text-center text-pink-700 mb-4">
+          Welcome Back! 🎂
         </h2>
-        <p className="text-center text-gray-600 mb-4">
-          Login to LLOMS
-        </p>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <p className="text-center text-gray-600 mb-6">Login to LLOMS</p>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Username Field */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
+            <label className="block text-sm font-medium text-gray-700">Username</label>
             <input
-              type="email"
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 shadow-sm"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 shadow-sm bg-pink-50 border-pink-300 opacity-45"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
-              aria-label="Email"
             />
           </div>
+
+          {/* Password Field */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
+            <label className="block text-sm font-medium text-gray-700">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 shadow-sm"
+                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 shadow-sm bg-pink-50 border-pink-300 opacity-45"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                aria-label="Password"
               />
+              {/* Toggle Password Button */}
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm text-pink-600"
+                className="absolute inset-y-0 right-3 flex items-center text-sm text-pink-600 hover:text-pink-700"
               >
                 {showPassword ? "Hide" : "Show"}
               </button>
             </div>
           </div>
+
+          {/* Error Message */}
           {error && <p className="text-red-500 text-sm">{error}</p>}
+
+          {/* Login Button */}
           <motion.button
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
@@ -84,12 +88,6 @@ export default function LoginPage() {
             Login
           </motion.button>
         </form>
-        <p className="text-sm text-center text-gray-600 mt-6">
-          Don't have an account?{" "}
-          <a href="/signup" className="text-pink-600 font-bold hover:underline">
-            Sign up
-          </a>
-        </p>
       </motion.div>
     </div>
   );
