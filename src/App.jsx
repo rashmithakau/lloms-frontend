@@ -26,7 +26,7 @@ function App() {
           </CardContainer>
         </div>
 
-       <div className="flex items-center my-5">
+       <div className="flex items-center my-7">
         <Table/>
        </div>
   
