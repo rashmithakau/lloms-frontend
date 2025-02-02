@@ -1,18 +1,17 @@
 import React from 'react'
-import {Card, TextBox} from './Card'
 import { History } from 'lucide-react';
 
 const DisplayTotal = () => {
   return (
     <div className='fixed bottom-4 right-4 px-8'>
-        <Card>
+        <div className='bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200 w-auto sm:w-[380px] md:w-[400px] lg:w-[428px] h-auto sm:h-[320px] md:h-[300px] lg:h-[330px] p-1 sm:p-2 md:p-3 lg:p-4'>
             <div className='grid grid-cols-2 gap-2 sm:gap-4 px-3 sm:px-6 py-2 sm:py-3'>
                 <p className='text-lg sm:text-xl'>Total</p>
-                <TextBox children={'Rs.3228'}/>
+                <div className='box-border bg-pink-100 px-3 sm:px-6 py-1 sm:py-2 border rounded-lg border-gray-400 text-sm sm:text-base'>Rs.3200</div>
                 <p className='text-lg sm:text-xl'>Discount</p>
-                <TextBox children={'Rs.228'}/>
+                <div className='box-border bg-pink-100 px-3 sm:px-6 py-1 sm:py-2 border rounded-lg border-gray-400 text-sm sm:text-base'>Rs.200</div>
                 <p className='text-lg sm:text-xl'>Sub Total</p>
-                <TextBox children={'Rs.3000'}/>
+                <div className='box-border bg-pink-100 px-3 sm:px-6 py-1 sm:py-2 border rounded-lg border-gray-400 text-sm sm:text-base'>Rs.3000</div>
             </div>
             <div className='grid grid-cols-2 gap-4 sm:gap-20 px-2 sm:px-3 py-3 sm:py-4'>
                 <button className='transition-transform transform hover:scale-108 hover:shadow-lg cursor-pointer bg-[#FF0077] text-white text-base sm:text-xl px-2 sm:px-3 py-2 sm:py-3 rounded-lg'>
@@ -26,7 +25,7 @@ const DisplayTotal = () => {
                 <History  />
                 <span className='text-sm sm:text-base text-gray-500'>Customer Order History</span>
             </div>
-        </Card>
+        </div>
     </div>
   )
 }
