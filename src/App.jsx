@@ -6,7 +6,6 @@ import OutletPage from "./pages/OutletPage";
 
 
 import "./styles/App.css";
-import OutletCardContainer from "./websiteComponents/outletCardContainer/OutletCardContainer";
 function App() {
 
   const PrivateRoute = ({ children }) => {
@@ -16,8 +15,15 @@ function App() {
 
   return (
     <>
-    <OutletCardContainer />
-
+      <Router>
+    <Routes>
+        {/* Show login page first */}
+        <Route path="/login" element={<LoginPage/>} />
+        {/* Protect other routes */}
+        <Route path="/outlet" element={<PrivateRoute><OutletPage/></PrivateRoute>} />
+        {/* <Route path="*" element={<Navigate to="/login" />} /> */}
+      </Routes>
+    </Router>
     </>
   );
 }
