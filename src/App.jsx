@@ -16,7 +16,7 @@ function App() {
 
   return (
     <>
-    <Router>
+      <Router>
     <Routes>
         {/* Show login page first */}
         <Route path="/login" element={<LoginPage/>} />
@@ -25,12 +25,10 @@ function App() {
         {/* <Route path="*" element={<Navigate to="/login" />} /> */}
       </Routes>
     </Router>
+
     <div>
       <DisplayTotal/>
     </div>
-
- 
-
     </>
   );
 }
