@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
             : `pl-16`
         }`}
       >
-        <main className="p-5 bg-white h-full">{children}</main>
+        <main className="px-5 py-2 bg-white h-full">{children}</main>
       </div>
     </div>
   );
