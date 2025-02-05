@@ -6,6 +6,7 @@ import OutletPage from "./pages/OutletPage";
 
 
 import "./styles/App.css";
+import DisplayTotal from "./components/DisplayTotal/DisplayTotal";
 function App() {
 
   const PrivateRoute = ({ children }) => {
@@ -24,6 +25,10 @@ function App() {
         {/* <Route path="*" element={<Navigate to="/login" />} /> */}
       </Routes>
     </Router>
+
+    <div>
+      <DisplayTotal/>
+    </div>
     </>
   );
 }
