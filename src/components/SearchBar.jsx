@@ -13,7 +13,7 @@ const SearchBar = ({ categoryList }) => {
   const categories = categoryList;
 
   return (
-    <form className="max-w-lg mx-auto w-700">
+    <form className="max-w-lg mx-auto w-700 my-0">
       <div className="flex relative">
         {/* Category Button */}
         <button

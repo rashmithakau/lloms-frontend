@@ -26,7 +26,7 @@ const Table = () => {
   };
 
   return (
-    <div className="overflow-hidden p-4 w-[986px] h-[342px] scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
+    <div className="overflow-hidden px-4 w-[930px] h-[342px] scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
       <div className="overflow-x-auto max-h-[300px] relative">
         <table className="w-full border border-gray-300 shadow-md rounded-lg">
           <thead className="sticky top-0 bg-gray-200 text-left z-20">
