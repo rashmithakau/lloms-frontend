@@ -5,6 +5,8 @@ import LoginPage from "./pages/LoginPage";
 import OutletPage from "./pages/OutletPage";
 import "./styles/App.css";
 import Home from "./pages/Home.jsx";
+import AddNewItem from "./pages/AddNewItem.jsx";
+
 function App() {
 
   const PrivateRoute = ({ children }) => {
@@ -14,18 +16,14 @@ function App() {
 
   return (
     <>
-      <Router>
-    <Routes>
-        {/* Show Home page */}
-        <Route path="/" element={<Home/>} />
-        {/* Show login page first */}
-        <Route path="/login" element={<LoginPage/>} />
-        {/* Protect other routes */}
-        <Route path="/outlet" element={<OutletPage/>} /> {/* <PrivateRoute><OutletPage/></PrivateRoute> */} 
-        {/* <Route path="*" element={<Navigate to="/login" />} /> */}
-      </Routes>
-    </Router>
+      
+
+    
+      <AddNewItem/>
+    
     </>
+
+    
   );
 }
 

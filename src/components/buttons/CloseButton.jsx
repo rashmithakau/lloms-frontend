@@ -1,4 +1,4 @@
-import closeIcon from ".../assets/icons/closeButton.png";
+import closeIcon from "../../assets/icons/closeButton.png";
 
 const CloseButton = ({ onClick }) => {
     return (
