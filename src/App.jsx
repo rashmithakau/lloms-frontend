@@ -24,12 +24,11 @@ function App() {
         {/* Show login page first */}
         <Route path="/login" element={<LoginPage/>} />
         {/* Protect other routes */}
-        <Route path="/outlet" element={<OutletPage/>} /> {/* <PrivateRoute><OutletPage/></PrivateRoute> */} 
-        {/* <Route path="*" element={<Navigate to="/login" />} /> */}
+        <Route path="/outlet" element={<OutletPage/>} />
+        <Route path="*" element={<Navigate to="/login" />} /> 
       </Routes>
       
     </Router>
-    <Footer />
     </>
   );
 }
