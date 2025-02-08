@@ -3,10 +3,11 @@ import { useContext } from "react";
 import AuthContext from "./context/AuthContext";
 import LoginPage from "./pages/LoginPage";
 import OutletPage from "./pages/OutletPage";
-
-
 import "./styles/App.css";
-import DisplayTotal from "./components/DisplayTotal/DisplayTotal";
+import Home from "./pages/Home.jsx";
+import Footer from "./websiteComponents/footer/Footer.jsx";
+
+
 function App() {
 
   const PrivateRoute = ({ children }) => {
@@ -18,14 +19,16 @@ function App() {
     <>
       <Router>
     <Routes>
+        {/* Show Home page */}
+        <Route path="/" element={<Home/>} />
         {/* Show login page first */}
         <Route path="/login" element={<LoginPage/>} />
         {/* Protect other routes */}
         <Route path="/outlet" element={<OutletPage/>} />
         <Route path="*" element={<Navigate to="/login" />} /> 
       </Routes>
+      
     </Router>
-
     </>
   );
 }
