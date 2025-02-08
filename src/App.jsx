@@ -5,6 +5,9 @@ import LoginPage from "./pages/LoginPage";
 import OutletPage from "./pages/OutletPage";
 import "./styles/App.css";
 import Home from "./pages/Home.jsx";
+import Footer from "./websiteComponents/footer/Footer.jsx";
+
+
 function App() {
 
   const PrivateRoute = ({ children }) => {
@@ -24,7 +27,9 @@ function App() {
         <Route path="/outlet" element={<OutletPage/>} /> {/* <PrivateRoute><OutletPage/></PrivateRoute> */} 
         {/* <Route path="*" element={<Navigate to="/login" />} /> */}
       </Routes>
+      
     </Router>
+    <Footer />
     </>
   );
 }
