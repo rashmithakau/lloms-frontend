@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 
-const Layout = ({ children }) => {
+const Layout = ({ children , navItemList=[]}) => {
   const sliderExpandWidth = 90;
   const sliderNotExpandWidth = 16;
 
@@ -11,10 +11,16 @@ const Layout = ({ children }) => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+
+
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} sliderExpandWidth={sliderExpandWidth} sliderNotExpandWidth={sliderNotExpandWidth}/>
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} 
+         sliderExpandWidth={sliderExpandWidth} 
+         sliderNotExpandWidth={sliderNotExpandWidth} 
+         navItemList={navItemList} />
+
 
       {/* Main Content */}
       <div

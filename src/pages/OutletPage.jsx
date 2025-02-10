@@ -1,34 +1,60 @@
 import React from "react";
-import CardContainer from "../components/cardContainer/CardContainer";
-import ItemCard from "../components/itemCard/ItemCard";
 import Layout from "../components/Layout";
 import SearchBar from "../components/SearchBar";
 import NotificationButton from "../components/buttons/NotificationButton";
-import DisplayTotal from "../components/DisplayTotal/DisplayTotal";
-import Table from "../components/PosTable/Table";
+import { useState } from "react";
+import Pos from "../window/Outlet/Pos";
+import Order from "../window/Outlet/Order";
+import Inventary from "../window/Outlet/Inventary";
+import Return from "../window/Outlet/Return";
 
 export default function OutletPage() {
   const categories = ["Cake", "Shorteas", "Biscuits", "Chocolates"];
+  const [activeTab, setActiveTab] = useState("pos"); // Default tab
+
+  const navItemList = [
+    {
+      nameBtn: "POS",
+      fun: () => {
+        setActiveTab("pos");
+      },
+      iconUrl: "src/assets/icons/posIcon.svg",
+    },
+    {
+      nameBtn: "ORDER",
+      fun: () => {
+        setActiveTab("order");
+      },
+      iconUrl: "src/assets/icons/orderIcon.svg",
+    },
+    {
+      nameBtn: "INVENTARY",
+      fun: () => {
+        setActiveTab("inventary");
+      },
+      iconUrl: "src/assets/icons/inventaryIcon.svg",
+    },
+    {
+      nameBtn: "RETURN",
+      fun: () => {
+        setActiveTab("return");
+      },
+      iconUrl: "src/assets/icons/returnIcon.svg",
+    },
+  ];
 
   return (
     <div>
-      <Layout>
+      <Layout navItemList={navItemList}>
         <div className="flex">
           <SearchBar categoryList={categories} />
           <NotificationButton />
         </div>
 
-        <div className="flex justify-center items-center my-2">
-          <CardContainer>
-            {Array.from({ length: 30 }).map((_, index) => (
-              <ItemCard key={index} />
-            ))}
-          </CardContainer>
-        </div>
-        <div className="flex">
-          <Table />
-          <DisplayTotal />
-        </div>
+        {activeTab === "pos" && <Pos/>}
+        {activeTab === "order" && <Order/>}
+        {activeTab === "inventary" && <Inventary/>}
+        {activeTab === "return" && <Return/>}
       </Layout>
     </div>
   );
