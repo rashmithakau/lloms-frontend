@@ -1,6 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import LogoutButton from "./buttons/LogoutButton";
-import SliderNavButton from "./buttons/SliderNavButton";
+import SliderNavButton from "./buttons/IconNavButton";
 import ProfilePhoto from "./ProfilePhoto";
 import { motion } from "framer-motion";
 import AuthContext from "../context/AuthContext";
@@ -84,7 +84,8 @@ const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, s
                 <SliderNavButton
                   onClick={item.fun}
                   icon={item.iconUrl}
-                  className="hover:bg-pink-300 text-pink-800 transition duration-200 transform hover:scale-105"
+                  isSliderBtn={true}
+                  isSelected={true}
                 >
                   {item.nameBtn}
                 </SliderNavButton>

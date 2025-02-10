@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DataRow from "./DataRow"; // Import the DataRow component
 
-const Table = () => {
+const OrderTable = () => {
   const [products, setProducts] = useState([
     { id: "PD/1001", name: "Butter Cake", price: 100.0, quantity: 25.5, discount: 0.0 },
     { id: "PD/1081", name: "Fish Bun", price: 100.0, quantity: 5, discount: 0.0 },
@@ -26,7 +26,7 @@ const Table = () => {
   };
 
   return (
-    <div className="overflow-hidden px-4 w-[930px] h-[342px] scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
+    <div className="overflow-hidden px-4 w-full h-[250px] scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
       <div className="overflow-x-auto max-h-[300px] relative">
         <table className="w-full border border-gray-300 shadow-md rounded-lg">
           <thead className="sticky top-0 bg-gray-200 text-left z-20">
@@ -57,4 +57,4 @@ const Table = () => {
   );
 };
 
-export default Table;
+export default OrderTable;
