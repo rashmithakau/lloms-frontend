@@ -3,6 +3,7 @@ import CardContainer from "../../components/cardContainer/CardContainer";
 import Table from "../../components/PosTable/OrderTable";
 import DisplayTotal from "../../components/DisplayTotal/DisplayTotal";
 import ItemCard from "../../components/itemCard/ItemCard";
+import ActionContainer from "../../components/ActionContainer/ActionContainer";
 
 function Pos() {
   return (
@@ -16,7 +17,9 @@ function Pos() {
       </div>
       <div className="flex">
         <Table />
-        <DisplayTotal />
+        <ActionContainer>
+          <DisplayTotal />
+        </ActionContainer>
       </div>
     </div>
   );
