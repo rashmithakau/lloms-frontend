@@ -1,8 +1,9 @@
 import React from "react";
 import CardContainer from "../../components/cardContainer/CardContainer";
-import Table from "../../components/PosTable/OrderTable";
+import OrderTable from "../../components/PosTable/OrderTable";
 import DisplayTotal from "../../components/DisplayTotal/DisplayTotal";
 import ItemCard from "../../components/itemCard/ItemCard";
+import ActionContainer from "../../components/ActionContainer/ActionContainer";
 
 function Pos() {
   return (
@@ -15,8 +16,10 @@ function Pos() {
         </CardContainer>
       </div>
       <div className="flex">
-        <Table />
-        <DisplayTotal />
+        <OrderTable tType="pos"/>
+        <ActionContainer>
+            <DisplayTotal/>
+        </ActionContainer>
       </div>
     </div>
   );

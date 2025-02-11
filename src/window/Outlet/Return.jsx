@@ -1,6 +1,6 @@
 import React from "react";
 import CardContainer from "../../components/cardContainer/CardContainer";
-import Table from "../../components/PosTable/OrderTable";
+import OrderTable from "../../components/PosTable/OrderTable";
 import ItemCard from "../../components/itemCard/ItemCard";
 import ActionContainer from "../../components/ActionContainer/ActionContainer";
 import OrderAction from "../../components/OrderAction/OrderAction";
@@ -18,7 +18,7 @@ function Return() {
         </CardContainer>
       </div>
       <div className="flex">
-        <Table />
+        <OrderTable tType="return"/>
         <ActionContainer>
           <ReturnAction/>
         </ActionContainer>
