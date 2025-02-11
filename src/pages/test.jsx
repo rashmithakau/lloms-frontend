@@ -17,7 +17,7 @@ const TableData = () => {
     return (
         <div className="container mx-auto p-4">
             {/* Table Header */}
-            <div className="flex bg-200 p-3 rounded-t-lg mb-1">
+            <div className="flex bg-gray-200 p-3 rounded-t-lg mb-1">
                 <div className="w-1/5 text-black font-bold">Order ID</div>
                 <div className="w-1/5 text-black font-bold">Date</div>
                 <div className="w-1/5 text-black font-bold">Time</div>
@@ -28,14 +28,14 @@ const TableData = () => {
             {orders.map((order) => (
                 <div key={order.id} className="border-2 border-black rounded-lg mb-4">
                     {/* Main Order Row */}
-                    <div className="flex items-center p-3 hover:bg-[#eed0c8]">
+                    <div className="flex items-center p-3 hover:bg-red-200">
                         <div className="w-1/5 text-black">{order.orderId}</div>
                         <div className="w-1/5 text-black">{order.date}</div>
                         <div className="w-1/5 text-black">{order.time}</div>
                         <div className="w-1/5 text-black">{order.status}</div>
                         <div className="w-1/5">
                             <button
-                                className="px-6 py-2 text-base font-semibold text-black bg-500 border-2 border-black rounded-full hover:bg-[#dba799] hover:border-transparent hover:text-black transition duration-300"
+                                className="px-6 py-2 text-base font-semibold text-black bg-500 border-2 border-black rounded-full hover:bg-pink-400 hover:border-transparent hover:text-white transition duration-300"
                                 onClick={() => toggleExpand(order.id)}
                                 style={{ minWidth: "120px" }}
                             >

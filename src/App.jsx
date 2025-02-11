@@ -8,6 +8,7 @@ import Home from "./pages/Home.jsx";
 import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
 import CustomerOrderHistoryPage from "./pages/CustomerOrderHistory.jsx";
 import ReturnHistoryPage from "./pages/ReturnHistory.jsx";
+import Test from "./pages/test.jsx";
 
 function App() {
 
@@ -36,6 +37,10 @@ function App() {
 
         {/* Show customer order history page */}
         <Route path="/return-history" element={<ReturnHistoryPage/>} />
+
+
+        {/* Show customer order history page */}
+        <Route path="/test" element={<Test/>} />
 
 
       </Routes>

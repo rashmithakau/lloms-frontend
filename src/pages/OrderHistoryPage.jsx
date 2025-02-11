@@ -22,9 +22,7 @@ const OrderHistoryPage = () => {
                 </p>
 
 
-                <div className="bg-transparent p-8">
                     <TableData />
-                </div>
             </div>
         </div>
     );
