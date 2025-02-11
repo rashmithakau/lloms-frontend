@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DataRow from "./DataRow"; // Import the DataRow component
 
-const OrderTable = () => {
+const OrderTable = ({tType="pos"}) => {
   const [products, setProducts] = useState([
     { id: "PD/1001", name: "Butter Cake", price: 100.0, quantity: 25.5, discount: 0.0 },
     { id: "PD/1081", name: "Fish Bun", price: 100.0, quantity: 5, discount: 0.0 },
@@ -35,8 +35,10 @@ const OrderTable = () => {
               <th className="p-2">Product ID</th>
               <th className="p-2">Product Name</th>
               <th className="p-2">Unit Price</th>
-              <th className="p-2">Quantity</th>
-              <th className="p-2">Discount</th>
+              {tType !== "return" && <th className="p-2">Quantity</th>}
+              {tType === "return" && <th className="p-2">Stock</th> }
+              {tType === "return" && <th className="p-2">Return</th>}
+              {tType === "pos" && <th className="p-2">Discount</th> }
               <th className="p-2">Actions</th>
             </tr>
           </thead>
@@ -48,6 +50,7 @@ const OrderTable = () => {
                 index={index}
                 handleQuantityChange={handleQuantityChange}
                 handleDelete={handleDelete}
+                type={tType}
               />
             ))}
           </tbody>
