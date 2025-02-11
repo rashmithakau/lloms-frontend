@@ -9,6 +9,7 @@ import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
 import CustomerOrderHistoryPage from "./pages/CustomerOrderHistory.jsx";
 import ReturnHistoryPage from "./pages/ReturnHistory.jsx";
 import Test from "./pages/test.jsx";
+import Footer from "./websiteComponents/footer/Footer.jsx";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         {/* Show login page first */}
         <Route path="/login" element={<LoginPage/>} />
         {/* Protect other routes */}
+
         <Route path="/outlet" element={<OutletPage/>} /> {/* <PrivateRoute><OutletPage/></PrivateRoute> */} 
         {/* <Route path="*" element={<Navigate to="/login" />} /> */}
 
@@ -44,6 +46,7 @@ function App() {
 
 
       </Routes>
+      
     </Router>
     </>
   );
