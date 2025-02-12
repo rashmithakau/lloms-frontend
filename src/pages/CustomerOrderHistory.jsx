@@ -21,10 +21,7 @@ const CustomerOrderHistory = () => {
                     Customer Order History
                 </p>
 
-
-                <div className="bg-transparent p-8">
                     <TableData />
-                </div>
             </div>
         </div>
     );

@@ -20,11 +20,7 @@ const OrderHistoryPage = () => {
                 <p className="text-3xl font-bold text-center">
                     Return History
                 </p>
-
-
-                <div className="bg-transparent p-8">
                     <TableData />
-                </div>
             </div>
         </div>
     );
