@@ -1,26 +1,25 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import LogoutButton from "./buttons/LogoutButton";
-import SliderNavButton from "./buttons/SliderNavButton";
+import SliderNavButton from "./buttons/IconNavButton";
 import ProfilePhoto from "./ProfilePhoto";
 import { motion } from "framer-motion";
+import AuthContext from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 
-const Sidebar = ({ isOpen, toggleSidebar }, sliderExpandWidth, sliderNotExpandWidth) => {
-  const navItems = [
-    {
-      nameBtn: "POS",
-      fun: () => {
-        console.log("POS clicked!");
-      },
-      iconUrl: "src/assets/icons/cashier.png",
-    },
-    {
-      nameBtn: "ORDER",
-      fun: () => {
-        console.log("Order clicked!");
-      },
-      iconUrl: "src/assets/icons/cashier.png",
-    },
-  ];
+const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, sliderNotExpandWidth }) => 
+  {
+  const { logoutUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logoutUser();
+    navigate("/login");
+  };
+
+  const navItems=navItemList;
+  console.log(navItems);
+
 
   return (
     <motion.div
@@ -85,7 +84,8 @@ const Sidebar = ({ isOpen, toggleSidebar }, sliderExpandWidth, sliderNotExpandWi
                 <SliderNavButton
                   onClick={item.fun}
                   icon={item.iconUrl}
-                  className="hover:bg-pink-300 text-pink-800 transition duration-200 transform hover:scale-105"
+                  isSliderBtn={true}
+                  isSelected={true}
                 >
                   {item.nameBtn}
                 </SliderNavButton>
@@ -95,7 +95,7 @@ const Sidebar = ({ isOpen, toggleSidebar }, sliderExpandWidth, sliderNotExpandWi
           {isOpen && (
             <li>
               <LogoutButton
-                onClick={() => console.log("Logout clicked!")}
+                onClick={handleLogout}
                 className="hover:bg-pink-300 text-pink-800 transition duration-200 transform hover:scale-105"
               >
                 Logout

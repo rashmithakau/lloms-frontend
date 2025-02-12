@@ -1,12 +1,13 @@
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
 
-const DataRow = ({ product, index, handleQuantityChange, handleDelete }) => {
+const DataRow = ({ product, index, handleQuantityChange, handleDelete,type="pos" }) => {
   return (
     <tr key={product.id} className="border-b border-gray-300">
       <td className="p-2">{index + 1}</td>
       <td className="p-2">{product.id}</td>
       <td className="p-2">{product.name}</td>
       <td className="p-2">{product.price.toFixed(2)}</td>
+      {type === "return" && <td className="p-2">{product.price.toFixed(3)}</td>}
       <td className="p-2">
         <div className="flex items-center gap-2">
           <button
@@ -29,7 +30,7 @@ const DataRow = ({ product, index, handleQuantityChange, handleDelete }) => {
           </button>
         </div>
       </td>
-      <td className="p-2">{product.discount.toFixed(2)}</td>
+      {type === "pos" && <td className="p-2">{product.discount.toFixed(2)}</td>}
       <td className="p-2 flex gap-2">
         <button className="text-yellow-500 text-lg">
           <FaPencilAlt />
