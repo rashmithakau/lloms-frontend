@@ -8,7 +8,6 @@ import Home from "./pages/Home.jsx";
 import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
 import CustomerOrderHistoryPage from "./pages/CustomerOrderHistory.jsx";
 import ReturnHistoryPage from "./pages/ReturnHistory.jsx";
-import Test from "./pages/test.jsx";
 
 function App() {
 
