@@ -13,9 +13,9 @@ import Home from "./pages/Home.jsx";
 import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
 import CustomerOrderHistoryPage from "./pages/CustomerOrderHistory.jsx";
 import ReturnHistoryPage from "./pages/ReturnHistory.jsx";
+
 import FactoryStaffPage from "./pages/FactoryStaffPage.jsx";
 import OwnerPage from "./pages/OwnerPage.jsx";
-
 
 function App() {
   const PrivateRoute = ({ children }) => {
@@ -56,6 +56,7 @@ function App() {
 
         </Routes>
       </Router>
+
     </>
   );
 }
