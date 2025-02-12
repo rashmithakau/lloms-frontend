@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FiEdit, FiTrash } from "react-icons/fi"; // Icons for edit and delete
+import { FiEdit, FiTrash } from "react-icons/fi";
 
 const TableData = () => {
     const orders = [
