@@ -54,7 +54,7 @@ const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, s
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }} // Increased duration for profile section
-          className="flex flex-col items-center justify-center p-10 bg-pink-50 rounded-lg shadow-md m-5"
+          className="flex flex-col items-center justify-center p-10 bg-pink-50 rounded-lg shadow-md m-5 h-60 "
         >
           <ProfilePhoto
             src="src/assets/profileImages/mathara.jpg"
@@ -77,6 +77,7 @@ const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, s
                     src={item.iconUrl}
                     alt={`${item.nameBtn} icon`}
                     className="w-6 h-6"
+                    onClick={item.fun}
                   />
                 </div>
               )}
