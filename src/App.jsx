@@ -5,7 +5,8 @@ import LoginPage from "./pages/LoginPage";
 import OutletPage from "./pages/OutletPage";
 import "./styles/App.css";
 import Home from "./pages/Home.jsx";
-import AddNewItem from "./pages/AddNewItem.jsx";
+import Item from "./components/Item.jsx";
+import PopUpWindow from "./components/PopUpWindow.jsx";
 
 function App() {
 
@@ -19,7 +20,7 @@ function App() {
       
 
     
-      <AddNewItem/>
+      <Item/>
     
     </>
 
