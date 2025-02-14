@@ -27,9 +27,9 @@ const sections = [
 const Footer = () => {
   return (
     <>
-      <div className=" w-full px-2 mt-24 text-gray-300 bg-slate-900 py-y ">
+      <div className=" w-full px-2 mt-24 text-gray-300 bg-slate-900 py-y  ">
  
-                <div className="max-w-[1240px mx-auto grid grid-cols-2 md:grid-cols-6 border-b-2 border-gray-600 py-8 px-4">
+                <div className="max-w-[1240px mx-auto grid grid-cols-2 md:grid-cols-5 border-b-2 border-gray-600 py-8 px-4">
                     
                 <div className="flex items-center gap-3">
                         <img
