@@ -9,7 +9,7 @@ import Inventary from "../window/Outlet/Inventary";
 import Return from "../window/Outlet/Return";
 
 export default function OutletPage() {
-  const categories = ["Cake", "Shorteas", "Biscuits", "Chocolates"];
+  const categories = ["All","Cake", "Shorteas", "Biscuits", "Chocolates"];
   const [activeTab, setActiveTab] = useState("pos"); // Default tab
 
   const navItemList = [
@@ -59,3 +59,5 @@ export default function OutletPage() {
     </div>
   );
 }
+
+

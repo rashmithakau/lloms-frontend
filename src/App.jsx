@@ -12,7 +12,6 @@ import Home from "./pages/Home.jsx";
 
 import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
 
-
 import FactoryStaffPage from "./pages/FactoryStaffPage.jsx";
 import OwnerPage from "./pages/OwnerPage.jsx";
 import ShopPage from "./pages/ShopPage.jsx";
@@ -26,53 +25,32 @@ function App() {
 
   return (
     <>
-      
       <Router>
-
-/* <Route path="*" element={<Navigate to="/login" />} /> */
-
+        
         <Routes>
-       
+        <Route path="*" element={<Navigate to="/login" />} /> 
           <Route path="/" element={<Home />} />
 
-
           {/* Show Shop page */}
-          <Route path="/shop" element={<ShopPage />}/>
+          <Route path="/shop" element={<ShopPage />} />
 
           {/* Show login page first */}
           <Route path="/login" element={<LoginPage />} />
 
-
-         
           <Route path="/outlet" element={<OutletPage />} />
           {/* <PrivateRoute><OutletPage/></PrivateRoute> */}
 
-
-     
           <Route path="/order-history" element={<OrderHistoryPage />} />
 
-          <Route path="/factory-Staff" element={<FactoryStaffPage/>}/>
+          <Route path="/factory-Staff" element={<FactoryStaffPage />} />
 
-          <Route path="/owner" element={<OwnerPage/>}/>
-
-
-
-         
-          <Route
-            path="/customer-order-history"
-            element={<CustomerOrderHistoryPage />}
-          />
-      
-          <Route path="/return-history" element={<ReturnHistoryPage />} />
+          <Route path="/owner" element={<OwnerPage />} />
 
           <Route path="*" element={<Navigate to="/" />} />
 
         </Routes>
       </Router>
-
     </>
-
-    
   );
 }
 
