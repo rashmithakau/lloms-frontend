@@ -10,12 +10,12 @@ import OutletPage from "./pages/OutletPage";
 import "./styles/App.css";
 import Home from "./pages/Home.jsx";
 import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
-import CustomerOrderHistoryPage from "./pages/CustomerOrderHistory.jsx";
-import ReturnHistoryPage from "./pages/ReturnHistory.jsx";
+
 
 import FactoryStaffPage from "./pages/FactoryStaffPage.jsx";
 import OwnerPage from "./pages/OwnerPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+
 
 function App() {
   const PrivateRoute = ({ children }) => {
@@ -26,6 +26,8 @@ function App() {
   return (
     <>
       <Router>
+/* <Route path="*" element={<Navigate to="/login" />} /> */
+
         <Routes>
        
           <Route path="/" element={<Home />} />
@@ -37,12 +39,15 @@ function App() {
           <Route path="/outlet" element={<OutletPage />} />
           {/* <PrivateRoute><OutletPage/></PrivateRoute> */}
 
+
      
           <Route path="/order-history" element={<OrderHistoryPage />} />
 
           <Route path="/factory-Staff" element={<FactoryStaffPage/>}/>
 
           <Route path="/owner" element={<OwnerPage/>}/>
+
+
 
          
           <Route
@@ -56,6 +61,7 @@ function App() {
 
         </Routes>
       </Router>
+
 
     </>
   );
