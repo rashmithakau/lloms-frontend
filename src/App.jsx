@@ -18,9 +18,19 @@ function App() {
   return (
     <>
       
+      <Router>
+     <Routes>
+         {/* Show Home page */}
+         <Route path="/" element={<Home/>} />
+         {/* Show login page first */}
 
-    
-      <Item/>
+
+         <Route path="/login" element={<LoginPage/>} />
+         {/* Protect other routes */}
+         <Route path="/outlet" element={<OutletPage/>} /> {/* <PrivateRoute><OutletPage/></PrivateRoute> */} 
+         {/* <Route path="*" element={<Navigate to="/login" />} /> */}
+       </Routes>
+     </Router>
     
     </>
 
