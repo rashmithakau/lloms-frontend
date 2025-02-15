@@ -35,6 +35,7 @@ const Footer = () => {
         </div>
 
         <div className=" w-full px-2 text-gray-300 bg-slate-900">
+
  
                 <div className="max-w-[1240px mx-auto grid grid-cols-2 md:grid-cols-5 border-b-2 border-gray-600 py-8 px-4">
                     

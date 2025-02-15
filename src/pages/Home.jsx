@@ -3,12 +3,14 @@ import backgroundImage from '../assets/websitenavbar/background.png';
 import Navbar from "../websiteComponents/navbar/Navbar.jsx";
 import Navbarsidetext from "../websiteComponents/navbar/Navbarsidetext.jsx";
 import Addbox from "../websiteComponents/navbar/Addbox.jsx";
+
 import OutletCardContainer from "../websiteComponents/outletCardContainer/OutletCardContainer.jsx";
 import Footer from "../websiteComponents/footer/Footer.jsx";
 import BestProductContainer from "../websiteComponents/BestProductContainer/BestProductContainer.jsx";
 
 const Home = () => {
     const [scrollPosition, setScrollPosition] = useState(0);
+
 
     useEffect(() => {
         const handleScroll = () => {
@@ -20,6 +22,7 @@ const Home = () => {
     }, []);
 
     return (
+
         <div className="relative w-full max-w-[100vw] overflow-x-hidden">
             {/* Custom Scrollbar Styles */}
             <style>
@@ -84,6 +87,7 @@ const Home = () => {
                 <OutletCardContainer />
                 <Footer />
             </div>
+
         </div>
     );
 };
