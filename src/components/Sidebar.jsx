@@ -33,7 +33,7 @@ const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, s
     >
       {/* Header */}
       <div className="flex justify-between items-center p-4 border-b border-pink-300">
-        {isOpen && <h2 className="text-2xl font-bold text-pink-800">Little Lanka Pvt Ltd</h2>}
+        {isOpen && <h2 className="text-2xl font-bold text-pink-800 opacity-65">Little Lanka Pvt Ltd</h2>}
         <button
           onClick={toggleSidebar}
           aria-expanded={isOpen}
@@ -54,7 +54,7 @@ const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, s
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }} // Increased duration for profile section
-          className="flex flex-col items-center justify-center p-10 bg-pink-50 rounded-lg shadow-md m-5"
+          className="flex flex-col items-center justify-center p-10 bg-pink-50 rounded-lg shadow-md m-5 h-60 "
         >
           <ProfilePhoto
             src="src/assets/profileImages/mathara.jpg"
@@ -62,7 +62,7 @@ const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, s
             size={10}
             border={true}
           />
-          <h2 className="mt-4 text-lg font-semibold text-pink-700">Mathara Outlet</h2>
+          <h2 className="mt-4 text-lg font-semibold text-pink-700 opacity-60">Mathara Outlet</h2>
         </motion.div>
       )}
 
@@ -77,6 +77,7 @@ const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, s
                     src={item.iconUrl}
                     alt={`${item.nameBtn} icon`}
                     className="w-6 h-6"
+                    onClick={item.fun}
                   />
                 </div>
               )}

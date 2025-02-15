@@ -40,9 +40,9 @@ export default function LoginPage() {
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <img
-          src="/images/loginbg.jpg" // Fixed Path
+          src="src/assets/background_images/loginbg.jpg" // Fixed Path
           alt="Bakery Background"
-          className="w-full h-full object-cover blur-md opacity-90"
+          className="w-full h-full object-cover blur-sm opacity-100"
         />
       </div>
 

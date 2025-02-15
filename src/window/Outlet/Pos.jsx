@@ -6,6 +6,11 @@ import ItemCard from "../../components/itemCard/ItemCard";
 import ActionContainer from "../../components/ActionContainer/ActionContainer";
 
 function Pos() {
+
+
+
+
+
   return (
     <div>
       <div className="flex justify-center items-center my-2">
@@ -16,10 +21,13 @@ function Pos() {
         </CardContainer>
       </div>
       <div className="flex">
-        <OrderTable tType="pos"/>
+        <OrderTable tType="pos" />
+
         <ActionContainer>
-            <DisplayTotal/>
+          <DisplayTotal />
         </ActionContainer>
+
+
       </div>
     </div>
   );
