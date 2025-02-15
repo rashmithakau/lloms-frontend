@@ -1,5 +1,7 @@
 import React from 'react'
 import logo from '../../assets/websitenavbar/logo.png'
+import banner from '../../assets/footerimg.jpeg'
+
 
 
 const sections = [
@@ -27,7 +29,13 @@ const sections = [
 const Footer = () => {
   return (
     <>
-      <div className=" w-full px-2 mt-24 text-gray-300 bg-slate-900 py-y  ">
+    
+        <div className='mt-24'>
+            <img src={banner} className='w-full h-150' alt="banner for Footer" />
+        </div>
+
+        <div className=" w-full px-2 text-gray-300 bg-slate-900">
+
  
                 <div className="max-w-[1240px mx-auto grid grid-cols-2 md:grid-cols-5 border-b-2 border-gray-600 py-8 px-4">
                     
@@ -64,13 +72,13 @@ const Footer = () => {
                     
                 </div>       
         
-        <div className='flex flex-col max-w-[1240px] px-2 py-4 mx-auto justify-center sm:flex-row text-center text-gray-500'>
-            <p className='py-4'>
-                Copyright 2024 Aventra. All Rights Received
-            </p>
-        </div>
+            <div className='flex flex-col max-w-[1240px] px-2 py-4 mx-auto justify-center sm:flex-row text-center text-gray-500'>
+                <p className='py-4'>
+                    Copyright 2024 Aventra. All Rights Received
+                </p>
+            </div>
         
-      </div>
+        </div>
     </>
   )
 }
