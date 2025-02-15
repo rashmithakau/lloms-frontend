@@ -6,7 +6,9 @@ import BillTable from '../../components/PosTable/BillTable'
 function Inventary() {
   return (
     <div>
+
         <BillTable/>
+
     </div>
   )
 }

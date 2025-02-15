@@ -2,7 +2,7 @@ import React from "react";
 
 function InventoryDataRow({ product, index }) {
   return (
-    <tr className="hover:bg-gray-100 shadow-md">
+    <tr className="hover:bg-pink-100 shadow-md">
       <td className="p-2 text-center">{index + 1}</td>
       <td className="p-2 flex justify-center">
         <img src={product.image} alt={product.name} className="w-15 h-12 object-cover rounded" />
