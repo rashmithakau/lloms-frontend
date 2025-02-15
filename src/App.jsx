@@ -15,8 +15,8 @@ import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
 
 import FactoryStaffPage from "./pages/FactoryStaffPage.jsx";
 import OwnerPage from "./pages/OwnerPage.jsx";
+import ShopPage from "./pages/ShopPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
-
 
 function App() {
   const PrivateRoute = ({ children }) => {
@@ -35,8 +35,13 @@ function App() {
        
           <Route path="/" element={<Home />} />
 
-         
-          <Route path="/login" element={<LoginPage/>} />
+
+          {/* Show Shop page */}
+          <Route path="/shop" element={<ShopPage />}/>
+
+          {/* Show login page first */}
+          <Route path="/login" element={<LoginPage />} />
+
 
          
           <Route path="/outlet" element={<OutletPage />} />
