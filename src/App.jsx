@@ -9,6 +9,7 @@ import AuthContext from "./context/AuthContext";
 import OutletPage from "./pages/OutletPage";
 import "./styles/App.css";
 import Home from "./pages/Home.jsx";
+
 import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
 
 
@@ -25,7 +26,9 @@ function App() {
 
   return (
     <>
+      
       <Router>
+
 /* <Route path="*" element={<Navigate to="/login" />} /> */
 
         <Routes>
@@ -62,8 +65,9 @@ function App() {
         </Routes>
       </Router>
 
-
     </>
+
+    
   );
 }
 
