@@ -5,22 +5,32 @@ import ItemCard from "../../components/itemCard/ItemCard";
 import ActionContainer from "../../components/ActionContainer/ActionContainer";
 import OrderAction from "../../components/OrderAction/OrderAction";
 import ReturnAction from "../../components/ReturnAction/ReturnAction";
+import Image from "../../assets/2254.jpg_wh860.jpg";
+
 
 
 function Return() {
+  const items = Array.from({ length: 30 }).map((_, index) => ({
+    image: Image,
+    productId: `PD/${String(index + 1).padStart(3, "0")}`,
+    stock: 10,
+    productName: "Cream Cake",
+    price: 100.0,
+  }));
+
   return (
     <div>
       <div className="flex justify-center items-center my-2">
         <CardContainer>
-          {Array.from({ length: 30 }).map((_, index) => (
-            <ItemCard key={index} />
+          {items.map((item, index) => (
+            <ItemCard key={index} item={item} />
           ))}
         </CardContainer>
       </div>
       <div className="flex">
-        <OrderTable tType="return"/>
+        <OrderTable tType="return" />
         <ActionContainer>
-          <ReturnAction/>
+          <ReturnAction />
         </ActionContainer>
       </div>
     </div>
