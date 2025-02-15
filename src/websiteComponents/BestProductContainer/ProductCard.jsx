@@ -1,4 +1,4 @@
-import image from "./assets/Images/caramalDonut.jpg";
+import image from "../../assets/foodimages/caramalDonut.png";
 
 const ProductCard = () => {
   return (
