@@ -1,26 +1,25 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import LogoutButton from "./buttons/LogoutButton";
-import SliderNavButton from "./buttons/SliderNavButton";
+import SliderNavButton from "./buttons/IconNavButton";
 import ProfilePhoto from "./ProfilePhoto";
 import { motion } from "framer-motion";
+import AuthContext from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 
-const Sidebar = ({ isOpen, toggleSidebar }, sliderExpandWidth, sliderNotExpandWidth) => {
-  const navItems = [
-    {
-      nameBtn: "POS",
-      fun: () => {
-        console.log("POS clicked!");
-      },
-      iconUrl: "src/assets/icons/cashier.png",
-    },
-    {
-      nameBtn: "ORDER",
-      fun: () => {
-        console.log("Order clicked!");
-      },
-      iconUrl: "src/assets/icons/cashier.png",
-    },
-  ];
+const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, sliderNotExpandWidth }) => 
+  {
+  const { logoutUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logoutUser();
+    navigate("/login");
+  };
+
+  const navItems=navItemList;
+  console.log(navItems);
+
 
   return (
     <motion.div
@@ -34,7 +33,7 @@ const Sidebar = ({ isOpen, toggleSidebar }, sliderExpandWidth, sliderNotExpandWi
     >
       {/* Header */}
       <div className="flex justify-between items-center p-4 border-b border-pink-300">
-        {isOpen && <h2 className="text-2xl font-bold text-pink-800">Little Lanka Pvt Ltd</h2>}
+        {isOpen && <h2 className="text-2xl font-bold text-pink-800 opacity-65">Little Lanka Pvt Ltd</h2>}
         <button
           onClick={toggleSidebar}
           aria-expanded={isOpen}
@@ -55,7 +54,7 @@ const Sidebar = ({ isOpen, toggleSidebar }, sliderExpandWidth, sliderNotExpandWi
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }} // Increased duration for profile section
-          className="flex flex-col items-center justify-center p-10 bg-pink-50 rounded-lg shadow-md m-5"
+          className="flex flex-col items-center justify-center p-10 bg-pink-50 rounded-lg shadow-md m-5 h-60 "
         >
           <ProfilePhoto
             src="src/assets/profileImages/mathara.jpg"
@@ -63,7 +62,7 @@ const Sidebar = ({ isOpen, toggleSidebar }, sliderExpandWidth, sliderNotExpandWi
             size={10}
             border={true}
           />
-          <h2 className="mt-4 text-lg font-semibold text-pink-700">Mathara Outlet</h2>
+          <h2 className="mt-4 text-lg font-semibold text-pink-700 opacity-60">Mathara Outlet</h2>
         </motion.div>
       )}
 
@@ -78,6 +77,7 @@ const Sidebar = ({ isOpen, toggleSidebar }, sliderExpandWidth, sliderNotExpandWi
                     src={item.iconUrl}
                     alt={`${item.nameBtn} icon`}
                     className="w-6 h-6"
+                    onClick={item.fun}
                   />
                 </div>
               )}
@@ -85,7 +85,8 @@ const Sidebar = ({ isOpen, toggleSidebar }, sliderExpandWidth, sliderNotExpandWi
                 <SliderNavButton
                   onClick={item.fun}
                   icon={item.iconUrl}
-                  className="hover:bg-pink-300 text-pink-800 transition duration-200 transform hover:scale-105"
+                  isSliderBtn={true}
+                  isSelected={true}
                 >
                   {item.nameBtn}
                 </SliderNavButton>
@@ -95,7 +96,7 @@ const Sidebar = ({ isOpen, toggleSidebar }, sliderExpandWidth, sliderNotExpandWi
           {isOpen && (
             <li>
               <LogoutButton
-                onClick={() => console.log("Logout clicked!")}
+                onClick={handleLogout}
                 className="hover:bg-pink-300 text-pink-800 transition duration-200 transform hover:scale-105"
               >
                 Logout
