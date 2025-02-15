@@ -7,7 +7,7 @@ const Navbarsidetext = () => {
                         Confectionery
                     </span>
             <br/>
-            <p className="font-['Quicksand'] text-[45px] font-semibold leading-[1.2] m-0">
+            <p className="font-['Quicksand'] text-[45px] leading-[1.2] m-0">
                 Make Your<br/>
                 Baking <br/>
                 Better <br/>
