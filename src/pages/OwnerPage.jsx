@@ -4,6 +4,7 @@ import SearchBar from "../components/SearchBar";
 import NotificationButton from "../components/buttons/NotificationButton";
 import { useState } from "react";
 import Order from "../window/Outlet/Order";
+import Report from "../window/Owner/Report";
 
 export default function OwnerPage() {
   const categories = ["Cake", "Shorteas", "Biscuits", "Chocolates"];
@@ -25,11 +26,11 @@ export default function OwnerPage() {
         iconUrl: "src/assets/icons/inventaryIcon.svg",
       },
       {
-        nameBtn: "RETURN",
+        nameBtn: "REPORT",
         fun: () => {
-          setActiveTab("return");
+          setActiveTab("report");
         },
-        iconUrl: "src/assets/icons/returnIcon.svg",
+        iconUrl: "src/assets/icons/report.svg",
       },
       {
         nameBtn: "PRODUCT",
@@ -46,11 +47,11 @@ export default function OwnerPage() {
         iconUrl: "src/assets/icons/outlet.svg",
       },
       {
-        nameBtn: "CUS ORDER HISTORY",
+        nameBtn: "APPROVAL",
         fun: () => {
-          setActiveTab("history");
+          setActiveTab("approval");
         },
-        iconUrl: "src/assets/icons/historyIcon.svg",
+        iconUrl: "src/assets/icons/approval.svg",
       },
       {
         nameBtn: "  USER ACCOUNTS",
@@ -70,6 +71,7 @@ export default function OwnerPage() {
         </div>
 
         {activeTab === "order" && <Order/>}
+        {activeTab === "report" && <Report/>}
       </Layout>
     </div>
   );

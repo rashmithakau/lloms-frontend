@@ -33,7 +33,7 @@ const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, s
     >
       {/* Header */}
       <div className="flex justify-between items-center p-4 border-b border-pink-300">
-        {isOpen && <h2 className="text-2xl font-bold text-pink-800">Little Lanka Pvt Ltd</h2>}
+        {isOpen && <h2 className="text-2xl font-bold text-pink-800 opacity-65">Little Lanka Pvt Ltd</h2>}
         <button
           onClick={toggleSidebar}
           aria-expanded={isOpen}
@@ -62,7 +62,7 @@ const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, s
             size={10}
             border={true}
           />
-          <h2 className="mt-4 text-lg font-semibold text-pink-700">Mathara Outlet</h2>
+          <h2 className="mt-4 text-lg font-semibold text-pink-700 opacity-60">Mathara Outlet</h2>
         </motion.div>
       )}
 
