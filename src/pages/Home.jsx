@@ -85,9 +85,9 @@ const Home = () => {
             >
                 <BestProductContainer />
                 <OutletCardContainer />
-                <Footer />
-            </div>
 
+            </div>
+            <Footer />
         </div>
     );
 };
