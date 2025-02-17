@@ -1,8 +1,10 @@
 import React from "react";
 
-function ItemCard({ item }) {
+function ItemCard({ item, onClick }) {
   return (
-    <div className="group border-[2px] shadow-md border-pink-200 rounded-b-2xl bg-white flex flex-col items-start transition-transform transform hover:scale-108 hover:shadow-lg hover:border-pink-500">
+    <div 
+      onClick={onClick}
+      className="group border-[2px] shadow-md border-pink-200 rounded-b-2xl bg-white flex flex-col items-start transition-transform transform hover:scale-108 hover:shadow-lg hover:border-pink-500">
       {/* Product Image */}
       <img
         src={item.image}

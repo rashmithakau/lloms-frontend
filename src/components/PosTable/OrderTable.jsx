@@ -1,19 +1,7 @@
 import { useState } from "react";
 import DataRow from "./DataRow"; // Import the DataRow component
 
-const OrderTable = ({tType="pos"}) => {
-  const [products, setProducts] = useState([
-    { id: "PD/1001", name: "Butter Cake", price: 100.0, quantity: 25.5, discount: 0.0 },
-    { id: "PD/1081", name: "Fish Bun", price: 100.0, quantity: 5, discount: 0.0 },
-    { id: "PD/1052", name: "Chocolate Cake", price: 100.0, quantity: 25.5, discount: 0.0 },
-    { id: "PD/1029", name: "Marble Cake", price: 100.0, quantity: 25.5, discount: 0.0 },
-    { id: "PD/1033", name: "Croissant", price: 120.0, quantity: 15, discount: 5.0 },
-    { id: "PD/1045", name: "Apple Pie", price: 150.0, quantity: 10, discount: 10.0 },
-    { id: "PD/1060", name: "Banana Bread", price: 130.0, quantity: 20, discount: 2.0 },
-    { id: "PD/1072", name: "Blueberry Muffin", price: 140.0, quantity: 12, discount: 3.0 },
-    { id: "PD/1088", name: "Cheese Cake", price: 180.0, quantity: 8, discount: 7.0 },
-    { id: "PD/1095", name: "Strawberry Tart", price: 160.0, quantity: 9, discount: 4.0 },
-  ]);
+const OrderTable = ({tType="pos", products, setProducts}) => {
 
   const handleQuantityChange = (index, newQuantity) => {
     const updatedProducts = [...products];
