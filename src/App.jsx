@@ -10,7 +10,7 @@ import OutletPage from "./pages/OutletPage";
 import "./styles/App.css";
 import Home from "./pages/Home.jsx";
 
-import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
+import OrderHistoryPage from "./components/Popup/HistoryPopup/OrderHistoryPage.jsx";
 
 import FactoryStaffPage from "./pages/FactoryStaffPage.jsx";
 import OwnerPage from "./pages/OwnerPage.jsx";
@@ -39,8 +39,6 @@ function App() {
 
           <Route path="/outlet" element={<OutletPage />} />
           {/* <PrivateRoute><OutletPage/></PrivateRoute> */}
-
-          <Route path="/order-history" element={<OrderHistoryPage />} />
 
           <Route path="/factory-Staff" element={<FactoryStaffPage />} />
 

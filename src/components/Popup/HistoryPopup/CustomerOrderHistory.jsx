@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import backgroundImage from "../assets/orderhistory/background.png";
 import closeIcon from "../assets/orderhistory/close.png";
-import TableContainer from "../components/historypages/TableContainer.jsx";
+import TableContainer from "../../historypages/TableContainer.jsx";
 
 const OrderHistoryPage = () => {
     const [showModal, setShowModal] = useState(false);
