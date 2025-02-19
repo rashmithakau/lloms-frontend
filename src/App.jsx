@@ -10,7 +10,7 @@ import OutletPage from "./pages/OutletPage";
 import "./styles/App.css";
 import Home from "./pages/Home.jsx";
 
-import OrderHistoryPage from "./components/Popup/HistoryPopup/OrderHistoryPage.jsx";
+import FactoryOrderHistoryPage from "./components/Popup/HistoryPopup/FactoryOrderHistoryPage.jsx";
 
 import FactoryStaffPage from "./pages/FactoryStaffPage.jsx";
 import OwnerPage from "./pages/OwnerPage.jsx";
