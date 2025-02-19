@@ -3,7 +3,7 @@ import backgroundImage from "../../../assets/orderhistory/background.png";
 import closeIcon from "../../../assets/orderhistory/close.png";
 import TableContainer from "../../historypages/TableContainer.jsx";
 
-const OrderHistoryPage = ({ show, onClose }) => {
+const FactoryOrderHistoryPage = ({ show, onClose }) => {
     return (
         <div>
             {/* Modal Component */}
@@ -28,7 +28,7 @@ const OrderHistoryPage = ({ show, onClose }) => {
                                     onClick={onClose} // Use onClose prop to close the modal
                                 />
                                 <p className="text-3xl font-bold text-center mb-6">
-                                    Customer Order History
+                                    Factory Order History
                                 </p>
                                 <div className="container">
                                     {/* Table Header */}
@@ -51,4 +51,4 @@ const OrderHistoryPage = ({ show, onClose }) => {
     );
 };
 
-export default OrderHistoryPage;
+export default FactoryOrderHistoryPage;
