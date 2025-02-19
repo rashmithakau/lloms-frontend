@@ -40,8 +40,8 @@ function Return() {
           id: item.productId,
           name: item.productName,
           price: item.price,
-          quantity: 1,
-          discount: 0,
+          stock: item.stock,
+          //discount: 0,
         },
       ]);
     }

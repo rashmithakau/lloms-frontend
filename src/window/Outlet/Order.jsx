@@ -39,7 +39,7 @@ function Order() {
           id: item.productId,
           name: item.productName,
           price: item.price,
-          quantity: 1,
+          //quantity: 1,
           discount: 0,
         },
       ]);
