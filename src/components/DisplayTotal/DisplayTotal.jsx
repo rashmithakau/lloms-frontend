@@ -63,7 +63,10 @@ const DisplayTotal = ({ totals, onClear }) => {
       )}
 
 
-      <CusDetailsPopup isOpen={isPopupOpen} onClose={handleClosePopup} onSubmit={handleSubmitDetails} />
+      <CusDetailsPopup 
+        isOpen={isPopupOpen} 
+        onClose={handleClosePopup} 
+        onSubmit={handleSubmitDetails} />
     </div>
   );
 };
