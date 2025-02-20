@@ -94,7 +94,7 @@ function BillTable() {
     <div className="mx-13">
       <div className="m-5 w-full mx-auto overflow-auto border border-gray-50 rounded-lg max-h-[450px]">
         <table className="w-full border-collapse text-center">
-          <thead className="bg-gray-50 sticky top-0">
+          <thead className="bg-gray-50 sticky top-0 text-gray-700">
             <tr>
               <th className="p-3 border-b">#</th>
               <th className="p-3 border-b">Product ID</th>
