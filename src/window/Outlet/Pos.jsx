@@ -18,13 +18,15 @@ function Pos() {
     setOrderItems([]);
   };
 
-  const items = Array.from({ length: 30 }).map((_, index) => ({
-    image: Image,
-    productId: `PD/${String(index + 1).padStart(3, "0")}`,
-    stock: 10,
-    productName: "Cream Cake",
-    price: 100.0,
-  }));
+  useEffect(() => {
+    const fetchItems = async () => {
+      const data = await getAllProducts();
+      setItems(data);
+    };
+    fetchItems();
+  }, []);
+
+ 
 
 
   const handleItemClick = (item) => {
