@@ -5,15 +5,14 @@ import BorderButton from "../buttons/BorderButton";
 import OrderHistory from "../Popup/HistoryPopup/FactoryOrderHistoryPage.jsx";
 
 
-function OrderAction() {
 
-    const [showModal, setShowModal] = useState(false);
+function OrderAction({onClear}) {
 
   return (
     <div>
       <div className=" flex justify-center gap-8 my-10">
         <FillButton>Place Order</FillButton>
-        <BorderButton>Cancel</BorderButton>
+        <BorderButton onClick={onClear}>Cancel</BorderButton>
       </div>
         <div>
             <IconNavButton
