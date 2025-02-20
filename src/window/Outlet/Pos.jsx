@@ -13,13 +13,19 @@ function Pos() {
   const [orderItems, setOrderItems] = useState([]);
   const [items, setItems] = useState([]);
 
-  useEffect(() => {
-    const fetchItems = async () => {
-      const data = await getAllProducts();
-      setItems(data);
-    };
-    fetchItems();
-  }, []);
+
+  const handleClearOrder = () => {
+    setOrderItems([]);
+  };
+
+  const items = Array.from({ length: 30 }).map((_, index) => ({
+    image: Image,
+    productId: `PD/${String(index + 1).padStart(3, "0")}`,
+    stock: 10,
+    productName: "Cream Cake",
+    price: 100.0,
+  }));
+
 
   const handleItemClick = (item) => {
     const existingItem = orderItems.find(
@@ -84,7 +90,12 @@ function Pos() {
           setProducts={setOrderItems}
         />
         <ActionContainer>
-          <DisplayTotal totals={calculateTotals()} />
+
+          <DisplayTotal 
+            totals={calculateTotals()}
+            onClear={handleClearOrder}  
+          />
+
         </ActionContainer>
       </div>
     </div>

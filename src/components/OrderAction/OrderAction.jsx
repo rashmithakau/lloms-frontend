@@ -13,7 +13,7 @@ function OrderAction({ onClear }) {
       {/* Action Buttons */}
       <div className="flex justify-center gap-8 my-10">
         <FillButton>Place Order</FillButton>
-        <BorderButton>Cancel</BorderButton>
+        <BorderButton onClick={onClear}>Cancel</BorderButton>
       </div>
 
       {/* History Button */}

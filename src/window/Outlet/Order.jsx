@@ -21,6 +21,10 @@ function Order() {
     fetchItems();
   }, []);
 
+  const handleClearOrder = () => {
+    setOrderItems([]);
+  };
+
   const handleItemClick = (item) => {
     const existingItem = orderItems.find(
       (orderItem) => orderItem.id === item.productId
@@ -68,7 +72,7 @@ function Order() {
           setProducts={setOrderItems}
         />
         <ActionContainer>
-          <OrderAction />
+          <OrderAction onClear={handleClearOrder} />
         </ActionContainer>
       </div>
     </div>
