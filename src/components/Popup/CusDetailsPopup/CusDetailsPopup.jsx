@@ -8,28 +8,27 @@ const CusDetailsPopup = ({ isOpen, onClose, onSubmit }) => {
   const [phone, setPhone] = useState('');
 
   const handleSubmit = () => {
-    if (name && phone) {
+
+    if (name.trim() && phone.trim()) {
       onSubmit({ name, phone });
       setName('');
       setPhone('');
+      onClose(); // Close popup after submission
+
     }
   };
 
   return (
-    <motion.div
-      className={`fixed inset-0  bg-opacity-10 backdrop-blur-sm ${isOpen ? 'flex' : 'hidden'} justify-center items-center z-20`}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
+    <div className={`fixed inset-0  bg-opacity-20 backdrop-blur-sm z-20 flex justify-center items-center ${isOpen ? 'block' : 'hidden'}`}>
       <motion.div
-        className="bg-white p-8 rounded-lg shadow-lg w-150"
-        initial={{ scale: 0.8 }}
-        animate={{ scale: 1 }}
-        exit={{ scale: 0.8 }}
+        className="bg-white p-8 rounded-lg shadow-lg w-96"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
         transition={{ duration: 0.3 }}
       >
         <h2 className="text-xl font-semibold text-center mb-4">Enter Customer Details</h2>
+        
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2">Customer Name</label>
           <input
@@ -39,6 +38,7 @@ const CusDetailsPopup = ({ isOpen, onClose, onSubmit }) => {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
+        
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2">Phone Number</label>
           <input
@@ -48,17 +48,14 @@ const CusDetailsPopup = ({ isOpen, onClose, onSubmit }) => {
             onChange={(e) => setPhone(e.target.value)}
           />
         </div>
-        <div className="flex justify-between">
-          
-          <div className='flex gap-10'>
+
+
+        <div className="flex justify-center gap-6">
           <FillButton onClick={handleSubmit}>Ok</FillButton>
           <BorderButton onClick={onClose}>Cancel</BorderButton>
-          </div>
-
-    
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 };
 
