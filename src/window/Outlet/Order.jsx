@@ -6,18 +6,20 @@ import ActionContainer from "../../components/ActionContainer/ActionContainer";
 import OrderAction from "../../components/OrderAction/OrderAction";
 import ReturnAction from "../../components/ReturnAction/ReturnAction";
 import Image from "../../assets/2254.jpg_wh860.jpg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getAllProducts } from "../../api/product-service/productController";
 
 function Order() {
-  const items = Array.from({ length: 30 }).map((_, index) => ({
-    image: Image,
-    productId: `PD/${String(index + 1).padStart(3, "0")}`,
-    stock: 10,
-    productName: "Cream Cake",
-    price: 100.0,
-  }));
-
   const [orderItems, setOrderItems] = useState([]);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      const data = await getAllProducts();
+      setItems(data);
+    };
+    fetchItems();
+  }, []);
 
   const handleClearOrder = () => {
     setOrderItems([]);
@@ -55,16 +57,20 @@ function Order() {
       <div className="flex justify-center items-center my-2">
         <CardContainer>
           {items.map((item, index) => (
-            <ItemCard 
-              key={index} 
-              item={item} 
-              onClick={() => handleItemClick(item)
-              }/>
+            <ItemCard
+              key={index}
+              item={item}
+              onClick={() => handleItemClick(item)}
+            />
           ))}
         </CardContainer>
       </div>
       <div className="flex">
-        <OrderTable tType="order" products={orderItems} setProducts={setOrderItems}/>
+        <OrderTable
+          tType="order"
+          products={orderItems}
+          setProducts={setOrderItems}
+        />
         <ActionContainer>
           <OrderAction onClear={handleClearOrder} />
         </ActionContainer>
