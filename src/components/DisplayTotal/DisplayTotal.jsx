@@ -5,27 +5,30 @@ import IconNavButton from "../buttons/IconNavButton";
 import CusDetailsPopup from "../Popup/CusDetailsPopup/CusDetailsPopup";
 import Allert from "../Allert/Allert";
 import { useState } from "react";
+import CustomerOrderHistory from "../Popup/HistoryPopup/CustomerOrderHistory.jsx";
 
 const DisplayTotal = ({totals, onClear}) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const total = totals?.total || 0;
-  const discount = totals?.discount || 0;
-  const subtotal = totals?.subtotal || 0;
 
-  const handleOpenPopup = () => {
-    setIsPopupOpen(true);
-  };
+    const total = totals?.total || 0;
+    const discount = totals?.discount || 0;
+    const subtotal = totals?.subtotal || 0;
 
-  const handleClosePopup = () => {
-    setIsPopupOpen(false);
-  };
+    const handleOpenPopup = () => {
+        setIsPopupOpen(true);
+    };
 
-  const handleSubmitDetails = (details) => {
-    console.log("Customer Details:", details);
-    setIsPopupOpen(false); // Close the popup after submitting
-    Allert();
-  };
+    const handleClosePopup = () => {
+        setIsPopupOpen(false);
+    };
+
+    const handleSubmitDetails = (details) => {
+        console.log("Customer Details:", details);
+        setIsPopupOpen(false); // Close the popup after submitting
+        Allert();
+    };
+
 
   return (
     <div>
@@ -53,13 +56,23 @@ const DisplayTotal = ({totals, onClear}) => {
         </IconNavButton>
       </div>
 
-      <CusDetailsPopup
-        isOpen={isPopupOpen}
-        onClose={handleClosePopup}
-        onSubmit={handleSubmitDetails}
-      />
-    </div>
-  );
+
+                {showModal && (
+                    <CustomerOrderHistory
+                        show={showModal}
+                        onClose={() => setShowModal(false)}
+                    />
+                )}
+            </div>
+
+
+            <CusDetailsPopup
+                isOpen={isPopupOpen}
+                onClose={handleClosePopup}
+                onSubmit={handleSubmitDetails}
+            />
+        </div>
+    );
 };
 
 export default DisplayTotal;
