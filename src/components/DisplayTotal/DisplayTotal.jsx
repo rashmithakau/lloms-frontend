@@ -6,7 +6,7 @@ import CusDetailsPopup from "../Popup/CusDetailsPopup/CusDetailsPopup";
 import Allert from "../Allert/Allert";
 import { useState } from "react";
 
-const DisplayTotal = ({totals}) => {
+const DisplayTotal = ({totals, onClear}) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const total = totals?.total || 0;
@@ -45,7 +45,7 @@ const DisplayTotal = ({totals}) => {
       </div>
       <div className="flex justify-center items-center my-2 gap-8">
         <FillButton onClick={handleOpenPopup}>Proceed {">"}</FillButton>
-        <BorderButton>Cancel</BorderButton>
+        <BorderButton onClick={onClear}>Cancel</BorderButton>
       </div>
       <div>
         <IconNavButton icon={"src/assets/icons/historyIcon.svg"}>

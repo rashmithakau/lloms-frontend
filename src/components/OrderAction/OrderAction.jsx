@@ -3,12 +3,12 @@ import IconNavButton from "../buttons/IconNavButton";
 import FillButton from "../buttons/FillButton";
 import BorderButton from "../buttons/BorderButton";
 
-function OrderAction() {
+function OrderAction({onClear}) {
   return (
     <div>
       <div className=" flex justify-center gap-8 my-10">
         <FillButton>Place Order</FillButton>
-        <BorderButton>Cancel</BorderButton>
+        <BorderButton onClick={onClear}>Cancel</BorderButton>
       </div>
       <IconNavButton icon={"src/assets/icons/historyIcon.svg"}>
         Factory Order History
