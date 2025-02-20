@@ -1,34 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import FillButton from "../buttons/FillButton";
 import BorderButton from "../buttons/BorderButton";
 import IconNavButton from "../buttons/IconNavButton";
 import CusDetailsPopup from "../Popup/CusDetailsPopup/CusDetailsPopup";
 import Allert from "../Allert/Allert";
-import { useState } from "react";
 import CustomerOrderHistory from "../Popup/HistoryPopup/CustomerOrderHistory.jsx";
 
-const DisplayTotal = ({totals, onClear}) => {
+const DisplayTotal = ({ totals, onClear }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
+  const total = totals?.total || 0;
+  const discount = totals?.discount || 0;
+  const subtotal = totals?.subtotal || 0;
 
-    const total = totals?.total || 0;
-    const discount = totals?.discount || 0;
-    const subtotal = totals?.subtotal || 0;
+  const handleOpenPopup = () => {
+    setIsPopupOpen(true);
+  };
 
-    const handleOpenPopup = () => {
-        setIsPopupOpen(true);
-    };
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+  };
 
-    const handleClosePopup = () => {
-        setIsPopupOpen(false);
-    };
-
-    const handleSubmitDetails = (details) => {
-        console.log("Customer Details:", details);
-        setIsPopupOpen(false); // Close the popup after submitting
-        Allert();
-    };
-
+  const handleSubmitDetails = (details) => {
+    console.log("Customer Details:", details);
+    setIsPopupOpen(false); // Close the popup after submitting
+    Allert();
+  };
 
   return (
     <div>
@@ -46,33 +44,25 @@ const DisplayTotal = ({totals, onClear}) => {
           Rs.{subtotal.toFixed(2)}
         </div>
       </div>
+
       <div className="flex justify-center items-center my-2 gap-8">
         <FillButton onClick={handleOpenPopup}>Proceed {">"}</FillButton>
         <BorderButton onClick={onClear}>Cancel</BorderButton>
       </div>
+
       <div>
-        <IconNavButton icon={"src/assets/icons/historyIcon.svg"}>
+        <IconNavButton icon={"src/assets/icons/historyIcon.svg"} onClick={() => setShowModal(true)}>
           Customer Order History
         </IconNavButton>
       </div>
 
+      {showModal && (
+        <CustomerOrderHistory show={showModal} onClose={() => setShowModal(false)} />
+      )}
 
-                {showModal && (
-                    <CustomerOrderHistory
-                        show={showModal}
-                        onClose={() => setShowModal(false)}
-                    />
-                )}
-            </div>
-
-
-            <CusDetailsPopup
-                isOpen={isPopupOpen}
-                onClose={handleClosePopup}
-                onSubmit={handleSubmitDetails}
-            />
-        </div>
-    );
+      <CusDetailsPopup isOpen={isPopupOpen} onClose={handleClosePopup} onSubmit={handleSubmitDetails} />
+    </div>
+  );
 };
 
 export default DisplayTotal;

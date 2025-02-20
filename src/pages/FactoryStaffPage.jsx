@@ -4,6 +4,10 @@ import SearchBar from "../components/SearchBar";
 import NotificationButton from "../components/buttons/NotificationButton";
 import { useState } from "react";
 import Order from "../window/Outlet/Order";
+import Billing from "../window/Factory/Billing";
+import Inventary from "../window/Outlet/Inventary";
+import Outlet from "../window/Factory/Outlet";
+
 
 export default function FactoryStaffPage() {
   const categories = ["Cake", "Shorteas", "Biscuits", "Chocolates"];
@@ -70,6 +74,9 @@ export default function FactoryStaffPage() {
         </div>
 
         {activeTab === "order" && <Order/>}
+        {activeTab === "billing" && <Billing/>}
+        {activeTab === "inventary" && <Inventary/>}
+        {activeTab === "outlet" && <Outlet/>}
       </Layout>
     </div>
   );
