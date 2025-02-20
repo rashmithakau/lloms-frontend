@@ -67,7 +67,7 @@ export default function FactoryStaffPage() {
 
   return (
     <div>
-      <Layout navItemList={navItemList}>
+      <Layout navItemList={navItemList} user="Factory Staff">
         <div className="flex">
           <SearchBar categoryList={categories} />
           <NotificationButton />

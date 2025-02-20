@@ -7,7 +7,7 @@ import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 
-const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, sliderNotExpandWidth }) => 
+const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, sliderNotExpandWidth , user}) => 
   {
   const { logoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, s
             size={10}
             border={true}
           />
-          <h2 className="mt-4 text-lg font-semibold text-pink-700 opacity-60">Mathara Outlet</h2>
+          <h2 className="mt-4 text-lg font-semibold text-pink-700 opacity-60">{user}</h2>
         </motion.div>
       )}
 
