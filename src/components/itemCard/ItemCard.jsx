@@ -1,13 +1,20 @@
 import React from "react";
+import defaultImage from "../../assets/Empty image.jpg";
 
 function ItemCard({ item, onClick }) {
+  const imageName = item.imageUrl ? item.imageUrl.split("/").pop() : null;
+  const imageSrc = imageName
+    ? `http://localhost:8080/api/v1/product/url/${imageName}`
+    : defaultImage;
+
   return (
-    <div 
+    <div
       onClick={onClick}
-      className="group border-[2px] shadow-md border-pink-200 rounded-b-2xl bg-white flex flex-col items-start transition-transform transform hover:scale-108 hover:shadow-lg hover:border-pink-500">
+      className="group border-[2px] shadow-md border-pink-200 rounded-b-2xl bg-white flex flex-col items-start transition-transform transform hover:scale-108 hover:shadow-lg hover:border-pink-500"
+    >
       {/* Product Image */}
       <img
-        src={item.image}
+        src={imageSrc}
         alt={item.productName}
         className="w-full h-40 object-cover transition-transform transform group-hover:brightness-90"
       />
@@ -17,10 +24,10 @@ function ItemCard({ item, onClick }) {
         {/* ID and Stock */}
         <div className="flex justify-between items-center">
           <p className="font-semibold text-sm text-[#432634] font-poppins">
-            {item.productId}
+            PD/{item.productId}
           </p>
           <div className="bg-[#FFEBEB] text-[#FF0077] text-xs font-extrabold px-4 py-1 rounded-t-2xl rounded-b-none">
-            {item.stock}
+            233
           </div>
         </div>
 
