@@ -11,6 +11,10 @@ function Pos() {
 
   const [orderItems, setOrderItems] = useState([]);
 
+  const handleClearOrder = () => {
+    setOrderItems([]);
+  };
+
   const items = Array.from({ length: 30 }).map((_, index) => ({
     image: Image,
     productId: `PD/${String(index + 1).padStart(3, "0")}`,
@@ -78,7 +82,10 @@ function Pos() {
       <div className="flex">
         <OrderTable tType="pos" products={orderItems} setProducts={setOrderItems}/>
         <ActionContainer>
-          <DisplayTotal totals={calculateTotals()}/>
+          <DisplayTotal 
+            totals={calculateTotals()}
+            onClear={handleClearOrder}  
+          />
         </ActionContainer>
       </div>
     </div>

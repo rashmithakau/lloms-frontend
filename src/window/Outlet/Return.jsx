@@ -20,6 +20,10 @@ function Return() {
 
   const [orderItems, setOrderItems] = useState([]);
 
+  const handleClearOrder = () => {
+    setOrderItems([]);
+  };
+
   const handleItemClick = (item) => {
     const existingItem = orderItems.find(
       (orderItem) => orderItem.id === item.productId
@@ -62,7 +66,7 @@ function Return() {
       <div className="flex">
         <OrderTable tType="return" products={orderItems} setProducts={setOrderItems}/>
         <ActionContainer>
-          <ReturnAction />
+          <ReturnAction onClear={handleClearOrder} />
         </ActionContainer>
       </div>
     </div>

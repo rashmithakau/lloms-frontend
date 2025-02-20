@@ -5,7 +5,7 @@ import BorderButton from "../buttons/BorderButton";
 import IconNavButton from "../buttons/IconNavButton";
 import ReturnHistory from "../Popup/HistoryPopup/ReturnHistory.jsx";
 
-function ReturnAction() {
+function ReturnAction({onClear}) {
 
     const [showModal, setShowModal] = useState(false);
 
@@ -13,7 +13,7 @@ function ReturnAction() {
     <div>
       <div className=" flex justify-center gap-8 my-10">
         <FillButton>Return</FillButton>
-        <BorderButton>Cancel</BorderButton>
+        <BorderButton onClick={onClear}>Cancel</BorderButton>
       </div>
         <div>
             <IconNavButton
