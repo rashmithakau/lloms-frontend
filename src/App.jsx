@@ -17,6 +17,7 @@ import OwnerPage from "./pages/OwnerPage.jsx";
 import ShopPage from "./pages/ShopPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 
+
 function App() {
   const PrivateRoute = ({ children }) => {
     const { token } = useContext(AuthContext);
