@@ -8,11 +8,13 @@ const CusDetailsPopup = ({ isOpen, onClose, onSubmit }) => {
   const [phone, setPhone] = useState('');
 
   const handleSubmit = () => {
+
     if (name.trim() && phone.trim()) {
       onSubmit({ name, phone });
       setName('');
       setPhone('');
       onClose(); // Close popup after submission
+
     }
   };
 
@@ -46,6 +48,7 @@ const CusDetailsPopup = ({ isOpen, onClose, onSubmit }) => {
             onChange={(e) => setPhone(e.target.value)}
           />
         </div>
+
 
         <div className="flex justify-center gap-6">
           <FillButton onClick={handleSubmit}>Ok</FillButton>

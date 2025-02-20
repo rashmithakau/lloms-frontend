@@ -14,6 +14,7 @@ const DisplayTotal = ({ totals, onClear }) => {
   const discount = totals?.discount || 0;
   const subtotal = totals?.subtotal || 0;
 
+
   const handleOpenPopup = () => {
     setIsPopupOpen(true);
   };
@@ -21,6 +22,7 @@ const DisplayTotal = ({ totals, onClear }) => {
   const handleClosePopup = () => {
     setIsPopupOpen(false);
   };
+
 
   const handleSubmitDetails = (details) => {
     console.log("Customer Details:", details);
@@ -59,6 +61,7 @@ const DisplayTotal = ({ totals, onClear }) => {
       {showModal && (
         <CustomerOrderHistory show={showModal} onClose={() => setShowModal(false)} />
       )}
+
 
       <CusDetailsPopup isOpen={isPopupOpen} onClose={handleClosePopup} onSubmit={handleSubmitDetails} />
     </div>
