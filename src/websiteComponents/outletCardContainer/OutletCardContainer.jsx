@@ -5,7 +5,7 @@ import 'swiper/css/navigation';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import image from "../../assets/profileImages/mathara.jpg";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import "./OutletCardContainer.css";
 import OutletCard from '../outletCard/OutletCard';
 
@@ -43,11 +43,11 @@ const OutletCardContainer = () => {
 
     return (
         <div className='flex justify-center items-center min-h-screen'>
-            <div className="w-full bg-white shadow-lg rounded-lg overflow-auto px-6 py-6 mx-7">
+            <div className="w-full bg-[#e9e3e3] shadow-lg rounded-lg overflow-auto px-6 py-6 mx-7">
                 {/* Header Section */}
                 <div className="text-center mb-8">
-                    <h2 className="text-[#F4952C] font-pacifico text-3xl font-bold">Outlets</h2>
-                    <h3 className="text-black font-quicksand text-4xl font-semibold mt-2">
+                    <h2 className="text-[#F4952C] font-pacifico text-3xl ">Outlets</h2>
+                    <h3 className="text-black font-quicksand text-2xl font-semibold mt-2">
                         We Care About Our Customers <br /> Experience Too
                     </h3>
                 </div>
