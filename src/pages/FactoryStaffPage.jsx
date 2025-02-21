@@ -4,7 +4,14 @@ import SearchBar from "../components/SearchBar";
 import NotificationButton from "../components/buttons/NotificationButton";
 import { useState } from "react";
 import Order from "../window/Outlet/Order";
+
 import AddNewItemButton from "../components/AddNewItemButton";
+
+import Billing from "../window/Factory/Billing";
+import Inventary from "../window/Outlet/Inventary";
+import Outlet from "../window/Factory/Outlet";
+
+
 
 export default function FactoryStaffPage() {
   const categories = ["Cake", "Shorteas", "Biscuits", "Chocolates"];
@@ -64,7 +71,7 @@ export default function FactoryStaffPage() {
 
   return (
     <div>
-      <Layout navItemList={navItemList}>
+      <Layout navItemList={navItemList} user="Factory Staff">
         <div className="flex">
           <SearchBar categoryList={categories} />
           <NotificationButton />
@@ -73,6 +80,9 @@ export default function FactoryStaffPage() {
           <AddNewItemButton/>
         </div>
         {activeTab === "order" && <Order/>}
+        {activeTab === "billing" && <Billing/>}
+        {activeTab === "inventary" && <Inventary/>}
+        {activeTab === "outlet" && <Outlet/>}
       </Layout>
     </div>
   );

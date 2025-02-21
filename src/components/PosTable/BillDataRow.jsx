@@ -5,7 +5,7 @@ function BillDataRow({ product, index }) {
   const totalPrice = (product.price * product.quantity) - (product.discount * product.quantity);
 
   return (
-    <tr className="hover:bg-gray-100 transition-all duration-200 border-b">
+    <tr className="hover:bg-pink-50 transition-all duration-200 border-b text-gray-600">
       <td className="p-3 text-center">{index + 1}</td>
       <td className="p-3 text-center">{product.id}</td>
       <td className="p-3 text-center">{product.name}</td>

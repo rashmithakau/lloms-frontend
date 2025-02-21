@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import backgroundImage from "../assets/orderhistory/background.png";
-import closeIcon from "../assets/orderhistory/close.png";
-import TableContainer from "../components/historypages/TableContainer.jsx";
+import backgroundImage from "../../../assets/orderhistory/background.png";
+import closeIcon from "../../../assets/orderhistory/close.png";
+import TableContainer from "../../historypages/TableContainer.jsx";
 
 const OrderHistoryPage = () => {
     const [showModal, setShowModal] = useState(false);
@@ -13,7 +13,7 @@ const OrderHistoryPage = () => {
                 onClick={() => setShowModal(true)}
                 className="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors"
             >
-                Show Customer Order History
+                Show Order History
             </button>
 
             {/* Modal Component */}
@@ -38,7 +38,7 @@ const OrderHistoryPage = () => {
                                     onClick={() => setShowModal(false)}
                                 />
                                 <p className="text-3xl font-bold text-center mb-6">
-                                    Customer Order History
+                                    Order History
                                 </p>
                                 <div className="container">
                                     {/* Table Header */}

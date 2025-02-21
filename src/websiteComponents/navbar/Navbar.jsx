@@ -1,47 +1,44 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/websitenavbar/logo.png';
-const Navbar = () => {  
+
+const Navbar = () => {
     return (
         <nav className="flex items-center justify-between bg-[#FF8C42] px-4 py-3 shadow-md md:px-8 md:py-4">
-            {/* Combined Logo and Navigation Section */}
             <div className="flex items-center gap-6">
-                {/* Logo Section */}
                 <div className="flex items-center gap-3">
                     <img
                         src={logo}
                         alt="Little Lanka Logo"
-                        className="h-8 w-8 transition-transform duration-300 hover:scale-110"
+                        className="h-10 w-10 transition-transform duration-300 hover:scale-110"
                     />
                     <div className="flex items-center gap-2">
-                        <span className="font-pacifico text-lg text-white md:text-xl">
-                            Little Lanka
-                        </span>
-                        <div className="h-6 w-[4px] bg-white/50"></div>
+                        <span className="text-lg text-white font-pacifico md:text-xl">
+                                    Little Lanka
+                                </span>
+                        <div className="h-6 w-[2px] bg-white"></div>
                     </div>
                 </div>
 
-                {/* Navigation Links - Hidden on mobile */}
                 <div className="hidden flex-grow items-center justify-center md:flex">
                     <ul className="flex gap-8">
-                        {['Home', 'About', 'Shop', 'Contact'].map((item) => (
+                        {['Home', 'Shop', 'Contact', 'About'].map((item) => (
                             <li key={item}>
-                                <a
-                                    href="#"
+                                <Link
+                                    to={item === 'Shop' ? '/shop' : item === 'Contact' ? '/contactus' : item === 'About' ? '/about': item === 'Home' ? '/': '#'} // Modify paths for other links accordingly
                                     className="relative text-white transition-all duration-300 hover:text-orange-100
                                     before:absolute before:-bottom-1 before:left-0 before:h-[2px] before:w-0 before:bg-white
                                     before:transition-all before:duration-300 hover:before:w-full"
                                 >
                                     {item}
-                                </a>
+                                </Link>
                             </li>
                         ))}
                     </ul>
                 </div>
             </div>
 
-            {/* Search Bar */}
             <div className="flex items-center gap-4">
-                {/* Search Input with Icon */}
                 <div className="relative hidden md:block">
                     <input
                         type="text"
@@ -65,7 +62,6 @@ const Navbar = () => {
                     </svg>
                 </div>
 
-                {/* Mobile Menu Button */}
                 <button className="text-white md:hidden">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

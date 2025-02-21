@@ -64,7 +64,7 @@ export default function OwnerPage() {
 
   return (
     <div>
-      <Layout navItemList={navItemList}>
+      <Layout navItemList={navItemList} user="Owner">
         <div className="flex">
           <SearchBar categoryList={categories} />
           <NotificationButton />
