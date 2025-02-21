@@ -4,6 +4,7 @@ import SearchBar from "../components/SearchBar";
 import NotificationButton from "../components/buttons/NotificationButton";
 import { useState } from "react";
 import Order from "../window/Outlet/Order";
+import AddNewItemButton from "../components/AddNewItemButton";
 
 export default function FactoryStaffPage() {
   const categories = ["Cake", "Shorteas", "Biscuits", "Chocolates"];
@@ -68,7 +69,9 @@ export default function FactoryStaffPage() {
           <SearchBar categoryList={categories} />
           <NotificationButton />
         </div>
-
+        <div className="ml-130 mt-5">
+          <AddNewItemButton/>
+        </div>
         {activeTab === "order" && <Order/>}
       </Layout>
     </div>
