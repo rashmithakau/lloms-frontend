@@ -1,17 +1,16 @@
 import ProductCard from "./ProductCard";
+import React from "react";
 
 const BestProductContainer = () => {
   return (
     <div>
-      <div className="flex justify-center mt-10">
-      <p className="text-orange-500 font-semibold text-lg font-[Pacifico]">
-          Best Products
-      </p>
-      </div>
-
-      <div className="flex justify-center">
-        <h2 className="font-bold text-3xl">Best Products This Week!</h2>
-      </div>
+    <br/>
+        <div className="text-center mb-8">
+            <h2 className="text-[#F4952C] font-pacifico text-3xl ">Best Products</h2>
+            <h3 className="text-black font-quicksand text-2xl font-semibold mt-2">
+                Best Products This Week!
+            </h3>
+        </div>
 
     <div className="flex justify-center px-5 mt-5">
       <div className="w-full flex justify-center">

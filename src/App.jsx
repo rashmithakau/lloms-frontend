@@ -14,6 +14,8 @@ import FactoryStaffPage from "./pages/FactoryStaffPage.jsx";
 import OwnerPage from "./pages/OwnerPage.jsx";
 import ShopPage from "./pages/ShopPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import ContactUsPage from "./pages/ContactUsPage.jsx";
+import Aboutpage from "./pages/Aboutpage.jsx";
 
 
 function App() {
@@ -32,6 +34,12 @@ function App() {
 
           {/* Show Shop page */}
           <Route path="/shop" element={<ShopPage />} />
+
+          {/* Show Contact Us page */}
+          <Route path="/contactus" element={<ContactUsPage />} />
+
+          {/* Show About page */}
+          <Route path="/about" element={<Aboutpage />} />
 
           {/* Show login page first */}
           <Route path="/login" element={<LoginPage />} />
