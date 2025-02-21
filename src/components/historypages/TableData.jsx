@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import InventoryTable from "../PosTable/InventoryTable.jsx";
 
 const TableData = () => {
     const orders = [
@@ -50,12 +51,19 @@ const TableData = () => {
 
                     {/* Expanded Section */}
                     {expandedOrder === order.id && (
-                        <div className="p-4 border-t-1 border-[#432634]">
+                        <div className="w-fit h-auto p-4 border-t border-[#432634] rounded-lg bg-transparent shadow-md">
                             <div className="p-4 rounded-lg text-center bg-transparent">
-                                <p className="text-black">No Data Available</p>
+                                <InventoryTable />
+                                <div className="flex justify-end items-center mt-4">
+                                    <button className="bg-pink-500 text-white py-2 px-6 rounded-lg shadow-md hover:bg-pink-600">
+                                        Order Received
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     )}
+
+
                 </div>
             ))}
         </div>

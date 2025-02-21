@@ -10,6 +10,7 @@ import "../websiteComponents/scrollbar.css";
 
 
 const Home = () => {
+
     const [scrollPosition, setScrollPosition] = useState(0);
 
 
