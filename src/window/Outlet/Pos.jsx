@@ -8,23 +8,31 @@ import Image from "../../assets/2254.jpg_wh860.jpg";
 import { useState } from "react";
 import axios from "axios";
 import { getAllProducts } from "../../api/product-service/productController";
+import LoadingWheel from "../../components/loadingWheel/LoadingWheel";
 
 function Pos() {
   const [orderItems, setOrderItems] = useState([]);
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+    useEffect(() => {
+      const fetchItems = async () => {
+        try {
+          const data = await getAllProducts();
+          setItems(data);
+        } catch (error) {
+          console.error("Error fetching products:", error);
+        } finally {
+          setLoading(false); // Stop loading after data is fetched
+        }
+      };
+      fetchItems();
+    }, []);
 
 
   const handleClearOrder = () => {
     setOrderItems([]);
   };
-
-  useEffect(() => {
-    const fetchItems = async () => {
-      const data = await getAllProducts();
-      setItems(data);
-    };
-    fetchItems();
-  }, []);
 
  
 
@@ -76,13 +84,15 @@ function Pos() {
     <div>
       <div className="flex justify-center items-center my-2">
         <CardContainer>
-          {items.map((item, index) => (
-            <ItemCard
-              key={index}
-              item={item}
-              onClick={() => handleItemClick(item)}
-            />
-          ))}
+        {loading ? (
+            <div className="text-center text-gray-600 py-5 text-lg">
+              <LoadingWheel />
+            </div>
+          ) : (
+            items.map((item, index) => (
+              <ItemCard key={index} item={item} onClick={() => handleItemClick(item)} />
+            ))
+          )}
         </CardContainer>
       </div>
       <div className="flex">

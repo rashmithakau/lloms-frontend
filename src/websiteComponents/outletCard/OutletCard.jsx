@@ -1,5 +1,4 @@
 import React from "react";
-import image from "../../assets/profileImages/mathara.jpg";
 import "./OutletCard.css"
 
 function OutletCard({ outlet }) {
@@ -11,7 +10,7 @@ function OutletCard({ outlet }) {
       <div className="absolute rounded-2xl inset-0 bg-[#F4952C]/30 group-hover:h-full transition-all duration-400 ease-in-out h-0 -z-10"></div>
       <h3 className="text-black font-bold text-lg">{outlet.name}</h3>
       <img
-        src={image}
+        src={outlet.image}
         alt={outlet.name}
         className="w-24 h-24 rounded-full my-2 border-4 border-[#F4952C]/90 shadow-lg "
       />
