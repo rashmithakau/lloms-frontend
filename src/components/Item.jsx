@@ -5,11 +5,9 @@ import DropdownField from "./InputFields/DropdownField";
 import ImageUploadField from "./InputFields/ImageUploadField";
 import CustomButton from "./buttons/CustomButton";
 
-const Item = ({onClose, mode}) => {
-
-    
-
+const Item = ({ onClose, mode }) => {
   return (
+
     <div className="fixed inset-0 backdrop-blur-sm flex justify-center items-center z-50">
       <div className="w-[600px] h-[500px] bg-white border border-gray-300 rounded-2xl shadow-lg shadow-gray-100 p-6 mt-3">
         <div className="flex justify-between">

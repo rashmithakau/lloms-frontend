@@ -4,9 +4,13 @@ import SearchBar from "../components/SearchBar";
 import NotificationButton from "../components/buttons/NotificationButton";
 import { useState } from "react";
 import Order from "../window/Outlet/Order";
+
+import AddNewItemButton from "../components/AddNewItemButton";
+
 import Billing from "../window/Factory/Billing";
 import Inventary from "../window/Outlet/Inventary";
 import Outlet from "../window/Factory/Outlet";
+
 
 
 export default function FactoryStaffPage() {
@@ -72,7 +76,9 @@ export default function FactoryStaffPage() {
           <SearchBar categoryList={categories} />
           <NotificationButton />
         </div>
-
+        <div className="ml-130 mt-5">
+          <AddNewItemButton/>
+        </div>
         {activeTab === "order" && <Order/>}
         {activeTab === "billing" && <Billing/>}
         {activeTab === "inventary" && <Inventary/>}
