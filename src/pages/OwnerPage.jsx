@@ -8,7 +8,7 @@ import Report from "../window/Owner/Report";
 
 export default function OwnerPage() {
   const categories = ["Cake", "Shorteas", "Biscuits", "Chocolates"];
-  const [activeTab, setActiveTab] = useState("pos"); // Default tab
+  const [activeTab, setActiveTab] = useState("report"); // Default tab
 
   const navItemList = [
     {
