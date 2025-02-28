@@ -52,7 +52,7 @@ const User = () => {
     return (
         <div className="p-4 bg-transparent rounded-lg shadow-md">
             {/* Header Section */}
-            <h1 className="text-xl font-bold mb-4">User Details</h1>
+            <h1 className="text-3xl mb-4">User Details</h1>
 
             {/* Filter Controls Section */}
             <div className="flex flex-col gap-4 mb-4">
