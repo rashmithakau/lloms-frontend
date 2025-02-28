@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 
-const UserList = () => {
+const User = () => {
     // State management for users and filters
     const [users, setUsers] = useState([
         { userId: 1, userName: 'abc', phoneNumber: '555-12365564', status: 'Active', roleId: 'Owner' },
@@ -52,22 +52,22 @@ const UserList = () => {
     return (
         <div className="p-4 bg-transparent rounded-lg shadow-md">
             {/* Header Section */}
-            <h1 className="text-xl font-bold mb-4">User Management</h1>
+            <h1 className="text-xl font-bold mb-4">User Details</h1>
 
             {/* Filter Controls Section */}
             <div className="flex flex-col gap-4 mb-4">
                 {/* Search and Status Filter Row */}
-                <div className="flex flex-col md:flex-row gap-4">
+                <div className="flex flex-col md:flex-row gap-4 ">
                     <input
                         type="text"
                         placeholder="Search by User ID..."
-                        className="p-2 border rounded-md flex-grow"
+                        className="p-2 border border-pink-300 hover:border-pink-500 rounded-md flex-grow"
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
                     />
 
                     <select
-                        className="p-2 border rounded-md"
+                        className="p-2 border border-pink-300 hover:border-pink-500 rounded-md text-pink-600"
                         value={statusFilter}
                         onChange={e => setStatusFilter(e.target.value)}
                     >
@@ -79,11 +79,11 @@ const UserList = () => {
                 </div>
 
                 {/* Role Filter Section */}
-                <div className="flex flex-col md:flex-row gap-4">
-                    <div className="flex flex-wrap gap-2 items-center p-2 border rounded-md">
-                        <span className="text-gray-600">Roles:</span>
+                <div className="flex flex-col md:flex-row gap-4 ">
+                    <div className="flex flex-wrap gap-2 items-center p-2 border border-pink-300 hover:border-pink-500 rounded-md">
+                        <span className="text-pink-600 ">Roles:</span>
                         {roles.map(role => (
-                            <label key={role} className="flex items-center space-x-1">
+                            <label key={role} className="flex items-center space-x-1 text-pink-600">
                                 <input
                                     type="checkbox"
                                     checked={roleFilter.includes(role)}
@@ -93,7 +93,7 @@ const UserList = () => {
                                             checked ? [...prev, role] : prev.filter(r => r !== role)
                                         );
                                     }}
-                                    className="form-checkbox h-4 w-4"
+                                    className="form-checkbox h-4 w-4 border-pink-300 hover:border-pink-500"
                                 />
                                 <span>{role}</span>
                             </label>
@@ -104,7 +104,7 @@ const UserList = () => {
                 {/* Clear Filters Button */}
                 <button
                     onClick={clearFilters}
-                    className="self-end px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-md"
+                    className="self-end px-4 py-2 bg-pink-300 hover:bg-pink-500 rounded-md text-white"
                 >
                     Clear Filters
                 </button>
@@ -178,4 +178,4 @@ const UserList = () => {
     );
 };
 
-export default UserList;
+export default User;
