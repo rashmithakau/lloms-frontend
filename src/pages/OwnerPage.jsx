@@ -5,6 +5,7 @@ import NotificationButton from "../components/buttons/NotificationButton";
 import { useState } from "react";
 import Order from "../window/Outlet/Order";
 import Report from "../window/Owner/Report";
+import User from "../window/Owner/User.jsx";
 
 export default function OwnerPage() {
   const categories = ["Cake", "Shorteas", "Biscuits", "Chocolates"];
@@ -72,6 +73,7 @@ export default function OwnerPage() {
 
         {activeTab === "order" && <Order/>}
         {activeTab === "report" && <Report/>}
+        {activeTab === "accounts" && <User/>}
       </Layout>
     </div>
   );
