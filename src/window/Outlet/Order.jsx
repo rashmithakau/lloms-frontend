@@ -63,7 +63,7 @@ function Order() {
   return (
     <div>
       <div className="flex justify-center items-center my-2">
-        <CardContainer>
+        <CardContainer h="58vh">
         {loading ? (
             <div className="text-center text-gray-600 py-5 text-lg">
               <LoadingWheel />

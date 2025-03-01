@@ -5,6 +5,8 @@ import NotificationButton from "../components/buttons/NotificationButton";
 import { useState } from "react";
 import Order from "../window/Outlet/Order";
 import Report from "../window/Owner/Report";
+import Approval from "../window/Owner/Approval";
+import Outlet from "../window/Owner/Outlet";
 
 export default function OwnerPage() {
   const categories = ["Cake", "Shorteas", "Biscuits", "Chocolates"];
@@ -72,6 +74,8 @@ export default function OwnerPage() {
 
         {activeTab === "order" && <Order/>}
         {activeTab === "report" && <Report/>}
+        {activeTab === "approval" && <Approval/>}
+        {activeTab === "outlet" && <Outlet/>}
       </Layout>
     </div>
   );
