@@ -7,6 +7,8 @@ import Order from "../window/Outlet/Order";
 import Report from "../window/Owner/Report";
 import Approval from "../window/Owner/Approval";
 import Outlet from "../window/Owner/Outlet";
+import User from "../window/Owner/User.jsx";
+
 
 export default function OwnerPage() {
   const categories = ["Cake", "Shorteas", "Biscuits", "Chocolates"];
@@ -76,6 +78,7 @@ export default function OwnerPage() {
         {activeTab === "report" && <Report/>}
         {activeTab === "approval" && <Approval/>}
         {activeTab === "outlet" && <Outlet/>}
+        {activeTab === "accounts" && <User/>}
       </Layout>
     </div>
   );
