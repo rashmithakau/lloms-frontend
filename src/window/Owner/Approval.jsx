@@ -7,27 +7,30 @@ const initialRows = [
 ];
 
 function Approval() {
-    const [rows, setRows] = useState(initialRows);
+  const [rows, setRows] = useState(initialRows);
 
-    const handleApprove = (id) => {
-      alert(`Approved: ${id}`);
-      setRows(rows.filter((row) => row.id !== id));
-    };
-  
-    const handleReject = (id) => {
-      alert(`Rejected: ${id}`);
-      setRows(rows.filter((row) => row.id !== id));
-    };
-  
-    return(<div>
-        <h1>Approval</h1>
-        <div className="w-full">
-           <ApprovalTable rows={rows} onApprove={handleApprove} onReject={handleReject} />
-          
-        </div>
-        
-    </div>)
-    
+  const handleApprove = (id) => {
+    alert(`Approved: ${id}`);
+    setRows(rows.filter((row) => row.id !== id));
+  };
+
+  const handleReject = (id) => {
+    alert(`Rejected: ${id}`);
+    setRows(rows.filter((row) => row.id !== id));
+  };
+
+  return (
+    <div>
+      <h1>Approval</h1>
+      <div className="w-full">
+        <ApprovalTable
+          rows={rows}
+          onApprove={handleApprove}
+          onReject={handleReject}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default Approval;
