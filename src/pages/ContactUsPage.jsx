@@ -29,13 +29,14 @@ const ContactUsPage = () => {
 
                 <Navbar />
                 <br/>
-                <MapComponent />
                 <div className="text-center mb-8">
                     <h2 className="text-[#F4952C] font-pacifico text-3xl ">Matara</h2>
                     <h3 className="text-black font-quicksand text-2xl font-semibold mt-2">
                         We Care About Our Customers <br /> Experience Too
                     </h3>
                 </div>
+                <MapComponent />
+
                 
                 <ContactUs/>
 
