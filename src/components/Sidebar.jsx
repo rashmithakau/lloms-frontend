@@ -87,6 +87,7 @@ const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, s
                   icon={item.iconUrl}
                   isSliderBtn={true}
                   isSelected={true}
+                  isActive={item.isActive}
                 >
                   {item.nameBtn}
                 </SliderNavButton>

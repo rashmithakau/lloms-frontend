@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 
-const IconNavButton = ({ children, onClick, icon ,isSliderBtn=false}) => {
+const IconNavButton = ({ children, onClick, icon ,isSliderBtn=false,isActive}) => {
   const ml=isSliderBtn ? "ml-[100px]" : "";
   const alignment=isSliderBtn ? "":"justify-center";
+  const border=isActive ? "border-2 border-pink-300 bg-pink-100" : "";
 
   return (
    
       <motion.div
-        className={`bg-pink-50 hover:bg-gradient-to-r from-pink-500 to-pink-50 hover:text-white text-center flex ${alignment} gap-2 rounded-md w-80 h-10 p-2 cursor-pointer hover:scale-103 text-pink-500 transition-all duration-200`}
+        className={`bg-pink-50 hover:bg-gradient-to-r from-pink-500 to-pink-50 hover:text-white text-center flex ${alignment} gap-2 rounded-md w-80 h-10 p-2 cursor-pointer hover:scale-103 text-pink-500 transition-all duration-200 ${border}`}
         onClick={onClick}
         whileHover={{ scale: 1.1 }} // Hover scale effect
         whileTap={{ scale: 0.98 }} // Press effect on click
