@@ -12,7 +12,7 @@ const teamMembers = [
 
 const AboutPage = () => {
     return (
-        <div className="bg-[#f8f4f4] min-h-screen flex flex-col">
+        <div className="bg-[#e9e3e3] min-h-screen flex flex-col">
             <Navbar />
 
             {/* Main Content Container */}
