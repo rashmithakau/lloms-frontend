@@ -23,6 +23,7 @@ export default function OwnerPage() {
         setActiveTab("billing");
       },
       iconUrl: "src/assets/icons/billing.svg",
+      isActive : activeTab === "billing"
     },
     {
       nameBtn: "INVENTARY",
@@ -30,6 +31,7 @@ export default function OwnerPage() {
         setActiveTab("inventary");
       },
       iconUrl: "src/assets/icons/inventaryIcon.svg",
+      isActive : activeTab === "inventary"
     },
     {
       nameBtn: "REPORT",
@@ -37,6 +39,7 @@ export default function OwnerPage() {
         setActiveTab("report");
       },
       iconUrl: "src/assets/icons/report.svg",
+      isActive : activeTab === "report"
     },
     {
       nameBtn: "PRODUCT",
@@ -51,6 +54,7 @@ export default function OwnerPage() {
         setActiveTab("outlet");
       },
       iconUrl: "src/assets/icons/outlet.svg",
+      isActive : activeTab === "outlet"
     },
     {
       nameBtn: "APPROVAL",
@@ -58,6 +62,7 @@ export default function OwnerPage() {
         setActiveTab("approval");
       },
       iconUrl: "src/assets/icons/approval.svg",
+      isActive : activeTab === "approval"
     },
     {
       nameBtn: "  USER ACCOUNTS",
@@ -65,6 +70,7 @@ export default function OwnerPage() {
         setActiveTab("accounts");
       },
       iconUrl: "src/assets/icons/accounts.svg",
+      isActive : activeTab === "accounts"
     },
   ];
 
