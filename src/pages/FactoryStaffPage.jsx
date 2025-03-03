@@ -25,6 +25,7 @@ export default function FactoryStaffPage() {
         setActiveTab("order");
       },
       iconUrl: "src/assets/icons/orderIcon.svg",
+      isActive: activeTab === "order",
     },
     {
       nameBtn: "BILLING",
@@ -32,6 +33,7 @@ export default function FactoryStaffPage() {
         setActiveTab("billing");
       },
       iconUrl: "src/assets/icons/billing.svg",
+      isActive: activeTab === "billing",
     },
     {
       nameBtn: "INVENTARY",
@@ -39,6 +41,7 @@ export default function FactoryStaffPage() {
         setActiveTab("inventary");
       },
       iconUrl: "src/assets/icons/inventaryIcon.svg",
+      isActive: activeTab === "inventary",
     },
     {
       nameBtn: "RETURN",
@@ -46,6 +49,7 @@ export default function FactoryStaffPage() {
         setActiveTab("return");
       },
       iconUrl: "src/assets/icons/returnIcon.svg",
+      isActive: activeTab === "return",
     },
     {
       nameBtn: "PRODUCT",
@@ -53,6 +57,7 @@ export default function FactoryStaffPage() {
         setActiveTab("product");
       },
       iconUrl: "src/assets/icons/product.svg",
+      isActive: activeTab === "product",
     },
     {
       nameBtn: "OUTLET",
@@ -60,6 +65,7 @@ export default function FactoryStaffPage() {
         setActiveTab("outlet");
       },
       iconUrl: "src/assets/icons/outlet.svg",
+      isActive: activeTab === "outlet",
     },
     {
       nameBtn: "CUS ORDER HISTORY",
@@ -67,6 +73,7 @@ export default function FactoryStaffPage() {
         setActiveTab("history");
       },
       iconUrl: "src/assets/icons/historyIcon.svg",
+      isActive: activeTab === "history",
     },
   ];
 

@@ -19,6 +19,7 @@ export default function OutletPage() {
         setActiveTab("pos");
       },
       iconUrl: "src/assets/icons/posIcon.svg",
+      isActive : activeTab === "pos"
     },
     {
       nameBtn: "ORDER",
@@ -26,6 +27,7 @@ export default function OutletPage() {
         setActiveTab("order");
       },
       iconUrl: "src/assets/icons/orderIcon.svg",
+      isActive : activeTab === "order"
     },
     {
       nameBtn: "INVENTARY",
@@ -33,6 +35,7 @@ export default function OutletPage() {
         setActiveTab("inventary");
       },
       iconUrl: "src/assets/icons/inventaryIcon.svg",
+      isActive : activeTab === "inventary"
     },
     {
       nameBtn: "RETURN",
@@ -40,6 +43,7 @@ export default function OutletPage() {
         setActiveTab("return");
       },
       iconUrl: "src/assets/icons/returnIcon.svg",
+      isActive : activeTab === "return"
     },
   ];
 
