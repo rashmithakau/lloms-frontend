@@ -31,7 +31,7 @@ const TableData = () => {
         <div className="container mx-auto p-4">
 
             {orders.map((order) => (
-                <div key={order.id} className="border-1 border-[#432634] rounded-lg mb-8  bg-white opacity-30">
+                <div key={order.id} className="border-1 border-[#432634] rounded-lg mb-8 backdrop-blur-lg">
                     {/* Main Order Row */}
                     <div className="flex items-center p-3  backdrop-blur rounded-lg">
                         <div className="w-1/5 text-[#432634]">{order.orderId}</div>
