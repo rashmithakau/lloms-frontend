@@ -7,27 +7,27 @@ import OrderAction from "../../components/OrderAction/OrderAction";
 import ReturnAction from "../../components/ReturnAction/ReturnAction";
 import Image from "../../assets/2254.jpg_wh860.jpg";
 import { useState, useEffect } from "react";
-import { getAllProducts } from "../../api/product-service/productController";
+import { getAllProductsByOutletId } from "../../api/product-service/productController";
 import LoadingWheel from "../../components/loadingWheel/LoadingWheel";
 
 function Return() {
   const [orderItems, setOrderItems] = useState([]);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-    useEffect(() => {
-      const fetchItems = async () => {
-        try {
-          const data = await getAllProducts();
-          setItems(data);
-        } catch (error) {
-          console.error("Error fetching products:", error);
-        } finally {
-          setLoading(false); // Stop loading after data is fetched
-        }
-      };
-      fetchItems();
-    }, []);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const data = await getAllProductsByOutletId(101);
+        setItems(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false); // Stop loading after data is fetched
+      }
+    };
+    fetchItems();
+  }, []);
 
   const handleClearOrder = () => {
     setOrderItems([]);
@@ -64,13 +64,17 @@ function Return() {
     <div>
       <div className="flex justify-center items-center my-2">
         <CardContainer>
-        {loading ? (
+          {loading ? (
             <div className="text-center text-gray-600 py-5 text-lg">
               <LoadingWheel />
             </div>
           ) : (
             items.map((item, index) => (
-              <ItemCard key={index} item={item} onClick={() => handleItemClick(item)} />
+              <ItemCard
+                key={index}
+                item={item}
+                onClick={() => handleItemClick(item)}
+              />
             ))
           )}
         </CardContainer>
