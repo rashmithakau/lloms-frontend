@@ -74,7 +74,7 @@ const User = () => {
             <input
                 type="text"
                 placeholder="Search by User ID..."
-                className="p-2 border border-pink-300 hover:border-pink-500 rounded-md flex-grow"
+                className="p-2 border border-pink-300 hover:border-pink-500 rounded-md flex-grow focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500 transition"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -118,7 +118,7 @@ const User = () => {
                 setRoleFilter([]);
                 setStatusFilter("");
               }}
-              className="self-end px-4 py-2 bg-pink-500 rounded-md text-white"
+              className="self-end px-4 py-2 bg-pink-500 hover:bg-pink-400 rounded-md text-white"
           >
             Clear Filters
           </button>
