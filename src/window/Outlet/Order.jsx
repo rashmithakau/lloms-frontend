@@ -6,20 +6,23 @@ import ActionContainer from "../../components/ActionContainer/ActionContainer";
 import OrderAction from "../../components/OrderAction/OrderAction";
 import LoadingWheel from "../../components/loadingWheel/LoadingWheel";
 import { getAllProductsForOutlet } from "../../api/product-service/productController";
+import { saveFacOrder } from "../../api/outlet_service/factoryOrderController";
+import Allert from "../../components/Allert/Allert";
+import LoadingPopup from "../../components/Popup/LoadingPopup/LoadingPopup";
+
 
 function Order() {
   const [orderItems, setOrderItems] = useState([]);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [orderLoading, setOrderLoading] = useState(false);
 
-  // Fetch products and filter active ones
+  // 🟢 Fetch products and filter active ones
   useEffect(() => {
     const fetchItems = async () => {
       try {
         const data = await getAllProductsForOutlet(101);
-        const filteredItems = data.filter(
-          (item) => item.productStatus === true
-        ); // ✅ Only active products
+        const filteredItems = data.filter((item) => item.productStatus === true);
         setItems(filteredItems);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -30,12 +33,37 @@ function Order() {
     fetchItems();
   }, []);
 
-  // Clear order items
+  // 🟢 Handle submit order
+  const handleSubmit = async () => {
+    const itemList = orderItems.map((item) => ({
+      productId: item.id,
+      quantity: item.quantity,
+    }));
+
+    const orderRequest = {
+      orderDate: new Date().toISOString(),
+      status: "pending",
+      outletId: 1,
+      items: itemList,
+    };
+
+    try {
+      setOrderLoading(true);
+      const data = await saveFacOrder(orderRequest);
+      Allert("Order Placed Successfully", "success");
+    } catch (error) {
+      console.error("Error placing order:", error);
+    }finally{
+      setOrderLoading(false);
+    };
+  };
+
+  // 🟢 Clear order items
   const handleClearOrder = () => {
     setOrderItems([]);
   };
 
-  // Handle item click
+  // 🟢 Handle item click
   const handleItemClick = (item) => {
     setOrderItems((prevOrderItems) => {
       const existingItem = prevOrderItems.find(
@@ -55,7 +83,7 @@ function Order() {
             id: item.productId,
             name: item.productName,
             price: item.price,
-            quantity: 1, // ✅ Ensure quantity is added when a new item is added
+            quantity: 1,
             discount: 0,
           },
         ];
@@ -92,9 +120,11 @@ function Order() {
           setProducts={setOrderItems}
         />
         <ActionContainer>
-          <OrderAction onClear={handleClearOrder} />
+          <OrderAction onClear={handleClearOrder} onSubmit={handleSubmit} />
         </ActionContainer>
       </div>
+          {orderLoading && <LoadingPopup/>}
+  
     </div>
   );
 }
