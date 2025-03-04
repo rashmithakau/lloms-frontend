@@ -131,7 +131,7 @@ const CusDetailsPopup = ({ isOpen, onClose, onSubmit }) => {
           <BorderButton onClick={onClose}>Cancel</BorderButton>
           </div>
 
-    
+
         </div>
       </motion.div>
     </motion.div>
