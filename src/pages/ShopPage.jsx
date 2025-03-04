@@ -71,7 +71,7 @@ const ShopPage = () => {
           </h3>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-4 gap-4 px-10'>
+        <div className='grid grid-cols-1 md:grid-cols-4 gap-30 px-15'>
           {/* Category Section */}
           <div className='bg-[#e9e3e3] rounded-lg shadow-lg p-5'>
             <p className='font-quicksand font-bold text-[36px] '>Category</p>
