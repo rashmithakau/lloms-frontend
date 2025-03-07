@@ -69,7 +69,7 @@ const CusDetailsPopup = ({ isOpen, onClose, onSubmit }) => {
 
   const handleSubmit = () => {
     if (isValid) {
-      onSubmit({ name, phone });
+      onSubmit(name, phone);
       setName('');
       setPhone('');
       setErrors({name: '', phone:''})

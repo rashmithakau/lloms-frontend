@@ -50,11 +50,13 @@ function Order() {
     try {
       setOrderLoading(true);
       const data = await saveFacOrder(orderRequest);
-      Allert("Order Placed Successfully", "success");
+      Allert({ message: "Order placed successfully", type: "success" });
     } catch (error) {
       console.error("Error placing order:", error);
+      Allert({ message: "Your order could not be placed", type: "error" });
     }finally{
       setOrderLoading(false);
+      handleClearOrder();
     };
   };
 
