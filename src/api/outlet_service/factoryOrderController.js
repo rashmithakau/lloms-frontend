@@ -11,3 +11,12 @@ export const saveFacOrder = async (facOrder) => {
     throw error;  
   }
 };
+
+export const getFacOrdersByStatus = async (status) => {
+  try {
+    const response = await axios(`${BASE_URL}?status=${status}`);
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
