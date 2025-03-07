@@ -4,16 +4,18 @@ import OrderTable from "../../components/PosTable/OrderTable";
 import DisplayTotal from "../../components/DisplayTotal/DisplayTotal";
 import ItemCard from "../../components/itemCard/ItemCard";
 import ActionContainer from "../../components/ActionContainer/ActionContainer";
-import Image from "../../assets/2254.jpg_wh860.jpg";
 import { useState } from "react";
-import axios from "axios";
 import { getAllProductsByOutletId } from "../../api/product-service/productController";
 import LoadingWheel from "../../components/loadingWheel/LoadingWheel";
+import LoadingPopup from "../../components/Popup/LoadingPopup/LoadingPopup";
+import { saveCusOrder } from "../../api/outlet_service/cusOrderController";
+import Allert from "../../components/Allert/Allert";
 
 function Pos() {
   const [orderItems, setOrderItems] = useState([]);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [orderLoading, setOrderLoading] = useState(false);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -76,6 +78,35 @@ function Pos() {
     };
   };
 
+  const handleSubmit = async (cusName,cusPho) => {
+    const itemList = orderItems.map((item) => ({
+      productId: item.id,
+      quantity: item.quantity,
+      discountPerUnit: item.discount
+    }));
+
+    const orderRequest = {
+      orderDate: new Date().toISOString(),
+      status: "Confirmed",
+      outletId: 1,
+      customerName: cusName,
+      customerPhone: cusPho,
+      items: itemList,
+    };
+
+    try {
+      setOrderLoading(true);
+      const data = await saveCusOrder(orderRequest);
+      Allert({ message: "Order placed successfully", type: "success" });
+    } catch (error) {
+      console.error("Error placing order:", error);
+      Allert({ message: "Your order could not be placed", type: "error" });
+    }finally{
+      setOrderLoading(false);
+      handleClearOrder();
+    };
+  };
+
   return (
     <div>
       <div className="flex justify-center items-center my-2">
@@ -102,9 +133,10 @@ function Pos() {
           setProducts={setOrderItems}
         />
         <ActionContainer>
-          <DisplayTotal totals={calculateTotals()} onClear={handleClearOrder} />
+          <DisplayTotal totals={calculateTotals()} onClear={handleClearOrder} onSubmit={handleSubmit}/>
         </ActionContainer>
       </div>
+      {orderLoading && <LoadingPopup/>}
     </div>
   );
 }
