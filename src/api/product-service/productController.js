@@ -10,3 +10,6 @@ export const getAllProducts = async () => {
     console.error("Error fetching data:", error);
   }
 };
+
+
+ 
