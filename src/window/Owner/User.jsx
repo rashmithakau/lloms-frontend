@@ -1,65 +1,32 @@
-import React, { useState, useMemo, useEffect } from "react";
-import axios from "axios";
-
-// Create axios instance
-const api = axios.create({
-  baseURL: "http://localhost:8089/api/v1",
-  headers: { "Content-Type": "application/json" },
-});
+import React from 'react';
+import useUserController from "../../api/user_service/userController.jsx";
 
 const User = () => {
-  // State management
-  const [users, setUsers] = useState([]);
-  const [roles, setRoles] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const {
+    roles,
+    loading,
+    statusOptions,
+    searchTerm,
+    setSearchTerm,
+    statusFilter,
+    setStatusFilter,
+    roleFilter,
+    setRoleFilter,
+    filteredUsers,
+    roleMap,
+    handleEditClick,
+    handleUpdatePhone,
+    handleUpdatePassword,
+    handleDeactivateUser,
+    isEditModalOpen,
+    editingUser,
+    newPhone,
+    setNewPhone,
+    newPassword,
+    setNewPassword,
+    setIsEditModalOpen,
+  } = useUserController();
 
-  // Filters state
-  const [searchTerm, setSearchTerm] = useState("");
-  const [roleFilter, setRoleFilter] = useState([]);
-  const [statusFilter, setStatusFilter] = useState("");
-
-  // Static options for filters
-  const statusOptions = ["Active", "Inactive"];
-
-  // Fetch users and roles
-  useEffect(() => {
-    const fetchUsers = async () => {
-      setLoading(true);
-      try {
-        let usersResponse;
-        if (statusFilter) {
-          usersResponse = await api.get(`/user/get-users-by-status?status=${statusFilter.toUpperCase()}`);
-        } else {
-          usersResponse = await api.get("/user/get-all-users");
-        }
-        const rolesResponse = await api.get("/role/get-all-roles");
-
-        setUsers(usersResponse.data);
-        setRoles(rolesResponse.data);
-      } catch (err) {
-        setUsers([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchUsers();
-  }, [statusFilter]);
-
-  // Create role lookups
-  const roleMap = useMemo(() => {
-    return new Map(roles.map(role => [role.roleId, role.roleName]));
-  }, [roles]);
-
-  // Memoized filtered users calculation
-  const filteredUsers = useMemo(() => {
-    return users.filter(user => {
-      const matchesSearch = searchTerm ? user.userId.toString().includes(searchTerm) : true;
-      const matchesRole = roleFilter.length > 0 ? roleFilter.includes(user.roleId) : true;
-      return matchesSearch && matchesRole;
-    });
-  }, [users, searchTerm, roleFilter]);
-
-  // Loading state
   if (loading) {
     return <div className="p-4 text-center">Loading users...</div>;
   }
@@ -68,7 +35,7 @@ const User = () => {
       <div className="p-4 bg-transparent rounded-lg shadow-md">
         <h1 className="text-3xl mb-4">User Details</h1>
 
-        {/* Filter Controls Section */}
+        {/* Filters Section */}
         <div className="flex flex-col gap-4 mb-4">
           <div className="flex flex-col md:flex-row gap-4">
             <input
@@ -78,7 +45,6 @@ const User = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
-
             <select
                 className="p-2 border border-pink-300 hover:border-pink-500 rounded-md text-pink-600"
                 value={statusFilter}
@@ -91,7 +57,6 @@ const User = () => {
             </select>
           </div>
 
-          {/* Role Filter */}
           <div className="flex flex-wrap gap-2 items-center p-2 border border-pink-300 hover:border-pink-500 rounded-md">
             <span className="text-pink-600">Roles:</span>
             {roles.map((role) => (
@@ -101,8 +66,8 @@ const User = () => {
                       checked={roleFilter.includes(role.roleId)}
                       onChange={(e) => {
                         const checked = e.target.checked;
-                        setRoleFilter((prev) =>
-                            checked ? [...prev, role.roleId] : prev.filter((r) => r !== role.roleId)
+                        setRoleFilter(prev =>
+                            checked ? [...prev, role.roleId] : prev.filter(r => r !== role.roleId)
                         );
                       }}
                       className="form-checkbox h-4 w-4 border-pink-300 hover:border-pink-500"
@@ -124,12 +89,12 @@ const User = () => {
           </button>
         </div>
 
-        {/* Users Table Section */}
+        {/* Users Table */}
         <div className="overflow-x-auto rounded-lg border border-pink-500">
           <table className="min-w-full">
             <thead className="bg-gray-200">
             <tr>
-              {["User ID", "Name", "Phone", "Status", "Role"].map(header => (
+              {["User ID", "Name", "Phone", "Status", "Role", "Actions"].map(header => (
                   <th key={header} className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
                     {header}
                   </th>
@@ -144,9 +109,11 @@ const User = () => {
                       <td className="px-4 py-3 text-sm font-medium">{user.userName}</td>
                       <td className="px-4 py-3 text-sm text-gray-600">{user.phoneNumber}</td>
                       <td className="px-4 py-3">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        user.status === "Active" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                    }`}>
+                    <span
+                        className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            user.status === "Active" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                        }`}
+                    >
                       {user.status}
                     </span>
                       </td>
@@ -155,16 +122,82 @@ const User = () => {
                       {roleMap.get(user.roleId) || "Unknown Role"}
                     </span>
                       </td>
+                      <td className="px-4 py-3">
+                        <button
+                            onClick={() => handleEditClick(user)}
+                            className="text-pink-600 hover:text-pink-900"
+                        >
+                          Edit
+                        </button>
+                      </td>
                     </tr>
                 ))
             ) : (
                 <tr>
-                  <td colSpan="5" className="p-4 text-center text-gray-500">No users found</td>
+                  <td colSpan="6" className="p-4 text-center text-gray-500">No users found</td>
                 </tr>
             )}
             </tbody>
           </table>
         </div>
+
+        {/* Edit Modal */}
+        {isEditModalOpen && editingUser && (
+            <div className="fixed inset-0 bg-transparent bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-white rounded-lg p-6 w-full max-w-md">
+                <h2 className="text-xl font-semibold mb-4">Edit User {editingUser.userId}</h2>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Phone Number</label>
+                    <input
+                        type="text"
+                        value={newPhone}
+                        onChange={(e) => setNewPhone(e.target.value)}
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
+                    />
+                    <button
+                        onClick={() => handleUpdatePhone(editingUser.userId, newPhone)}
+                        className="mt-2 w-full bg-pink-500 text-white py-2 rounded-md hover:bg-pink-600"
+                    >
+                      Update Phone
+                    </button>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">New Password</label>
+                    <input
+                        type="password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
+                    />
+                    <button
+                        onClick={() => handleUpdatePassword(editingUser.userId, newPassword)}
+                        className="mt-2 w-full bg-pink-500 text-white py-2 rounded-md hover:bg-pink-600"
+                    >
+                      Update Password
+                    </button>
+                  </div>
+
+                  {editingUser.status === 'Active' && (
+                      <button
+                          onClick={() => handleDeactivateUser(editingUser.userId)}
+                          className="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
+                      >
+                        Deactivate User
+                      </button>
+                  )}
+
+                  <button
+                      onClick={() => setIsEditModalOpen(false)}
+                      className="w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+        )}
       </div>
   );
 };
