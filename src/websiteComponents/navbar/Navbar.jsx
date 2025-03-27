@@ -13,7 +13,7 @@ const Navbar = () => {
                         className="h-10 w-10 transition-transform duration-300 hover:scale-110"
                     />
                     <div className="flex items-center gap-2">
-                        <span className="text-lg text-white font-pacifico md:text-xl">
+                        <span className="text-lg text-white font-pacifico md:text-2xl">
                                     Little Lanka
                                 </span>
                         <div className="h-6 w-[2px] bg-white"></div>

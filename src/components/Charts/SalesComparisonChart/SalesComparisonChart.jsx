@@ -61,11 +61,11 @@ const SalesComparisonChart = () => {
       <Box display="flex" justifyContent="space-between" mb={2}>
         <Box>
           <Typography variant="body1" color="primary">● Current Year</Typography>
-          <Typography variant="h6" sx={{ fontWeight: "bold" }}>$37,802</Typography>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>Rs37,802</Typography>
         </Box>
         <Box>
           <Typography variant="body1" color="secondary">● Previous Year</Typography>
-          <Typography variant="h6" sx={{ fontWeight: "bold" }}>$28,305</Typography>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>Rs28,305</Typography>
         </Box>
       </Box>
       <ResponsiveContainer width="100%" height={300}>

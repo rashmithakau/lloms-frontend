@@ -35,7 +35,9 @@ const ContactUsPage = () => {
                         We Care About Our Customers <br /> Experience Too
                     </h3>
                 </div>
-                <MapComponent/>
+                <MapComponent />
+
+                
                 <ContactUs/>
 
 

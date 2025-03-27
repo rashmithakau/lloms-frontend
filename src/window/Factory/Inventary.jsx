@@ -1,12 +1,12 @@
-import React from 'react'
-import InventoryTable from '../../components/PosTable/InventoryTable'
+import React from "react";
+import InventoryTable from "../../components/PosTable/InventoryTable";
 
 function Inventary() {
   return (
     <div>
-        <InventoryTable/>
+      <InventoryTable outletId={101} type="factory" />
     </div>
-  )
+  );
 }
 
-export default Inventary
+export default Inventary;

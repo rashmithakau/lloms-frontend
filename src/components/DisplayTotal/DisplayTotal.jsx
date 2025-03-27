@@ -3,10 +3,9 @@ import FillButton from "../buttons/FillButton";
 import BorderButton from "../buttons/BorderButton";
 import IconNavButton from "../buttons/IconNavButton";
 import CusDetailsPopup from "../Popup/CusDetailsPopup/CusDetailsPopup";
-import Allert from "../Allert/Allert";
 import CustomerOrderHistory from "../Popup/HistoryPopup/CustomerOrderHistory.jsx";
 
-const DisplayTotal = ({ totals, onClear }) => {
+const DisplayTotal = ({ totals, onClear ,onSubmit}) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -24,10 +23,9 @@ const DisplayTotal = ({ totals, onClear }) => {
   };
 
 
-  const handleSubmitDetails = (details) => {
-    console.log("Customer Details:", details);
+  const handleSubmitDetails = (cusName,cusPho) => {
     setIsPopupOpen(false); // Close the popup after submitting
-    Allert();
+    onSubmit(cusName,cusPho);
   };
 
   return (
@@ -48,7 +46,7 @@ const DisplayTotal = ({ totals, onClear }) => {
       </div>
 
       <div className="flex justify-center items-center my-2 gap-8">
-        <FillButton onClick={handleOpenPopup}>Proceed {">"}</FillButton>
+        <FillButton onClick={handleOpenPopup}>Proceed {">"}</FillButton> {/* */}
         <BorderButton onClick={onClear}>Cancel</BorderButton>
       </div>
 

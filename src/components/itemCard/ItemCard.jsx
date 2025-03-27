@@ -2,7 +2,7 @@ import React from "react";
 import defaultImage from "../../assets/Empty image.jpg";
 
 function ItemCard({ item, onClick }) {
-  const imageName = item.imageUrl ? item.imageUrl.split("/").pop() : null;
+  const imageName = item.imageUrl ? item.imageUrl.split("\\").pop() : null;
   const imageSrc = imageName
     ? `http://localhost:8080/api/v1/product/url/${imageName}`
     : defaultImage;
@@ -24,20 +24,20 @@ function ItemCard({ item, onClick }) {
         {/* ID and Stock */}
         <div className="flex justify-between items-center">
           <p className="font-semibold text-sm text-[#432634] font-poppins">
-            PD/{item.productId}
+            {`PD/${String(item.productId).padStart(3, "0")}`}
           </p>
-          <div className="bg-[#FFEBEB] text-[#FF0077] text-xs font-extrabold px-4 py-1 rounded-t-2xl rounded-b-none">
-            233
+          <div className="bg-[#FFEBEB] text-[#FF0077] text-sm font-extrabold px-4 py-1 rounded-t-2xl rounded-b-none">
+            Stock : {item.stockQuantity}
           </div>
         </div>
 
         {/* Product Name */}
-        <p className="text-sm text-[#432634]/80 font-poppins truncate">
+        <p className="text-sm text-[#432634]/80 font-semibold font-poppins truncate">
           {item.productName}
         </p>
 
         {/* Price */}
-        <p className="flex text-sm text-[#432634]/70 font-poppins">
+        <p className="flex text-sm font-semibold text-[#432634]/70 font-poppins">
           Rs. {item.price.toFixed(2)}
         </p>
       </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import backgroundImage from "../../../assets/orderhistory/background.png";
+import backgroundImage from "../../../assets/orderhistory/bg2.jpg";
 import closeIcon from "../../../assets/orderhistory/close.png";
 import TableContainer from "../../historypages/TableContainer.jsx";
 

@@ -69,7 +69,7 @@ const CusDetailsPopup = ({ isOpen, onClose, onSubmit }) => {
 
   const handleSubmit = () => {
     if (isValid) {
-      onSubmit({ name, phone });
+      onSubmit(name, phone);
       setName('');
       setPhone('');
       setErrors({name: '', phone:''})
@@ -131,7 +131,7 @@ const CusDetailsPopup = ({ isOpen, onClose, onSubmit }) => {
           <BorderButton onClick={onClose}>Cancel</BorderButton>
           </div>
 
-    
+
         </div>
       </motion.div>
     </motion.div>
