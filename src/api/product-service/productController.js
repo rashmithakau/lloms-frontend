@@ -11,6 +11,7 @@ export const getAllProducts = async () => {
   }
 };
 
+
 export const getAllProductsByOutletId = async (outletId) => {
   try {
     const response = await axios(`${BASE_URL}/get-by-outlet?id=${outletId}`);
@@ -30,3 +31,4 @@ export const getAllProductsForOutlet = async (outletId) => {
     console.error("Error fetching data:", error);
   }
 };
+
