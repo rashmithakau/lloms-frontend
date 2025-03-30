@@ -54,7 +54,7 @@ const FactoryOrderTable = ({ orders }) => {
   };
 
   const options = [
-    { value: "pending", label: "Pending" },
+    { value: "Pending", label: "Pending" },
     { value: "Confirmed", label: "Confirmed" },
     { value: "Delivered", label: "Delivered" },
     { value: "Rejected", label:"Rejected"}

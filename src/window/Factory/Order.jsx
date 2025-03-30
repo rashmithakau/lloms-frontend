@@ -12,7 +12,7 @@ function Order() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const data = await getFacOrdersByStatus("pending");
+        const data = await getFacOrdersByStatus("Pending");
         const orderList = data.map((dataItem) => {
           // Convert database date to local timezone correctly
           const date = new Date(dataItem.orderDate);
