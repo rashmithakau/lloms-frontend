@@ -68,8 +68,8 @@ function ItemReturnStats() {
   const handleMonthChange = (e) => setSelectedMonth(e.target.value);
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-xl mx-auto">
-      <h2 className="text-xl font-semibold text-gray-800">Item Return Stats</h2>
+    <div className="bg-white shadow-lg rounded-lg p-6 w-full mx-auto h-auto">
+      <h2 className="text-2xl font-semibold text-gray-800">Item Return Stats</h2>
       <p className="text-gray-500 mb-4">
         Analysis of returned items for the selected outlet and month
       </p>
@@ -80,7 +80,7 @@ function ItemReturnStats() {
         <select
           value={selectedOutlet}
           onChange={handleOutletChange}
-          className="border border-gray-300 rounded px-2 py-1 mb-2"
+          className="border border-gray-300 rounded px-2 py-1 mb-2 w-full md:w-1/3"
         >
           {Object.keys(returnData).map((outlet) => (
             <option key={outlet} value={outlet}>
@@ -96,7 +96,7 @@ function ItemReturnStats() {
         <select
           value={selectedMonth}
           onChange={handleMonthChange}
-          className="border border-gray-300 rounded px-2 py-1"
+          className="border border-gray-300 rounded px-2 py-1 w-full md:w-1/3"
         >
           {Object.keys(returnData[selectedOutlet]).map((month) => (
             <option key={month} value={month}>

@@ -10,7 +10,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// Sample sales data for different outlets
 const outletSalesData = {
   "Downtown Outlet": [
     { time: "8 AM", sales: 25 },
@@ -47,10 +46,14 @@ function HourlySalesStats() {
     setSelectedOutlet(e.target.value);
   };
 
+  const peakHour = outletSalesData[selectedOutlet].reduce((max, current) =>
+    current.sales > max.sales ? current : max
+  );
+
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-xl mx-auto">
-      <h2 className="text-xl font-semibold text-gray-800">Hourly Sales Stats</h2>
-      <p className="text-gray-500 mb-4">
+    <div className="bg-white shadow-lg rounded-lg p-6 w-full mx-auto">
+      <h2 className="text-xl font-semibold text-gray-800 mb-1">Hourly Sales Stats</h2>
+      <p className="text-gray-500 mb-4 text-sm">
         Average sales throughout the day based on last year's data
       </p>
 
@@ -92,8 +95,11 @@ function HourlySalesStats() {
       </ResponsiveContainer>
 
       <div className="mt-4">
-        <p className="text-center text-gray-600">
-          Average sales per hour for {selectedOutlet}
+        <p className="text-center text-gray-600 text-sm">
+          Average sales per hour for <strong>{selectedOutlet}</strong>
+        </p>
+        <p className="text-center text-green-600 text-sm mt-1">
+          🟢 Peak Sales at <strong>{peakHour.time}</strong> ({peakHour.sales} sales)
         </p>
       </div>
     </div>

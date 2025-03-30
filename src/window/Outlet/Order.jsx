@@ -42,7 +42,7 @@ function Order() {
 
     const orderRequest = {
       orderDate: new Date().toISOString(),
-      status: "pending",
+      status: "Pending",
       outletId: 1,
       items: itemList,
     };
