@@ -32,3 +32,14 @@ export const getAllProductsForOutlet = async (outletId) => {
   }
 };
 
+export const addProduct = async (formData) => {
+  try {
+    const response = await axios.post(BASE_URL, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return response; // Returning the response so Item.jsx can handle it
+  } catch (error) {
+    throw error; // Throwing error so Item.jsx can catch and handle it
+  }
+};
+
