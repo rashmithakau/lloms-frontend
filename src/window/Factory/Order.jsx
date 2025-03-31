@@ -1,58 +1,98 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import FactoryOrderTable from "../../components/FactoryOrderTable/FactoryOrderTable";
-import { useState } from "react";
 import LoadingWheel from "../../components/loadingWheel/LoadingWheel";
-import { getFacOrdersByStatus } from "../../api/outlet_service/factoryOrderController";
+import { getFacOrdersByStatus,getFacOrdersById } from "../../api/outlet_service/factoryOrderController";
 
-function Order() {
+function Order({ category, selCategory = "Pending", searchText }) {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const orderList=[];
+  const selectedCategory = category || selCategory; // Use `category` if provided
 
   useEffect(() => {
+   
     const fetchOrders = async () => {
+      setLoading(true); // Reset loading state before fetching
       try {
-        const data = await getFacOrdersByStatus("Pending");
+        const data = await getFacOrdersByStatus(selectedCategory);
         const orderList = data.map((dataItem) => {
-          // Convert database date to local timezone correctly
           const date = new Date(dataItem.orderDate);
-          const formattedDate = date.toISOString().split("T")[0];
-          const formattedTime = date.toTimeString().split(" ")[0];
-  
-          console.log("Original Date:", dataItem.orderDate);
-          console.log("Formatted Date:", formattedDate);
-          console.log("Formatted Time:", formattedTime);
-  
           return {
-            orderId: dataItem.facOrderId.toString().padStart(3, '0'),
+            orderId: dataItem.facOrderId.toString().padStart(3, "0"),
             outletName: dataItem.outletName,
-            date: formattedDate,
-            time: formattedTime,
+            date: date.toISOString().split("T")[0],
+            time: date.toTimeString().split(" ")[0],
             status: dataItem.status,
           };
         });
-        setOrders(orderList);  // Update state once after map
+        setOrders(orderList);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error("Error fetching orders:", error);
       } finally {
         setLoading(false);
       }
     };
-  
+
     fetchOrders();
-  }, []);
+  }, [selectedCategory,searchText]); // Ensure category updates trigger a new fetch
+
+  useEffect(() => {
+    if (searchText?.trim().startsWith("FO/")) {
+      console.log(searchText);
   
+      // Extract numeric part & convert to integer
+      let id = searchText.match(/FO\/(\d+)/)?.[1];
+      if (!id || isNaN(id)) return; // Prevent API call if ID is invalid
+      console.log(id);
+  
+      const fetchOrders = async () => {
+        setLoading(true);
+        try {
+          const response = await getFacOrdersById(parseInt(id));
+          console.log("API Response:", response);
+  
+          // Check if 'data' exists and is an array
+          const data = response?.data;
+          if (Array.isArray(data) && data.length === 0) {
+            setOrders([]);
+            return;
+          }
+  
+          // Map over the fetched data to structure the orders
+          const orderList = data.map((dataItem) => {
+            const date = new Date(dataItem.orderDate);
+            return {
+              orderId: dataItem.facOrderId.toString().padStart(3, "0"),
+              outletName: dataItem.outletName,
+              date: date.toISOString().split("T")[0],
+              time: date.toTimeString().split(" ")[0],
+              status: dataItem.status,
+            };
+          });
+          setOrders(orderList);
+        } catch (error) {
+          console.error("Error fetching orders:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      fetchOrders();
+    }
+  }, [searchText]);
+  
+  
+  
+  
+
   return (
     <div>
-      <div>
-        {loading ? (
-          <div className="text-center text-gray-600 py-5 text-lg">
-            <LoadingWheel />
-          </div>
-        ) : (
-          <FactoryOrderTable orders={orders} />
-        )}
-      </div>
+      {loading ? (
+        <div className="text-center text-gray-600 py-5 text-lg">
+          <LoadingWheel />
+        </div>
+      ) : (
+        <FactoryOrderTable orders={orders} category={category} />
+      )}
     </div>
   );
 }
