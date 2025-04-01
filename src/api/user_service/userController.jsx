@@ -7,7 +7,6 @@ const api = axios.create({
 });
 
 const useUserController = () => {
-    // State management
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -15,16 +14,18 @@ const useUserController = () => {
     const [editingUser, setEditingUser] = useState(null);
     const [newPhone, setNewPhone] = useState("");
     const [newPassword, setNewPassword] = useState("");
-
-    // Filters state
     const [searchTerm, setSearchTerm] = useState("");
     const [roleFilter, setRoleFilter] = useState([]);
     const [statusFilter, setStatusFilter] = useState("");
+    const [isAddStaffModalOpen, setIsAddStaffModalOpen] = useState(false);
+    const [newStaff, setNewStaff] = useState({
+        userName: '',
+        password: '',
+        phoneNumber: ''
+    });
 
-    // Static options
     const statusOptions = ["Active", "Inactive"];
 
-    // Fetch users and roles
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
@@ -32,7 +33,6 @@ const useUserController = () => {
                 const usersResponse = statusFilter
                     ? await api.get(`/user/get-users-by-status?status=${statusFilter.toUpperCase()}`)
                     : await api.get("/user/get-all-users");
-
                 const rolesResponse = await api.get("/role/get-all-roles");
                 setUsers(usersResponse.data);
                 setRoles(rolesResponse.data);
@@ -46,10 +46,8 @@ const useUserController = () => {
         fetchData();
     }, [statusFilter]);
 
-    // Role mapping
     const roleMap = useMemo(() => new Map(roles.map(role => [role.roleId, role.roleName])), [roles]);
 
-    // Filtered users
     const filteredUsers = useMemo(
         () =>
             users.filter(user => {
@@ -108,6 +106,22 @@ const useUserController = () => {
         }
     };
 
+    const handleSaveStaff = async () => {
+        try {
+            await api.post("/user/save-staff", newStaff);
+            const updatedUsers = statusFilter
+                ? await api.get(`/user/get-users-by-status?status=${statusFilter.toUpperCase()}`)
+                : await api.get("/user/get-all-users");
+            setUsers(updatedUsers.data);
+            setIsAddStaffModalOpen(false);
+            setNewStaff({ userName: '', password: '', phoneNumber: '' });
+           // alert("Staff member added successfully");
+        } catch (error) {
+            console.error("Error adding staff:", error);
+           // alert("Error adding staff member");
+        }
+    };
+
     return {
         users,
         roles,
@@ -132,6 +146,11 @@ const useUserController = () => {
         newPassword,
         setNewPassword,
         setIsEditModalOpen,
+        handleSaveStaff,
+        isAddStaffModalOpen,
+        setIsAddStaffModalOpen,
+        newStaff,
+        setNewStaff,
     };
 };
 

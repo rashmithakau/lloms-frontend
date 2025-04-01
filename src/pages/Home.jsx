@@ -48,6 +48,11 @@ const Home = () => {
                     opacity: Math.min(scrollPosition / window.innerHeight, 1),
                 }}
             >
+
+
+                <br/>
+                <br/>
+                <br/>
                 <BestProductContainer />
                 <OutletCardContainer />
             </div>
