@@ -3,12 +3,18 @@ import { getAllProducts } from "../../api/product-service/productController";
 import CardContainer from "../../components/cardContainer/CardContainer";
 import LoadingWheel from "../../components/loadingWheel/LoadingWheel";
 import ItemDisplayCard from "../../components/itemDisplayCard/ItemDisplayCard";
+import UpdateProduct from "../../components/UpdateItem/UpdateProduct";
+import UpdateItem from "../../components/UpdateItem/UpdateItem";
 
 function Product() {
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("All");
+  
+  // States for UpdateItem popup
+  const [selectedItem, setSelectedItem] = useState(null); // Store selected item for update
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false); // Show/hide popup
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -36,6 +42,18 @@ function Product() {
     } else {
       setFilteredItems(items);
     }
+  };
+
+    // Handle item click to open the update popup
+    const handleItemClick = (item) => {
+     setSelectedItem(item);  // Store selected item for update
+     setShowUpdatePopup(true);  // Show the UpdateItem popup
+   };
+
+  // Close the UpdateItem popup
+  const handleClosePopup = () => {
+    setShowUpdatePopup(false);
+    setSelectedItem(null); // Clear the selected item
   };
 
   return (
@@ -70,12 +88,18 @@ function Product() {
             <ItemDisplayCard
               key={index}
               item={item}
-              onClick={() => console.log("Owner Item clicked", item)}
+              // 
+              onClick={() => handleItemClick(item)}  // Open popup on item click
               type="owner"
             />
           ))
         )}
       </CardContainer>
+
+        {/* Conditionally render the UpdateItem popup */}
+        {showUpdatePopup && <UpdateItem item={selectedItem} onClose={handleClosePopup} />}
+
+
     </div>
   );
 }
