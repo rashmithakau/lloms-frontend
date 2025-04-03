@@ -32,6 +32,7 @@ export const getAllProductsForOutlet = async (outletId) => {
   }
 };
 
+
  // Fetch product by ID
  export const getProductById = async (id) => {
    try {
@@ -66,6 +67,16 @@ export const updateProduct = async (id, formData) => {
   } catch (error) {
     console.error("Error updating product:", error);
     throw error;  // Re-throw error to be handled in the component
+
+export const addProduct = async (formData) => {
+  try {
+    const response = await axios.post(BASE_URL, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return response; // Returning the response so Item.jsx can handle it
+  } catch (error) {
+    throw error; // Throwing error so Item.jsx can catch and handle it
+
   }
 };
 
