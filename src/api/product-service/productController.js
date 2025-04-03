@@ -32,6 +32,42 @@ export const getAllProductsForOutlet = async (outletId) => {
   }
 };
 
+
+ // Fetch product by ID
+ export const getProductById = async (id) => {
+   try {
+     const response = await axios.get(`${BASE_URL}/get-by-id/${id}`);
+     return response.data.data;
+   } catch (error) {
+     console.error("Error fetching product:", error);
+     throw error;
+   }
+ };
+
+// export const getProductById = async (id) => {
+//   try {
+//     const response = await axios.get(`${BASE_URL}/get-by-id/${id}`);
+//     console.log("API response:", response.data); // Debugging line
+//     return response.data.data;
+//   } catch (error) {
+//     console.error("Error fetching product:", error);
+//     throw error;
+//   }
+// };
+
+
+export const updateProduct = async (id, formData) => {
+  try {
+    const response = await axios.put(`${BASE_URL}?id=${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data; // Return response if needed
+  } catch (error) {
+    console.error("Error updating product:", error);
+    throw error;  // Re-throw error to be handled in the component
+
 export const addProduct = async (formData) => {
   try {
     const response = await axios.post(BASE_URL, formData, {
@@ -40,6 +76,7 @@ export const addProduct = async (formData) => {
     return response; // Returning the response so Item.jsx can handle it
   } catch (error) {
     throw error; // Throwing error so Item.jsx can catch and handle it
+
   }
 };
 
