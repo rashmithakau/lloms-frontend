@@ -1,80 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import BillDataRow from "./BillDataRow";
 
-function BillTable() {
-  const [products, setProducts] = useState([
-    {
-      id: "PD/1001",
-      name: "Butter Cake",
-      price: 100.0,
-      discount: 10.0,
-      quantity: 25,
-    },
-    {
-      id: "PD/1081",
-      name: "Fish Bun",
-      price: 100.0,
-      discount: 5.0,
-      quantity: 5,
-    },
-    {
-      id: "PD/1052",
-      name: "Chocolate Cake",
-      price: 100.0,
-      discount: 15.0,
-      quantity: 20,
-    },
-    {
-      id: "PD/1029",
-      name: "Marble Cake",
-      price: 100.0,
-      discount: 12.5,
-      quantity: 18,
-    },
-    {
-      id: "PD/1033",
-      name: "Croissant",
-      price: 120.0,
-      discount: 7.5,
-      quantity: 15,
-    },
-    {
-      id: "PD/1045",
-      name: "Apple Pie",
-      price: 150.0,
-      discount: 20.0,
-      quantity: 10,
-    },
-    {
-      id: "PD/1060",
-      name: "Banana Bread",
-      price: 130.0,
-      discount: 15.0,
-      quantity: 12,
-    },
-    {
-      id: "PD/1072",
-      name: "Blueberry Muffin",
-      price: 140.0,
-      discount: 10.0,
-      quantity: 8,
-    },
-    {
-      id: "PD/1088",
-      name: "Cheese Cake",
-      price: 180.0,
-      discount: 25.0,
-      quantity: 5,
-    },
-    {
-      id: "PD/1095",
-      name: "Strawberry Tart",
-      price: 160.0,
-      discount: 18.0,
-      quantity: 9,
-    },
-  ]);
-
+function BillTable({ products }) {
   // Calculate subtotal
   const subTotal = products.reduce(
     (sum, product) =>
@@ -99,22 +26,29 @@ function BillTable() {
               <th className="p-3 border-b">#</th>
               <th className="p-3 border-b">Product ID</th>
               <th className="p-3 border-b">Product Name</th>
-              <th className="p-3 border-b">Current Unit Price</th>
+              <th className="p-3 border-b">Unit Price</th>
               <th className="p-3 border-b">Quantity</th>
               <th className="p-3 border-b">Discount per Unit</th>
               <th className="p-3 border-b">Total Price</th>
             </tr>
           </thead>
           <tbody>
-            {products.map((product, index) => (
-              <BillDataRow key={index} product={product} index={index} />
-            ))}
+            {products.length > 0 ? (
+              products.map((product, index) => (
+                <BillDataRow key={index} product={product} index={index} />
+              ))
+            ) : (
+              <tr>
+                <td colSpan="7" className="p-3 text-gray-500">
+                  No items found
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
 
-      {/* Added more space between the table and the totals */}
-      <div className="mt-6 flex justify-end px-16 ">
+      <div className="mt-6 flex justify-end px-16">
         <div className="text-right">
           <p className="text-lg">
             Total Discount:{" "}

@@ -12,4 +12,28 @@ export const saveCusOrder = async (cusOrder) => {
   }
 };
 
+export const getAllCusOrderByOutlet = async (outletId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/all-by-outlet/${outletId}`);
+    return response.data.data;
+  } catch (error) {
+    console.error(
+      "Error fetching customer orders",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
 
+export const getCusOrderItemsByCusOrId = async (cusOrId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/items`, { params: { cusOrId } });
+    return response.data.data;
+  } catch (error) {
+    console.error(
+      "Error fetching customer order items:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
