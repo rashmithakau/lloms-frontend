@@ -22,20 +22,23 @@ const Home = () => {
 
     return (
         <div className="relative w-full max-w-[100vw] overflow-x-hidden bg-[#e9e3e3]">
+            {/* Fixed Navbar */}
+            <div className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrollPosition > 100 ? 'bg-white shadow-md' : 'bg-transparent'}`}>
+                <Navbar />
+            </div>
+
             {/* Background Section */}
             <div
-                className="h-screen w-full bg-cover bg-center text-white flex flex-col transition-opacity duration-500 relative"
+                className="h-screen w-full bg-cover bg-center text-white flex flex-col transition-opacity duration-500 relative pt-20 md:pt-0"
                 style={{ backgroundImage: `url(${backgroundImage})` }}
             >
-                <Navbar />
-
                 {/* Hide when scrolling down */}
                 <div
-                    className={`transition-opacity duration-200 ${scrollPosition > 100 ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+                    className={`transition-opacity duration-200 mt-8 md:mt-0 ${scrollPosition > 100 ? "opacity-0 pointer-events-none" : "opacity-100"}`}
                 >
                     <Navbarsidetext />
 
-                    <div className="absolute right-[5%] bottom-[10%]">
+                    <div className="absolute right-[5%] bottom-[10%] hidden md:block">
                         <Addbox/>
                     </div>
                 </div>
@@ -43,19 +46,15 @@ const Home = () => {
 
             {/* Content Section */}
             <div
-                className="relative w-full z-20 bg-[#e9e3e3] transition-opacity duration-500 px-4 md:px-8"
+                className="relative w-full z-20 bg-[#e9e3e3] transition-opacity duration-500 px-4 md:px-8 pt-8 md:pt-20"
                 style={{
                     opacity: Math.min(scrollPosition / window.innerHeight, 1),
                 }}
             >
-
-
-                <br/>
-                <br/>
-                <br/>
                 <BestProductContainer />
                 <OutletCardContainer />
             </div>
+
             <Footer />
         </div>
     );
