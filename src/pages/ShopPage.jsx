@@ -65,7 +65,9 @@ const ShopPage = () => {
 
   return (
       <div className="bg-[#e9e3e3]">
-        <Navbar />
+        <div className="fixed top-0 left-0 w-full z-50 shadow-md">
+          <Navbar />
+        </div>
         <br />
         <div className="text-center mb-8">
           <h2 className="text-[#F4952C] font-pacifico text-3xl">Best Sellings</h2>
