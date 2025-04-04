@@ -7,7 +7,7 @@ function Item({onClose, mode}) {
     
     
     const [productName, setProductName] = useState('');
-    const [productCategory, setProductCategory] = useState('');
+    const [productCatagory, setProductCatagory] = useState('');
     const [productMeasuringUnitType, setProductMeasuringUnitType] = useState('');
     const [price, setPrice] = useState('');
     const [imageFile, setImageFile] = useState(null);
@@ -18,7 +18,7 @@ function Item({onClose, mode}) {
       
       const formData = new FormData();
       formData.append("productName", productName);
-      formData.append("productCategory", productCategory);
+      formData.append("productCatagory", productCatagory);
       formData.append("productMeasuringUnitType", productMeasuringUnitType);
       formData.append("price", price);
       //formData.append("ImageFile", imageFile);
@@ -73,11 +73,11 @@ function Item({onClose, mode}) {
                     required
                 />
             
-            <label className="text-gray-700 text-lg font-medium ml-5">Category</label>
+            <label className="text-gray-700 text-lg font-medium ml-5">Catagory</label>
                 <select 
                 className="md:w-[250px] sm:w-[150px] w-[100px] h-[30px] border border-gray-300 rounded-md bg-gray-100 text-gray-600 focus:outline-none px-3"
-                value={productCategory} 
-                onChange={(e)=>{setProductCategory(e.target.value)}}
+                value={productCatagory} 
+                onChange={(e)=>{setProductCatagory(e.target.value)}}
                 required
                 >
                     <option value="">--</option>
@@ -109,6 +109,10 @@ function Item({onClose, mode}) {
                     className="md:w-[250px] sm:w-[150px] w-[100px] h-[30px] px-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-600 focus:outline-none"
                     onChange={(e)=>setPrice(e.target.value)}
                     required
+
+                    pattern="^\d+(\.\d{1,2})?$" // Allows numbers with up to 2 decimal places
+                    onInvalid={(e) => e.target.setCustomValidity("Please enter a valid price")}
+                    onInput={(e) => e.target.setCustomValidity("")} // Reset validation message
                 />
             
             <label className="text-gray-700 text-lg font-medium ml-5">Photo</label>
@@ -140,13 +144,16 @@ function Item({onClose, mode}) {
               
             <div className="ml-8">
             <button
+                    type="button" // Prevent form submission
                     className="md:w-[90px] sm:w-[75px] w-[25px] h-[44px] bg-pink-400 text-white font-semibold rounded-md border border-pink-600 hover:bg-pink-500"
                     onClick={() => {
-                      setProductName('');
-                      setProductCategory('');
-                      setProductMeasuringUnitType('');
-                      setPrice('');
-                      setImageFile(null);
+                        document.querySelector("form").reset(); // Reset the form  
+
+                        setProductName('');
+                        setProductCatagory('');
+                        setProductMeasuringUnitType('');
+                        setPrice('');
+                        setImageFile(null);
                     }}
                 >
                     Cancel
