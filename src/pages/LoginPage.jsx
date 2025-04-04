@@ -3,12 +3,14 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api/auth.js"; 
 import AuthContext from "../context/AuthContext.jsx";
+import { jwtDecode } from "jwt-decode";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // 🔥 New loading state
 
   const { loginUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -20,18 +22,38 @@ export default function LoginPage() {
       return;
     }
     setError("");
+    setLoading(true); // 🔥 Show loading
 
     try {
       const data = await login(username, password);
       if (data?.token) {
         loginUser(data.token);
-        navigate("/outlet"); // Redirect to Dashboard
+        const decode = jwtDecode(data.token);
+        console.log("token:", decode);
+
+        setTimeout(() => {
+          switch (decode.role) {
+            case 1:
+              navigate("/outlet");
+              break;
+            case 2:
+              navigate("/factory-Staff");
+              break;
+            case 3:
+              navigate("/owner");
+              break;
+            default:
+              navigate("/");
+          }
+        }, 1000); // 👈 Optional delay for better UX
       } else {
+        setLoading(false);
         setError("Invalid credentials");
       }
     } catch (err) {
       console.error("Login Error:", err?.response || err);
       setError("Invalid username or password.");
+      setLoading(false);
     }
   };
 
@@ -40,7 +62,7 @@ export default function LoginPage() {
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <img
-          src="src/assets/background_images/loginbg.jpg" // Fixed Path
+          src="src/assets/background_images/loginbg.jpg"
           alt="Bakery Background"
           className="w-full h-full object-cover blur-sm opacity-100"
         />
@@ -59,7 +81,6 @@ export default function LoginPage() {
         <p className="text-center text-gray-600 mb-6">Login to LLOMS</p>
 
         <form onSubmit={handleLogin} className="space-y-5">
-          {/* Username Field */}
           <div>
             <label className="block text-sm font-medium text-gray-700">Username</label>
             <input
@@ -71,7 +92,6 @@ export default function LoginPage() {
             />
           </div>
 
-          {/* Password Field */}
           <div>
             <label className="block text-sm font-medium text-gray-700">Password</label>
             <div className="relative">
@@ -82,7 +102,6 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              {/* Toggle Password Button */}
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
@@ -93,10 +112,8 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Error Message */}
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
-          {/* Login Button */}
           <motion.button
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
@@ -107,6 +124,21 @@ export default function LoginPage() {
           </motion.button>
         </form>
       </motion.div>
+
+      {/* 🔄 Loading Spinner Overlay */}
+      {loading && (
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center  backdrop-blur-sm z-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <motion.div
+            className="w-16 h-16 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 1 }}
+          />
+        </motion.div>
+      )}
     </div>
   );
 }

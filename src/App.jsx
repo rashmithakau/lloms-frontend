@@ -19,9 +19,14 @@ import Aboutpage from "./pages/Aboutpage.jsx";
 
 
 function App() {
-  const PrivateRoute = ({ children }) => {
-    const { token } = useContext(AuthContext);
-    return token ? children : <Navigate to="/login" />;
+  const PrivateRoute = ({ children, allowedRoles }) => {
+    const { token, role } = useContext(AuthContext);
+  
+    if (!token || !allowedRoles.includes(role)) {
+      return <Navigate to="/login" />;
+    }
+  
+    return children;
   };
 
 
@@ -45,12 +50,15 @@ function App() {
           {/* Show login page first */}
           <Route path="/login" element={<LoginPage />} />
 
-          <Route path="/outlet" element={<OutletPage />} />
+          <Route path="/outlet" element={<PrivateRoute allowedRoles={[1]}><OutletPage /></PrivateRoute>} />
           {/* <PrivateRoute><OutletPage/></PrivateRoute> */}
 
-          <Route path="/factory-Staff" element={<FactoryStaffPage />} />
+          
 
-          <Route path="/owner" element={<OwnerPage />} />
+          <Route path="/factory-Staff" element={<PrivateRoute allowedRoles={[2]}><FactoryStaffPage /></PrivateRoute>} />
+
+          
+          <Route path="/owner" element={<PrivateRoute allowedRoles={[3]}><OwnerPage /></PrivateRoute>} />
 
           <Route path="*" element={<Navigate to="/" />} />
 
