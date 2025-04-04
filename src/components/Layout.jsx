@@ -1,7 +1,13 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
+
+
 
 const Layout = ({ children , navItemList=[],user="Mathara Outlet"}) => {
+  const { username } = useContext(AuthContext);
+  console.log("username:", username);
   const sliderExpandWidth = 90;
   const sliderNotExpandWidth = 16;
 
@@ -16,7 +22,7 @@ const Layout = ({ children , navItemList=[],user="Mathara Outlet"}) => {
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} user={user}
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} user={username}
          sliderExpandWidth={sliderExpandWidth} 
          sliderNotExpandWidth={sliderNotExpandWidth} 
          navItemList={navItemList} />
