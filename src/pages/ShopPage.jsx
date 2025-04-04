@@ -65,9 +65,7 @@ const ShopPage = () => {
 
   return (
       <div className="bg-[#e9e3e3]">
-        <div className="fixed top-0 left-0 w-full z-50 shadow-md">
-          <Navbar />
-        </div>
+        <Navbar />
         <br />
         <div className="text-center mb-8">
           <h2 className="text-[#F4952C] font-pacifico text-3xl">Best Sellings</h2>
@@ -130,14 +128,3 @@ const ShopPage = () => {
 
 export default ShopPage;
 
-/*<br/>
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-          <button
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-              onClick={() => setIsPopupOpen(true)}
-          >
-            Open Popup
-          </button>
-          <ShopPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
-        </div>
-        */
