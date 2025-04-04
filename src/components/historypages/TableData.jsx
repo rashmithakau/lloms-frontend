@@ -49,6 +49,8 @@ const TableData = ({ orders }) => {
               <div className="w-1/5 text-[#432634]">{order.date}</div>
               <div className="w-1/5 text-[#432634]">{order.time}</div>
               <div className="w-1/5 text-[#432634]">{order.status}</div>
+              <div className="w-1/5 text-[#432634]">{order.customerName}</div>
+              <div className="w-1/5 text-[#432634]">{order.customerPhone}</div>
               <div className="w-1/5">
                 <button
                   className="px-1 py-2 text-base text-[#432634] border-1 border-[#432634] rounded-full"
