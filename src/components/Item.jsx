@@ -21,8 +21,12 @@ function Item({onClose, mode}) {
       formData.append("productCategory", productCategory);
       formData.append("productMeasuringUnitType", productMeasuringUnitType);
       formData.append("price", price);
-      formData.append("ImageFile", imageFile);
+      //formData.append("ImageFile", imageFile);
     
+      if (imageFile) {
+        formData.append("ImageFile", imageFile);
+      }
+
       try {
         const response = await addProduct(formData);
         if (response.status === 201) {
