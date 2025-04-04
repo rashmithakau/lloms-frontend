@@ -30,7 +30,9 @@ export const getFacOrdersByStatus = async (status) => {
 
 export const getFacOrderItemsByFacOrId = async (facOrId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/items`, { params: { facOrId } });
+    const response = await axios.get(`${BASE_URL}/items`, {
+      params: { facOrId },
+    });
     return response.data.data;
   } catch (error) {
     console.error(
@@ -58,7 +60,7 @@ export const updateFacOrderStatusById = async (facOrId, status) => {
 
 export const getFacOrdersById = async (facOrId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/byId`, { 
+    const response = await axios.get(`${BASE_URL}/byId`, {
       params: { facOrId }, // ✅ Correctly placed params
     });
     return response.data;
@@ -71,5 +73,15 @@ export const getFacOrdersById = async (facOrId) => {
   }
 };
 
-
-
+export const getAllFacOrderByOutlet = async (outletId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/all-by-outlet/${outletId}`);
+    return response.data.data;
+  } catch (error) {
+    console.error(
+      "Error fetching customer orders",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};

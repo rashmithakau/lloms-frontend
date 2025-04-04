@@ -30,6 +30,8 @@ const CustomerOrderHistory = ({ show, onClose, orders, loading }) => {
                     <div className="w-1/5 text-black">Date</div>
                     <div className="w-1/5 text-black">Time</div>
                     <div className="w-1/5 text-black">Status</div>
+                    <div className="w-1/5 text-black">Customer Name</div>
+                    <div className="w-1/5 text-black">Customer Phone No.</div>
                     <div className="w-1/5"></div>
                   </div>
                 </div>

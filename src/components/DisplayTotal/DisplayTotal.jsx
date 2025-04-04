@@ -41,6 +41,8 @@ const DisplayTotal = ({ totals, onClear, onSubmit }) => {
             hour12: true,
           }), // 12-hour format
           status: item.status,
+          customerName: item.customerName,
+          customerPhone: item.customerPhone,
         }))
         .sort((a, b) => b.orderId.localeCompare(a.orderId)); // Sort by orderId descending
       setOrders(orderList);
