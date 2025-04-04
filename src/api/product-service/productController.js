@@ -67,7 +67,7 @@ export const updateProduct = async (id, formData) => {
   } catch (error) {
     console.error("Error updating product:", error);
     throw error;  // Re-throw error to be handled in the component
-
+  }}
 export const addProduct = async (formData) => {
   try {
     const response = await axios.post(BASE_URL, formData, {
