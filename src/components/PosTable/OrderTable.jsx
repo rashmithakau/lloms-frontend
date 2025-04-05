@@ -1,8 +1,7 @@
 import { useState } from "react";
 import DataRow from "./DataRow"; // Import the DataRow component
 
-const OrderTable = ({tType="pos", products, setProducts}) => {
-
+const OrderTable = ({ tType = "pos", products, setProducts }) => {
   const handleQuantityChange = (index, newQuantity) => {
     const updatedProducts = [...products];
     updatedProducts[index].quantity = newQuantity;
@@ -11,6 +10,12 @@ const OrderTable = ({tType="pos", products, setProducts}) => {
 
   const handleDelete = (index) => {
     setProducts(products.filter((_, i) => i !== index));
+  };
+
+  const handleDiscountChange = (index, newDiscount) => {
+    const updatedProducts = [...products];
+    updatedProducts[index].discount = newDiscount;
+    setProducts(updatedProducts);
   };
 
   return (
@@ -24,9 +29,9 @@ const OrderTable = ({tType="pos", products, setProducts}) => {
               <th className="p-2">Product Name</th>
               <th className="p-2">Unit Price</th>
               {tType !== "return" && <th className="p-2">Quantity</th>}
-              {tType === "return" && <th className="p-2">Stock</th> }
+              {tType === "return" && <th className="p-2">Stock</th>}
               {tType === "return" && <th className="p-2">Return</th>}
-              {tType === "pos" && <th className="p-2">Discount</th> }
+              {tType === "pos" && <th className="p-2">Discount</th>}
               <th className="p-2">Actions</th>
             </tr>
           </thead>
@@ -38,6 +43,7 @@ const OrderTable = ({tType="pos", products, setProducts}) => {
                 index={index}
                 handleQuantityChange={handleQuantityChange}
                 handleDelete={handleDelete}
+                handleDiscountChange={handleDiscountChange}
                 type={tType}
               />
             ))}

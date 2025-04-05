@@ -122,7 +122,7 @@ function Order() {
           setProducts={setOrderItems}
         />
         <ActionContainer>
-          <OrderAction onClear={handleClearOrder} onSubmit={handleSubmit} />
+          <OrderAction onClear={handleClearOrder} onSubmit={handleSubmit} isActive={orderItems.length>0}/>
         </ActionContainer>
       </div>
           {orderLoading && <LoadingPopup/>}

@@ -58,7 +58,7 @@ const DisplayTotal = ({ totals, onClear, onSubmit }) => {
       <div className="grid grid-cols-2 gap-2 px-4 py-1">
         <p className="text-[17px]">Total</p>
         <div className="box-border bg-pink-100 px-2 py-1 border rounded-lg border-gray-400 text-sm sm:text-base">
-          Rs.{total.toFixed(2)}
+          Rs.{subtotal.toFixed(2)}
         </div>
         <p className="text-[17px]">Discount</p>
         <div className="box-border bg-pink-100 px-2 py-1 border rounded-lg border-gray-400 text-sm sm:text-base">
@@ -66,12 +66,12 @@ const DisplayTotal = ({ totals, onClear, onSubmit }) => {
         </div>
         <p className="text-[17px]">Sub Total</p>
         <div className="box-border bg-pink-100 px-2 py-1 border rounded-lg border-gray-400 text-sm sm:text-base">
-          Rs.{subtotal.toFixed(2)}
+          Rs.{total.toFixed(2)}
         </div>
       </div>
 
       <div className="flex justify-center items-center my-2 gap-8">
-        <FillButton onClick={handleOpenPopup}>Proceed {">"}</FillButton>
+        <FillButton onClick={handleOpenPopup} disabled={subtotal <= 0}>Proceed {">"}</FillButton>
         <BorderButton onClick={onClear}>Cancel</BorderButton>
       </div>
 
