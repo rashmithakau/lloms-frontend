@@ -54,6 +54,7 @@ function Return() {
           name: item.productName,
           price: item.price,
           stock: item.stock,
+          quantity: 1,
           //discount: 0,
         },
       ]);
@@ -86,7 +87,7 @@ function Return() {
           setProducts={setOrderItems}
         />
         <ActionContainer>
-          <ReturnAction onClear={handleClearOrder} />
+          <ReturnAction onClear={handleClearOrder} products={orderItems}/>
         </ActionContainer>
       </div>
     </div>
