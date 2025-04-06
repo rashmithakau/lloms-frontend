@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import CardContainer from "../../components/cardContainer/CardContainer";
 import OrderTable from "../../components/PosTable/OrderTable";
 import ItemCard from "../../components/itemCard/ItemCard";
@@ -9,16 +9,18 @@ import Image from "../../assets/2254.jpg_wh860.jpg";
 import { useState, useEffect } from "react";
 import { getAllProductsByOutletId } from "../../api/product-service/productController";
 import LoadingWheel from "../../components/loadingWheel/LoadingWheel";
+import AuthContext from "../../context/AuthContext";
 
 function Return() {
   const [orderItems, setOrderItems] = useState([]);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { outletId } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const data = await getAllProductsByOutletId(101);
+        const data = await getAllProductsByOutletId(outletId);
         setItems(data);
       } catch (error) {
         console.error("Error fetching products:", error);

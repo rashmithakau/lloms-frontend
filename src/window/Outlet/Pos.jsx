@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import CardContainer from "../../components/cardContainer/CardContainer";
 import OrderTable from "../../components/PosTable/OrderTable";
 import DisplayTotal from "../../components/DisplayTotal/DisplayTotal";
@@ -10,17 +10,19 @@ import LoadingWheel from "../../components/loadingWheel/LoadingWheel";
 import LoadingPopup from "../../components/Popup/LoadingPopup/LoadingPopup";
 import { saveCusOrder } from "../../api/outlet_service/cusOrderController";
 import Allert from "../../components/Allert/Allert";
+import AuthContext from "../../context/AuthContext";
 
 function Pos() {
   const [orderItems, setOrderItems] = useState([]);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [orderLoading, setOrderLoading] = useState(false);
+  const { outletId } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const data = await getAllProductsByOutletId(101);
+        const data = await getAllProductsByOutletId(outletId);
         setItems(data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -78,11 +80,11 @@ function Pos() {
     };
   };
 
-  const handleSubmit = async (cusName,cusPho) => {
+  const handleSubmit = async (cusName, cusPho) => {
     const itemList = orderItems.map((item) => ({
       productId: item.id,
       quantity: item.quantity,
-      discountPerUnit: item.discount
+      discountPerUnit: item.discount,
     }));
 
     const orderRequest = {
@@ -101,10 +103,10 @@ function Pos() {
     } catch (error) {
       console.error("Error placing order:", error);
       Allert({ message: "Your order could not be placed", type: "error" });
-    }finally{
+    } finally {
       setOrderLoading(false);
       handleClearOrder();
-    };
+    }
   };
 
   return (
@@ -133,10 +135,14 @@ function Pos() {
           setProducts={setOrderItems}
         />
         <ActionContainer>
-          <DisplayTotal totals={calculateTotals()} onClear={handleClearOrder} onSubmit={handleSubmit}/>
+          <DisplayTotal
+            totals={calculateTotals()}
+            onClear={handleClearOrder}
+            onSubmit={handleSubmit}
+          />
         </ActionContainer>
       </div>
-      {orderLoading && <LoadingPopup/>}
+      {orderLoading && <LoadingPopup />}
     </div>
   );
 }
