@@ -32,8 +32,10 @@ const Layout = ({ children , navItemList=[], user="Mathara Outlet"}) => {
     };
   }, []);
 
-  const { username } = useContext(AuthContext);
+  const { username,outletId } = useContext(AuthContext);
+  
   console.log("username:", username);
+  console.log("outletId:", outletId);
   const sliderExpandWidth = 90;
   const sliderNotExpandWidth = 16;
 

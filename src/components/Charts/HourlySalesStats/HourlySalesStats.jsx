@@ -11,7 +11,7 @@ import {
 } from "recharts";
 
 const outletSalesData = {
-  "Downtown Outlet": [
+  "Galle": [
     { time: "8 AM", sales: 25 },
     { time: "9 AM", sales: 40 },
     { time: "10 AM", sales: 55 },
@@ -24,7 +24,7 @@ const outletSalesData = {
     { time: "5 PM", sales: 55 },
     { time: "6 PM", sales: 85 },
   ],
-  "Uptown Outlet": [
+  "Matara": [
     { time: "8 AM", sales: 20 },
     { time: "9 AM", sales: 35 },
     { time: "10 AM", sales: 50 },
@@ -37,10 +37,36 @@ const outletSalesData = {
     { time: "5 PM", sales: 50 },
     { time: "6 PM", sales: 80 },
   ],
+  "Weligama": [
+    { time: "8 AM", sales: 18 },
+    { time: "9 AM", sales: 30 },
+    { time: "10 AM", sales: 42 },
+    { time: "11 AM", sales: 36 },
+    { time: "12 PM", sales: 50 },
+    { time: "1 PM", sales: 58 },
+    { time: "2 PM", sales: 47 },
+    { time: "3 PM", sales: 60 },
+    { time: "4 PM", sales: 62 },
+    { time: "5 PM", sales: 53 },
+    { time: "6 PM", sales: 78 },
+  ],
+  "Baddegama": [
+    { time: "8 AM", sales: 15 },
+    { time: "9 AM", sales: 28 },
+    { time: "10 AM", sales: 38 },
+    { time: "11 AM", sales: 33 },
+    { time: "12 PM", sales: 44 },
+    { time: "1 PM", sales: 52 },
+    { time: "2 PM", sales: 43 },
+    { time: "3 PM", sales: 55 },
+    { time: "4 PM", sales: 57 },
+    { time: "5 PM", sales: 48 },
+    { time: "6 PM", sales: 70 },
+  ],
 };
 
 function HourlySalesStats() {
-  const [selectedOutlet, setSelectedOutlet] = useState("Downtown Outlet");
+  const [selectedOutlet, setSelectedOutlet] = useState("Galle");
 
   const handleOutletChange = (e) => {
     setSelectedOutlet(e.target.value);
