@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import InventoryTable from "../../components/PosTable/InventoryTable";
+import AuthContext from "../../context/AuthContext";
 
 function Inventary() {
+  const { outletId } = useContext(AuthContext);
+
   return (
     <div>
-      <InventoryTable outletId={101} type="outlet" />
+      <InventoryTable outletId={outletId} type="outlet" />
     </div>
   );
 }

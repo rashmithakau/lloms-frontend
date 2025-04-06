@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CardContainer from "../../components/cardContainer/CardContainer";
 import OrderTable from "../../components/PosTable/OrderTable";
 import ItemCard from "../../components/itemCard/ItemCard";
@@ -9,20 +9,23 @@ import { getAllProductsForOutlet } from "../../api/product-service/productContro
 import { saveFacOrder } from "../../api/outlet_service/factoryOrderController";
 import Allert from "../../components/Allert/Allert";
 import LoadingPopup from "../../components/Popup/LoadingPopup/LoadingPopup";
-
+import AuthContext from "../../context/AuthContext";
 
 function Order() {
   const [orderItems, setOrderItems] = useState([]);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [orderLoading, setOrderLoading] = useState(false);
+  const { outletId } = useContext(AuthContext);
 
   // 🟢 Fetch products and filter active ones
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const data = await getAllProductsForOutlet(101);
-        const filteredItems = data.filter((item) => item.productStatus === true);
+        const data = await getAllProductsForOutlet(outletId);
+        const filteredItems = data.filter(
+          (item) => item.productStatus === true
+        );
         setItems(filteredItems);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -54,10 +57,10 @@ function Order() {
     } catch (error) {
       console.error("Error placing order:", error);
       Allert({ message: "Your order could not be placed", type: "error" });
-    }finally{
+    } finally {
       setOrderLoading(false);
       handleClearOrder();
-    };
+    }
   };
 
   // 🟢 Clear order items
@@ -122,11 +125,14 @@ function Order() {
           setProducts={setOrderItems}
         />
         <ActionContainer>
-          <OrderAction onClear={handleClearOrder} onSubmit={handleSubmit} isActive={orderItems.length>0}/>
+          <OrderAction
+            onClear={handleClearOrder}
+            onSubmit={handleSubmit}
+            isActive={orderItems.length > 0}
+          />
         </ActionContainer>
       </div>
-          {orderLoading && <LoadingPopup/>}
-  
+      {orderLoading && <LoadingPopup />}
     </div>
   );
 }
