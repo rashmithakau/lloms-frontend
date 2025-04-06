@@ -15,6 +15,7 @@ import Product from "../window/Owner/Product.jsx";
 export default function OwnerPage() {
   const categories = ["Cake", "Shorteas", "Biscuits", "Chocolates"];
   const [activeTab, setActiveTab] = useState("report"); // Default tab
+  const [searchText, setSearchText] = useState("");
 
   const navItemList = [
     {
@@ -78,7 +79,7 @@ export default function OwnerPage() {
     <div>
       <Layout navItemList={navItemList} user="Owner">
         <div className="flex">
-          <SearchBar categoryList={categories} />
+          <SearchBar categoryList={categories} dropdown={false} onSearchChange={setSearchText}/>
           <NotificationButton />
         </div>
 

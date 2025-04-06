@@ -15,6 +15,7 @@ export default function FactoryStaffPage() {
   const [activeTab, setActiveTab] = useState("order"); // Default tab
   const [searchText, setSearchText] = useState("");
   const [category, setCategory] = useState("Pending");
+  const [dropdown, setDropdown] = useState(true);
 
   console.log(searchText, category);
 
@@ -25,23 +26,43 @@ export default function FactoryStaffPage() {
     { nameBtn: "RETURN", fun: () => setActiveTab("return"), iconUrl: "src/assets/icons/returnIcon.svg", isActive: activeTab === "return" },
     { nameBtn: "PRODUCT", fun: () => setActiveTab("product"), iconUrl: "src/assets/icons/product.svg", isActive: activeTab === "product" },
     { nameBtn: "OUTLET", fun: () => setActiveTab("outlet"), iconUrl: "src/assets/icons/outlet.svg", isActive: activeTab === "outlet" },
-    { nameBtn: "CUS ORDER HISTORY", fun: () => setActiveTab("history"), iconUrl: "src/assets/icons/historyIcon.svg", isActive: activeTab === "history" },
   ];
 
   // 🛠️ Use Effect to set categories when activeTab changes
   useEffect(() => {
     if (activeTab === "order") {
       setCategories(["Pending", "Confirmed", "Delivered", "Rejected"]);
-    } else {
+      setDropdown(true);
+      console.log(searchText)
+    } else if (activeTab === "billing") {
       setCategories([]); // Reset categories for other tabs
+      setDropdown(false);
+      console.log(searchText)
+    }else if( activeTab === "inventary") {
+      setCategories([]); // Reset categories for other tabs
+      setDropdown(false);
+      console.log(searchText)
+    }else if( activeTab === "return") {
+      setCategories([]); // Reset categories for other tabs
+      setDropdown(false);
+      console.log(searchText)
+    }else if( activeTab === "product") {
+      setCategories([]); // Reset categories for other tabs
+      setDropdown(false);
+      console.log(searchText)
+    }else if( activeTab === "outlet") {
+      setCategories([]); // Reset categories for other tabs
+      setDropdown(false);
+      console.log(searchText)
     }
+
   }, [activeTab]);
 
   return (
     <div>
       <Layout navItemList={navItemList} user="Factory Staff">
         <div className="flex">
-          <SearchBar categoryList={categories} txt="By ID" dropdown={true} onCategoryChange={setCategory} onSearchChange={setSearchText}/>
+          <SearchBar categoryList={categories} txt="By ID" dropdown={dropdown} onCategoryChange={setCategory} onSearchChange={setSearchText}/>
           <NotificationButton />
         </div>
 
