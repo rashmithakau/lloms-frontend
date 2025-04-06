@@ -11,6 +11,7 @@ import Return from "../window/Outlet/Return";
 export default function OutletPage() {
   const categories = ["All","Cake", "Shorteas", "Biscuits", "Chocolates"];
   const [activeTab, setActiveTab] = useState("pos"); // Default tab
+  const [searchText, setSearchText] = useState("");
 
   const navItemList = [
     {
@@ -51,7 +52,7 @@ export default function OutletPage() {
     <div>
       <Layout navItemList={navItemList}>
         <div className="flex">
-          <SearchBar categoryList={categories} />
+          <SearchBar categoryList={categories} dropdown={false} onSearchChange={setSearchText}/>
           <NotificationButton />
         </div>
 

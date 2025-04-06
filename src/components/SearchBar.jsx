@@ -36,7 +36,7 @@ const SearchBar = ({
             required
           />
           <button
-            type="submit"
+            onClick={()=>{console.log("Search clicked")}}
             className="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-pink-400 rounded-e-lg border border-pink-500 hover:bg-pink-500 focus:outline-none focus:ring-0 transition duration-300 transform hover:scale-105"
           >
             <svg
