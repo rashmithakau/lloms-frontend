@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
         setUserId(decoded.userId);
         setUsername(decoded.username);
         setRole(decoded.role);
-        setOutletId(decoded.outletId);
+        setOutletId(decoded.outeltid);
       } catch (err) {
         console.error("Invalid token:", err);
         logoutUser(); // If token is invalid, logout
@@ -36,13 +36,13 @@ export const AuthProvider = ({ children }) => {
       setUserId(decoded.userId);
       setUsername(decoded.username);
       setRole(decoded.role);
-      setOutletId(decoded.outletId);
+      setOutletId(decoded.outeltid);
 
       localStorage.setItem("token", token);
       localStorage.setItem("userId", decoded.userId);
       localStorage.setItem("username", decoded.username);
       localStorage.setItem("role", decoded.role);
-      localStorage.setItem("outletId", decoded.outletId);
+      localStorage.setItem("outletId", decoded.outeltid);
     } catch (err) {
       console.error("Failed to decode login token:", err);
     }

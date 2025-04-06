@@ -12,7 +12,7 @@ import {
 
 // Sample return data for different outlets and months
 const returnData = {
-  "Downtown Outlet": {
+  Matara: {
     January: [
       { item: "Bread", returns: 12 },
       { item: "Cake", returns: 5 },
@@ -35,7 +35,7 @@ const returnData = {
       { item: "Muffin", returns: 14 },
     ],
   },
-  "Uptown Outlet": {
+  Galle: {
     January: [
       { item: "Bread", returns: 8 },
       { item: "Cake", returns: 3 },
@@ -58,10 +58,56 @@ const returnData = {
       { item: "Muffin", returns: 8 },
     ],
   },
+  Weligama: {
+    January: [
+      { item: "Bread", returns: 7 },
+      { item: "Cake", returns: 4 },
+      { item: "Pastry", returns: 6 },
+      { item: "Cookies", returns: 5 },
+      { item: "Muffin", returns: 8 },
+    ],
+    February: [
+      { item: "Bread", returns: 6 },
+      { item: "Cake", returns: 3 },
+      { item: "Pastry", returns: 5 },
+      { item: "Cookies", returns: 6 },
+      { item: "Muffin", returns: 7 },
+    ],
+    March: [
+      { item: "Bread", returns: 9 },
+      { item: "Cake", returns: 4 },
+      { item: "Pastry", returns: 7 },
+      { item: "Cookies", returns: 8 },
+      { item: "Muffin", returns: 10 },
+    ],
+  },
+  Baddegama: {
+    January: [
+      { item: "Bread", returns: 10 },
+      { item: "Cake", returns: 6 },
+      { item: "Pastry", returns: 4 },
+      { item: "Cookies", returns: 8 },
+      { item: "Muffin", returns: 5 },
+    ],
+    February: [
+      { item: "Bread", returns: 9 },
+      { item: "Cake", returns: 5 },
+      { item: "Pastry", returns: 6 },
+      { item: "Cookies", returns: 7 },
+      { item: "Muffin", returns: 6 },
+    ],
+    March: [
+      { item: "Bread", returns: 13 },
+      { item: "Cake", returns: 7 },
+      { item: "Pastry", returns: 8 },
+      { item: "Cookies", returns: 9 },
+      { item: "Muffin", returns: 11 },
+    ],
+  },
 };
 
 function ItemReturnStats() {
-  const [selectedOutlet, setSelectedOutlet] = useState("Downtown Outlet");
+  const [selectedOutlet, setSelectedOutlet] = useState("Matara");
   const [selectedMonth, setSelectedMonth] = useState("January");
 
   const handleOutletChange = (e) => setSelectedOutlet(e.target.value);
