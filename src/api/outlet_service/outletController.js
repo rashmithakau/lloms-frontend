@@ -8,9 +8,24 @@ export const getAllOutlets = async () => {
     return response.data.data;
   } catch (error) {
     console.error(
-      "Error fetching outlets:",
-      error.response?.data || error.message
+        "Error fetching outlets:",
+        error.response?.data || error.message
     );
     throw error;
+  }
+}
+
+export const saveOutlet = async (formData) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/save`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return response.data;
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || error.message;
+    console.error("Error saving outlet:", errorMessage);
+    throw new Error(errorMessage); // This can be caught in OutletModal to display to the user
   }
 };
