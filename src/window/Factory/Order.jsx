@@ -7,7 +7,7 @@ import {
 } from "../../api/outlet_service/factoryOrderController";
 
 function Order({ category, selCategory = "Pending", searchText }) {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([]);//fw
   const [loading, setLoading] = useState(true);
   const selectedCategory = category || selCategory; // Use `category` if provided
 
