@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import Dropdown2 from "../Dropdown2/Dropdown2";
 import OrderTable from "../PosTable/OrderTable";
 import LoadingWheel from "../loadingWheel/LoadingWheel";
 import {
@@ -8,6 +7,9 @@ import {
   updateFacOrderStatusById,
 } from "../../api/outlet_service/factoryOrderController";
 import LoadingPopup from "../Popup/LoadingPopup/LoadingPopup";
+import { saveNotification } from "../../api/reporting_service/notificationController";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext.jsx";
 
 const FactoryOrderTable = ({ orders }) => {
   const [statuses, setStatuses] = useState({});
@@ -15,6 +17,7 @@ const FactoryOrderTable = ({ orders }) => {
   const [loadingItems, setLoadingItems] = useState(false);
   const [orderItems, setOrderItems] = useState([]);
   const [orderLoading, setOrderLoading] = useState(false);
+  const { outletId } = useContext(AuthContext);
 
   // Fetch order items
   const handleFetchOrderItems = async (orderId) => {
@@ -52,6 +55,21 @@ const FactoryOrderTable = ({ orders }) => {
     if (result.isConfirmed) {
       try {
         setOrderLoading(true);
+    
+        if (newStatus === "Delivered") {
+          const notificationDTO = {
+            outletId:outletId,
+            message: `Order FO/${orderId} has been delivered!`,
+            date: new Date(),
+          };
+  
+          // Set isNotify to true to send the notification (you can adjust this logic as needed)
+          const isNotify = true;
+          
+          // Save the notification and pass the isNotify flag
+          await saveNotification(notificationDTO, isNotify);
+        }
+ 
         await updateFacOrderStatusById(orderId, newStatus);
         Swal.fire("Updated!", "Order status has been updated.", "success");
         setStatuses((prev) => ({ ...prev, [orderId]: newStatus }));
@@ -73,13 +91,6 @@ const FactoryOrderTable = ({ orders }) => {
       handleFetchOrderItems(orderId);
     }
   };
-
-  const options = [
-    { value: "Pending", label: "Pending" },
-    { value: "Confirmed", label: "Confirmed" },
-    { value: "Delivered", label: "Delivered" },
-    { value: "Rejected", label: "Rejected" },
-  ];
 
   return (
     <div
@@ -124,12 +135,19 @@ const FactoryOrderTable = ({ orders }) => {
                       <td className="py-3 px-6 text-left">{order.date}</td>
                       <td className="py-3 px-6 text-left">{order.time}</td>
                       <td className="py-3 px-6 text-left">
-                        <Dropdown2
-                          label="Status"
+                        <select
                           value={statuses[order.orderId] || order.status}
                           onChange={(e) => handleStatusChange(e, order.orderId)}
-                          options={options}
-                        />
+                          className="px-4 py-2 bg-white border rounded-lg"
+                        >
+                          <option value="Pending">Pending</option>
+                          <option value="Confirmed">Confirmed</option>
+                          <option value="Delivered">Delivered</option>
+                          <option value="Rejected">Rejected</option>
+                          <option value="Received" disabled>
+                            Received
+                          </option>
+                        </select>
                       </td>
                       <td className="py-3 px-6 text-left">
                         <button
@@ -167,7 +185,7 @@ const FactoryOrderTable = ({ orders }) => {
           </table>
         </div>
       </div>
-      {orderLoading && <LoadingPopup txt="Order Status Is Chageing..." />}
+      {orderLoading && <LoadingPopup txt="Order Status Is Changing..." />}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import OrderTable from "../PosTable/OrderTable";
 import LoadingWheel from "../loadingWheel/LoadingWheel";
@@ -7,9 +7,10 @@ import {
   updateFacOrderStatusById,
 } from "../../api/outlet_service/factoryOrderController";
 import LoadingPopup from "../Popup/LoadingPopup/LoadingPopup";
-import { updateProduct } from "../../api/product-service/stockController";  // Assuming the updateProduct API
+import { updateProduct } from "../../api/product-service/stockController";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext.jsx";
+import { saveNotification } from "../../api/reporting_service/notificationController";
 
 const FacOrderHisPopup = ({ orders, onClose }) => {
   const [statuses, setStatuses] = useState({});
@@ -58,17 +59,29 @@ const FacOrderHisPopup = ({ orders, onClose }) => {
     if (result.isConfirmed) {
       try {
         setOrderLoading(true);
-        console.log(orders);
-        console.log(orderItems);
+
+        if (newStatus === "Received") {
+            const notificationDTO = {
+              outletId:-1,
+              message: `Order FO/${orderId} has been Received!`,
+              date: new Date(),
+            };
+    
+            // Set isNotify to true to send the notification (you can adjust this logic as needed)
+            const isNotify = true;
+            
+            // Save the notification and pass the isNotify flag
+            await saveNotification(notificationDTO, isNotify);
+          }
 
         // Prepare update DTO for stock increase
         const updateDto = {
           outletId: outletId,
           productList: orderItems.map(item => ({
             productId: item.id,
-            stockQuantity: item.quantity,  // Adjust as needed
+            stockQuantity: item.quantity,
           })),
-          increase: true,  // Increase stock as the order is received
+          increase: true,
         };
 
         // Update product stock
@@ -106,6 +119,17 @@ const FacOrderHisPopup = ({ orders, onClose }) => {
     "Rejected",
   ];
 
+  // Function to sort orders by date and time
+  const sortOrders = (orders) => {
+    return orders.sort((a, b) => {
+      const dateA = new Date(`${a.date} ${a.time}`);
+      const dateB = new Date(`${b.date} ${b.time}`);
+      return dateB - dateA; // Sorting in descending order (latest first)
+    });
+  };
+
+  const sortedOrders = sortOrders(orders);
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md">
       <div className="bg-white p-6 rounded-3xl max-h-[90vh] overflow-y-auto w-[95%] md:w-[85%] lg:w-[75%] shadow-2xl relative border border-gray-200">
@@ -132,7 +156,7 @@ const FacOrderHisPopup = ({ orders, onClose }) => {
               </tr>
             </thead>
             <tbody className="text-gray-600 text-sm">
-              {orders.map((order, index) => {
+              {sortedOrders.map((order, index) => {
                 const isDrawerOpen = openDrawer === order.orderId;
                 return (
                   <React.Fragment key={order.orderId}>
