@@ -43,6 +43,21 @@ export const getFacOrderItemsByFacOrId = async (facOrId) => {
   }
 };
 
+export const getFacOrderItemsByOutletId = async (outId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/byOutId`, {
+      params: { outId },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error(
+      "Error fetching factory order items:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
+
 export const updateFacOrderStatusById = async (facOrId, status) => {
   try {
     const response = await axios.put(`${BASE_URL}/status`, null, {

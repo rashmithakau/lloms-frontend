@@ -31,7 +31,7 @@ export default function FactoryStaffPage() {
   // 🛠️ Use Effect to set categories when activeTab changes
   useEffect(() => {
     if (activeTab === "order") {
-      setCategories(["Pending", "Confirmed", "Delivered", "Rejected"]);
+      setCategories(["Pending", "Confirmed", "Delivered", "Rejected","Received"]); // Set categories for order tab
       setDropdown(true);
       console.log(searchText)
     } else if (activeTab === "billing") {

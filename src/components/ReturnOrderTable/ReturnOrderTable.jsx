@@ -1,32 +1,31 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
+import Dropdown2 from "../Dropdown2/Dropdown2";
+import OrderTable from "../PosTable/OrderTable";
 import LoadingWheel from "../loadingWheel/LoadingWheel";
-import BillTable from "../PosTable/BillTable";
-import { getCusOrderItemsByCusOrId } from "../../api/outlet_service/cusOrderController";
+import {
+  getFacOrderItemsByFacOrId,
+  updateFacOrderStatusById,
+} from "../../api/outlet_service/factoryOrderController";
+import LoadingPopup from "../Popup/LoadingPopup/LoadingPopup";
 
-function CustomerOrderTable({ orders }) {
+const ReturnOrderTable = ({ orders }) => {
+  const [statuses, setStatuses] = useState({});
   const [openDrawer, setOpenDrawer] = useState(null);
-  const [orderItems, setOrderItems] = useState([]);
   const [loadingItems, setLoadingItems] = useState(false);
+  const [orderItems, setOrderItems] = useState([]);
+  const [orderLoading, setOrderLoading] = useState(false);
 
-  const toggleExpand = async (orderId) => {
-    if (openDrawer === orderId) {
-      setOpenDrawer(null);
-      setOrderItems([]);
-      return;
-    }
-
-    // Show drawer first and display loading state
-    setOpenDrawer(orderId);
-    setLoadingItems(true);
-
+  // Fetch order items
+  const handleFetchOrderItems = async (orderId) => {
     try {
-      const data = await getCusOrderItemsByCusOrId(orderId);
-      const items = data.map((item) => ({
-        id: item.productId,
-        name: item.productName,
-        price: item.unitPrice,
-        quantity: item.quantity,
-        discount: item.discountPerUnit,
+      setLoadingItems(true);
+      const data = await getFacOrderItemsByFacOrId(orderId);
+      const items = data.map((fItem) => ({
+        id: fItem.productId,
+        name: fItem.productName,
+        price: fItem.unitPrice,
+        quantity: fItem.quantity,
       }));
       setOrderItems(items);
     } catch (error) {
@@ -35,6 +34,51 @@ function CustomerOrderTable({ orders }) {
       setLoadingItems(false);
     }
   };
+
+  // Handle status change confirmation
+  const handleStatusChange = async (event, orderId) => {
+    const newStatus = event.target.value;
+
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: `Change status to "${newStatus}"?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, update it!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        setOrderLoading(true);
+        await updateFacOrderStatusById(orderId, newStatus);
+        Swal.fire("Updated!", "Order status has been updated.", "success");
+        setStatuses((prev) => ({ ...prev, [orderId]: newStatus }));
+      } catch (error) {
+        console.error("Error updating status:", error);
+        Swal.fire("Error!", "Failed to update order status.", "error");
+      } finally {
+        setOrderLoading(false);
+      }
+    }
+  };
+
+  const toggleDrawer = (orderId) => {
+    if (openDrawer === orderId) {
+      setOpenDrawer(null);
+      setOrderItems([]);
+    } else {
+      setOpenDrawer(orderId);
+      handleFetchOrderItems(orderId);
+    }
+  };
+
+  const options = [
+    { value: "Pending", label: "Pending" },
+    { value: "Confirmed", label: "Confirmed" },
+    { value: "Rejected", label: "Rejected" },
+  ];
 
   return (
     <div
@@ -47,13 +91,11 @@ function CustomerOrderTable({ orders }) {
             <thead className="sticky top-0 bg-white z-10">
               <tr className="text-gray-600 uppercase text-sm leading-normal">
                 <th className="py-3 px-6 text-left">#</th>
-                <th className="py-3 px-6 text-left">Order ID</th>
+               <th className="py-3 px-6 text-left">Return ID</th>   {/*  Order ID */}
                 <th className="py-3 px-6 text-left">Outlet Name</th>
                 <th className="py-3 px-6 text-left">Date</th>
                 <th className="py-3 px-6 text-left">Time</th>
                 <th className="py-3 px-6 text-left">Status</th>
-                <th className="py-3 px-6 text-left">Customer Name</th>
-                <th className="py-3 px-6 text-left">Customer Phone No.</th>
                 <th className="py-3 px-6 text-left"></th>
               </tr>
             </thead>
@@ -73,24 +115,25 @@ function CustomerOrderTable({ orders }) {
                         {index + 1}
                       </td>
                       <td className="py-3 px-6 text-left whitespace-nowrap">
-                        CO/{order.orderId}
+                        FO/{order.orderId}
                       </td>
                       <td className="py-3 px-6 text-left">
                         {order.outletName}
                       </td>
                       <td className="py-3 px-6 text-left">{order.date}</td>
                       <td className="py-3 px-6 text-left">{order.time}</td>
-                      <td className="py-3 px-6 text-left">{order.status}</td>
                       <td className="py-3 px-6 text-left">
-                        {order.customerName}
-                      </td>
-                      <td className="py-3 px-6 text-left">
-                        {order.customerPhone}
+                        <Dropdown2
+                          label="Status"
+                          value={statuses[order.orderId] || order.status}
+                          onChange={(e) => handleStatusChange(e, order.orderId)}
+                          options={options}
+                        />
                       </td>
                       <td className="py-3 px-6 text-left">
                         <button
                           className="bg-pink-500 text-white py-1 px-3 rounded-full shadow-md hover:bg-pink-600 transition duration-300"
-                          onClick={() => toggleExpand(order.orderId)}
+                          onClick={() => toggleDrawer(order.orderId)}
                         >
                           {isDrawerOpen ? "Hide" : "See More"}
                         </button>
@@ -99,14 +142,18 @@ function CustomerOrderTable({ orders }) {
                     {isDrawerOpen && (
                       <tr>
                         <td
-                          colSpan="9"
+                          colSpan="7"
                           className="bg-pink-50 p-4 rounded-b-3xl border-gray-200"
                         >
-                          <div className="w-[70vw] transition-all duration-300 ease-in-out">
+                          <div className="w-[95vh] transition-all duration-300 ease-in-out">
                             {loadingItems ? (
                               <LoadingWheel />
                             ) : (
-                              <BillTable products={orderItems} />
+                              <OrderTable
+                                tType="order"
+                                products={orderItems}
+                                setProducts={setOrderItems}
+                              />
                             )}
                           </div>
                         </td>
@@ -119,8 +166,9 @@ function CustomerOrderTable({ orders }) {
           </table>
         </div>
       </div>
+      {orderLoading && <LoadingPopup txt="Order Status Is Chageing..." />}
     </div>
   );
-}
+};
 
-export default CustomerOrderTable;
+export default ReturnOrderTable;
