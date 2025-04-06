@@ -170,7 +170,7 @@ const User = () => {
                     />
                     <button
                         onClick={() => handleUpdatePhone(editingUser.userId, newPhone)}
-                        className="mt-2 w-full bg-pink-500 text-white py-2 rounded-md hover:bg-pink-600"
+                        className="mt-2 w-full bg-pink-500 hover:bg-pink-600 text-white py-2 rounded-md "
                     >
                       Update Phone
                     </button>
