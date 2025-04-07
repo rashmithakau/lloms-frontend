@@ -28,4 +28,20 @@ export const saveOutlet = async (formData) => {
     console.error("Error saving outlet:", errorMessage);
     throw new Error(errorMessage);
   }
-}
+};
+
+export const getOutletOutletId = async (outId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/get-outlet-by-id`, {
+      params: { "outlet-id": outId },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error(
+      "Error fetching outlet by ID:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
+
