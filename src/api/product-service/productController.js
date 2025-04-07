@@ -67,3 +67,15 @@ export const addProduct = async (formData) => {
     throw error; // Throwing error so Item.jsx can catch and handle it
   }
 };
+
+
+export const updateProductStatus = async (productId) => {
+  try {
+    const response = await axios.put(
+      `${BASE_URL}/status-by-id/${productId}`
+    );
+    return response.data.data;
+  } catch (error) {
+    console.error("Error updating status:", error);
+  }
+};
