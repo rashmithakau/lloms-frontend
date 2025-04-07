@@ -26,6 +26,6 @@ export const saveOutlet = async (formData) => {
   } catch (error) {
     const errorMessage = error.response?.data?.message || error.message;
     console.error("Error saving outlet:", errorMessage);
-    throw new Error(errorMessage); // This can be caught in OutletModal to display to the user
+    throw new Error(errorMessage);
   }
-};
+}
