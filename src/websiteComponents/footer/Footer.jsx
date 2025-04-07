@@ -14,7 +14,7 @@ const sections = [
     },
     {
         title: 'Outlets',
-        items: ['#outlet', '#outlet', '#outlet', '#outlet']
+        items: ['Matara', 'Galle', 'Hikkaduwa', 'Dewndara']
     },
     {
         title: 'Support',
