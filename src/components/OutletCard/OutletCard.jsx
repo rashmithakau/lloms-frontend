@@ -1,11 +1,29 @@
 import React from "react";
+import defaultImage from "../../assets/Empty image.jpg"
 
-function OutletCard({ outlet = [], onClick }) {  
-  const statusClasses = outlet.isActive
+function OutletCard({ outlet = [], onClick }) {
+  
+  const isActive = outlet.status === "Active";
+  const statusClasses = isActive
     ? "bg-green-100 text-green-700"
     : "bg-red-100 text-red-700";
 
-  const statusText = outlet.isActive ? "Active" : "Inactive";
+  
+
+  // // Check if imageUrl exists and replace backslashes with slashes
+  // const imageUrl = outlet.imageUrl
+  //   ? `http://localhost:8088/api/v1/outlet/url/${outlet.imageUrl.replace(/\\/g, "/")}`
+  //   : defaultImage; // Use default image if no imageUrl is provided
+
+  // console.log("Image URL:", imageUrl); // For debugging
+
+  const imageName = outlet.imageUrl ? outlet.imageUrl.split("\\").pop() : null;
+    const imageSrc = imageName
+      ? `http://localhost:8088/api/v1/outlet/url/${imageName}`
+      : defaultImage;
+  
+      console.log("Image URL:", imageSrc);
+
 
   return (
     <div
@@ -14,8 +32,12 @@ function OutletCard({ outlet = [], onClick }) {
     >
       {/* Outlet Image (Local Only) */}
       <img
-        src={outlet.img}
-        alt={outlet.name || "Outlet"}  
+        src={imageSrc}  // Use the constructed URL to fetch the image
+        onError={(e) => {
+          e.target.onerror = null; // Prevent endless loop
+          e.target.src = defaultImage; // Fallback if image fails to load
+        }}
+        alt={outlet.outletName || "Outlet"}  
         className="w-full h-48 object-cover rounded-tl-4xl rounded-br-4xl rounded-tr-md rounded-bl-md transition-transform transform group-hover:brightness-90"
       />
 
@@ -24,24 +46,25 @@ function OutletCard({ outlet = [], onClick }) {
         {/* Outlet Name and Status */}
         <div className="flex justify-between items-center">
           <p className="font-semibold text-sm text-[#2C3E50] font-poppins">
-            {outlet.name || "Unknown Outlet"}  
+            {outlet.outletName || "Unknown Outlet"}  
           </p>
           <div
+            //className={`text-xs font-bold px-3 py-1 rounded-full ${statusClasses}`}
             className={`text-xs font-bold px-3 py-1 rounded-full ${statusClasses}`}
           >
-            {statusText || "Unknown Status"}  
+            
+
+            {outlet.status || "Unknown Status"}
+
+
           </div>
         </div>
 
         {/* Address */}
         <p className="text-sm text-[#2C3E50]/80 font-poppins truncate">
-          📍 {outlet.address || "Address not available"}  
+          📍 {outlet.location || "Address not available"}  
         </p>
 
-        {/* Mobile */}
-        <p className="text-sm text-[#2C3E50]/70 font-poppins">
-          📞 {outlet.mobile || "Contact not available"}  
-        </p>
       </div>
     </div>
   );
