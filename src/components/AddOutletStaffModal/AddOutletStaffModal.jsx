@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import api from "../../api/api"; // Centralized API instance
+import api from "../../api/user_service/userController.jsx"; // Centralized API instance
 
 function AddOutletStaffModal({ isOpen, onClose, outlets }) {
     const [userName, setUserName] = useState("");
