@@ -17,8 +17,12 @@ function OutletCard({ outlet = [], onClick }) {
 
   // console.log("Image URL:", imageUrl); // For debugging
 
-  const imageName = outlet.imageUrl ? outlet.imageUrl.split("\\").pop() : null;
-    const imageSrc = imageName
+  //const imageName = outlet.imageUrl ? outlet.imageUrl.split("\\").pop() : null;
+    
+  const imageName = outlet.imageUrl
+  ? outlet.imageUrl.replace(/^.*[\\/]/, '')  // handles both "\" and "/"
+  : null;
+  const imageSrc = imageName
       ? `http://localhost:8088/api/v1/outlet/url/${imageName}`
       : defaultImage;
   

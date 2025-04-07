@@ -19,7 +19,7 @@ const OutletList = ({ outlets, onCardClick}) => {
           />
         ))
       ) : (
-        <p>Loading or Error: outlets data is not available.</p>
+        <p>Loading...</p>
       )}
 
     </div>

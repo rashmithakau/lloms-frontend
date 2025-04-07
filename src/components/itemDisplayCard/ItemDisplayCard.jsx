@@ -7,6 +7,7 @@ function ItemDisplayCard({ item, onClick, type }) {
     ? `http://localhost:8080/api/v1/product/url/${imageName}`
     : defaultImage;
 
+   
 
   return (
     <div
