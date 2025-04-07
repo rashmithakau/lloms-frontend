@@ -1,5 +1,5 @@
 import React from "react";
-import OutletList from "../../components/OutletList/OutletList.jsx";
+import OutletList from "../../components/OutletList/OutletList";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
