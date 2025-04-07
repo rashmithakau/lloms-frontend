@@ -8,6 +8,7 @@ function Outlet() {
     const [outlets, setOutlets] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isStaffModalOpen, setIsStaffModalOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchOutlets();
@@ -19,7 +20,9 @@ function Outlet() {
             setOutlets(data);
         } catch (error) {
             console.error("Error fetching outlets:", error);
-        }
+        } finally {
+            setLoading(false);
+          }
     };
 
     return (
@@ -42,7 +45,7 @@ function Outlet() {
                 </div>
             </div>
 
-            <OutletList outlets={outlets} />
+            <OutletList outlets={outlets} loading={loading} />
 
             <OutletModal
                 isOpen={isModalOpen}
