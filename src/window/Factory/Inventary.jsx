@@ -4,7 +4,7 @@ import InventoryTable from "../../components/PosTable/InventoryTable";
 function Inventary() {
   return (
     <div>
-      <InventoryTable outletId={101} type="factory" />
+      <InventoryTable type="factory" />
     </div>
   );
 }

@@ -45,3 +45,39 @@ export const getOutletOutletId = async (outId) => {
   }
 };
 
+export const updateOutletStatus = async (outletId) => {
+  try {
+    const response = await axios.put(
+      `${BASE_URL}/status-by-id/${outletId}`
+    );
+    return response.data.data;
+  } catch (error) {
+    console.error("Error updating status:", error);
+  }
+};
+
+export const getAllInactiveOutlets = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/incative-outlets`);
+    return response.data.data;
+  } catch (error) {
+    console.error(
+      "Error fetching outlets:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
+
+export const getAlleOutletsForOwner = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/all`);
+    return response.data.data;
+  } catch (error) {
+    console.error(
+      "Error fetching outlets:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
