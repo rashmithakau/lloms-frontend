@@ -1,10 +1,14 @@
 import React from "react";
+import defaultImage from "../../assets/Empty image.jpg"
 
 function OutletCard({ outlet = {}, onClick }) {
   const filename = outlet.imageUrl ? outlet.imageUrl.split('/').pop().split('\\').pop() : '';
+  const imageSrc = filename
+      ? `http://localhost:8088/api/v1/outlet/url/${filename}`
+      : defaultImage;
 
   // Determine status classes and text based on outlet.status string
-  const statusClasses = outlet.status === "ACTIVE"
+  const statusClasses = outlet.status === "Active"
       ? "bg-green-100 text-green-700"
       : "bg-red-100 text-red-700";
   const statusText = outlet.status
@@ -17,7 +21,7 @@ function OutletCard({ outlet = {}, onClick }) {
           className="group border-[2px] shadow-md border-pink-200 rounded-tl-4xl rounded-br-4xl rounded-bl-md rounded-tr-md bg-white flex flex-col items-start transition-transform transform hover:scale-105 hover:shadow-lg hover:border-pink-500 min-w-55"
       >
         <img
-            src={`http://35.222.69.207:8088/api/v1/outlet/url/${filename}`}
+            src={imageSrc}
             alt={outlet.outletName}
             className="w-full h-48 object-cover rounded-tl-4xl rounded-br-4xl rounded-tr-md rounded-bl-md transition-transform transform group-hover:brightness-90"
         />
