@@ -1,5 +1,8 @@
 import React from "react";
 import OutletCard from "../OutletCard/OutletCard";
+import CardContainer from "../cardContainer/CardContainer";
+import LoadingWheel from "../loadingWheel/LoadingWheel";
+import { useState } from "react";
 
 const OutletList = ({ outlets, onCardClick}) => {
 
@@ -8,8 +11,12 @@ const OutletList = ({ outlets, onCardClick}) => {
     return <p>Loading or Error: outlets data is not available.</p>;
   }
 
+   const [loading, setLoading] = useState(true);
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 bg-gray-100 min-h-screen">
+    
+    <div>
+      <CardContainer h="77vh"   >
       {outlets.length > 0 ? (
         outlets.map((outlet, index) => (
           <OutletCard 
@@ -19,8 +26,12 @@ const OutletList = ({ outlets, onCardClick}) => {
           />
         ))
       ) : (
-        <p>Loading...</p>
+        <LoadingWheel />
+        
       )}
+      </CardContainer>
+
+
 
     </div>
   );
