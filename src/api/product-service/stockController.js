@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:8080/api/v1/stock";
 
-export const updateProduct = async (updateDto) => {
+export const updateProductStock = async (updateDto) => {
   try {
     const response = await axios.put(`${BASE_URL}/by-outletId-productList`, updateDto);
     return response.data;
