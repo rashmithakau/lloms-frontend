@@ -3,6 +3,7 @@ import DataRow from "./DataRow"; // Import the DataRow component
 
 const OrderTable = ({ tType = "pos", products, setProducts }) => {
   const handleQuantityChange = (index, newQuantity) => {
+    console,console.log(products);
     const updatedProducts = [...products];
     updatedProducts[index].quantity = newQuantity;
     setProducts(updatedProducts);
@@ -30,7 +31,8 @@ const OrderTable = ({ tType = "pos", products, setProducts }) => {
               <th className="p-2">Unit Price</th>
               {tType !== "return" && <th className="p-2">Quantity</th>}
               {tType === "return" && <th className="p-2">Stock</th>}
-              {tType === "return" && <th className="p-2">Return</th>}
+              
+              {tType === "return" && <th className="p-2"><pre>        Return</pre></th>}
               {tType === "pos" && <th className="p-2">Discount</th>}
               <th className="p-2">Actions</th>
             </tr>

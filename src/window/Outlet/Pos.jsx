@@ -1,16 +1,16 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CardContainer from "../../components/cardContainer/CardContainer";
 import OrderTable from "../../components/PosTable/OrderTable";
 import DisplayTotal from "../../components/DisplayTotal/DisplayTotal";
 import ItemCard from "../../components/itemCard/ItemCard";
 import ActionContainer from "../../components/ActionContainer/ActionContainer";
-import { useState } from "react";
 import { getAllProductsByOutletId } from "../../api/product-service/productController";
 import LoadingWheel from "../../components/loadingWheel/LoadingWheel";
 import LoadingPopup from "../../components/Popup/LoadingPopup/LoadingPopup";
 import { saveCusOrder } from "../../api/outlet_service/cusOrderController";
 import Allert from "../../components/Allert/Allert";
 import AuthContext from "../../context/AuthContext";
+import { updateProductStock } from "../../api/product-service/stockController";
 
 function Pos() {
   const [orderItems, setOrderItems] = useState([]);
@@ -19,17 +19,18 @@ function Pos() {
   const [orderLoading, setOrderLoading] = useState(false);
   const { outletId } = useContext(AuthContext);
 
+  const fetchItems = async () => {
+    try {
+      const data = await getAllProductsByOutletId(outletId);
+      setItems(data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const data = await getAllProductsByOutletId(outletId);
-        setItems(data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false); // Stop loading after data is fetched
-      }
-    };
     fetchItems();
   }, []);
 
@@ -90,7 +91,7 @@ function Pos() {
     const orderRequest = {
       orderDate: new Date().toISOString(),
       status: "Confirmed",
-      outletId: 1,
+      outletId: outletId,
       customerName: cusName,
       customerPhone: cusPho,
       items: itemList,
@@ -98,14 +99,26 @@ function Pos() {
 
     try {
       setOrderLoading(true);
-      const data = await saveCusOrder(orderRequest);
+      await saveCusOrder(orderRequest);
       Allert({ message: "Order placed successfully", type: "success" });
+
+      const updateDto = {
+        outletId: outletId,
+        productList: itemList.map((item) => ({
+          productId: item.productId,
+          stockQuantity: item.quantity,
+        })),
+        increase: false,
+      };
+
+      await updateProductStock(updateDto);
     } catch (error) {
       console.error("Error placing order:", error);
       Allert({ message: "Your order could not be placed", type: "error" });
     } finally {
       setOrderLoading(false);
       handleClearOrder();
+      fetchItems(); // 🔄 Refetch items to refresh stock
     }
   };
 

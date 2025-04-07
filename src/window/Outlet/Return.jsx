@@ -21,6 +21,7 @@ function Return() {
     const fetchItems = async () => {
       try {
         const data = await getAllProductsByOutletId(outletId);
+        
         setItems(data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -55,8 +56,9 @@ function Return() {
           id: item.productId,
           name: item.productName,
           price: item.price,
-          stock: item.stock,
+          stock: item.stockQuantity,
           //discount: 0,
+        
         },
       ]);
     }

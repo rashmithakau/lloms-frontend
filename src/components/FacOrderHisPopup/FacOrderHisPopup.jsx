@@ -7,7 +7,7 @@ import {
   updateFacOrderStatusById,
 } from "../../api/outlet_service/factoryOrderController";
 import LoadingPopup from "../Popup/LoadingPopup/LoadingPopup";
-import { updateProduct } from "../../api/product-service/stockController";
+import { updateProductStock } from "../../api/product-service/stockController";//fe
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext.jsx";
 import { saveNotification } from "../../api/reporting_service/notificationController";
@@ -85,7 +85,7 @@ const FacOrderHisPopup = ({ orders, onClose }) => {
         };
 
         // Update product stock
-        await updateProduct(updateDto);
+        await updateProductStock(updateDto);
 
         // Update order status
         await updateFacOrderStatusById(orderId, newStatus);
