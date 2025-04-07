@@ -42,17 +42,6 @@ export const getProductById = async (id) => {
   }
 };
 
-// export const getProductById = async (id) => {
-//   try {
-//     const response = await axios.get(`${BASE_URL}/get-by-id/${id}`);
-//     console.log("API response:", response.data); // Debugging line
-//     return response.data.data;
-//   } catch (error) {
-//     console.error("Error fetching product:", error);
-//     throw error;
-//   }
-// };
-
 export const updateProduct = async (id, formData) => {
   try {
     const response = await axios.put(`${BASE_URL}?id=${id}`, formData, {
@@ -60,12 +49,14 @@ export const updateProduct = async (id, formData) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    return response.data; // Return response if needed
+    return response.data; 
   } catch (error) {
     console.error("Error updating product:", error);
-    throw error; // Re-throw error to be handled in the component
+    throw error; 
   }
 };
+
+
 export const addProduct = async (formData) => {
   try {
     const response = await axios.post(BASE_URL, formData, {

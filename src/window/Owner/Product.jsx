@@ -3,7 +3,6 @@ import { getAllProducts } from "../../api/product-service/productController";
 import CardContainer from "../../components/cardContainer/CardContainer";
 import LoadingWheel from "../../components/loadingWheel/LoadingWheel";
 import ItemDisplayCard from "../../components/itemDisplayCard/ItemDisplayCard";
-import UpdateProduct from "../../components/UpdateItem/UpdateProduct";
 import UpdateItem from "../../components/UpdateItem/UpdateItem";
 
 function Product() {
