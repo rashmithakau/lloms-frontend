@@ -48,6 +48,7 @@ export default function OwnerPage() {
         setActiveTab("product");
       },
       iconUrl: "src/assets/icons/product.svg",
+      isActive : activeTab === "product"
     },
     {
       nameBtn: "OUTLET",

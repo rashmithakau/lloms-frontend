@@ -29,3 +29,18 @@ export const saveOutlet = async (formData) => {
     throw new Error(errorMessage); // This can be caught in OutletModal to display to the user
   }
 };
+
+export const getOutletOutletId = async (outId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/get-outlet-by-id`, {
+      params: { "outlet-id": outId },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error(
+      "Error fetching outlet by ID:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
