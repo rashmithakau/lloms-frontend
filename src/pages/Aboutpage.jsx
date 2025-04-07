@@ -4,8 +4,8 @@ import Footer from "../websiteComponents/footer/Footer.jsx";
 import "../websiteComponents/scrollbar.css";
 
 const owner = {
-    name: 'Mr ####',
-    img: ' ',
+    name: 'Mr Premasiri Wakwalla',
+    img: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
     role: 'Owner',
     bio: 'Combining traditional recipes with warm hospitality to create heartfelt bakery experiences'
 };
