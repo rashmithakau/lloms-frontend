@@ -1,110 +1,43 @@
 import React from 'react'
 import CloseIcon from "../../assets/icons/closeButton.png"
 import UploadImage from "../../assets/icons/LoadImage.png"
-import { useParams, useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { getProductById, updateProduct } from '../../api/product-service/productController';
 
 export default function UpdateItem({ item, onClose}) {
   
-  const id = item?.productId; // Use productId instead of id
+      const id = item?.productId; 
 
-   const handleClose = () => {
-        onClose(); // Close the popup instead of navigating
-    };
+      const handleClose = () => {
+          onClose(); 
+      };
 
-    const [product, setProduct] = useState({
-      productName: "",
-      productCatagory: "SHORTIES",  // Default category (adjust if needed)
-      productMeasuringUnitType: "NUMBER",  // Default unit type
-      todayPrice: 0,
-      lastUpdatedPrice: 0,
-      productStatus: false,
-      lastUpdatedDate: "", 
-      imageUrl: "",
-    });
+      const [product, setProduct] = useState({
+          productName: "",
+          productCatagory: "SHORTIES",  
+          productMeasuringUnitType: "NUMBER",  
+          todayPrice: 0,
+          lastUpdatedPrice: 0,
+          productStatus: false,
+          lastUpdatedDate: "", 
+          imageUrl: "",
+        });
 
-  const [selectedImage, setSelectedImage] = useState(null);
-
-      //  useEffect(() => {
-       
-      //    getProductById(id) 
-      //    .then((data) => {
-
-      //    // Format the date as 'yyyy-MM-dd'
-      //    const formatDate = (date) => {
-      //          const d = new Date(date);
-      //          const year = d.getFullYear();
-      //          const month = String(d.getMonth() + 1).padStart(2, "0"); // Month is zero-indexed
-      //          const day = String(d.getDate()).padStart(2, "0");
-      //          return `${year}-${month}-${day}`;
-      //        };
-
-      //        setProduct({
-      //          productName: data.productName || "",
-      //          productCatagory: data.productCatagory || "SHORTIES",
-      //          productMeasuringUnitType: data.productMeasuringUnitType || "NUMBER",
-      //          todayPrice: data.todayPrice || 0,
-      //          lastUpdatedPrice: data.lastUpdatedPrice || 0,
-      //          productStatus: data.productStatus || false,
-      //          lastUpdatedDate: data.lastUpdatedDate
-      //            ? formatDate(data.lastUpdatedDate) // Format the date properly
-      //            : formatDate(new Date()), // Use today's date if no date is available
-      //          imageUrl: data.imageUrl || "",
-      //        });
-      //      })
-      //      .catch((error) => {
-      //        console.error("Error fetching product:", error);
-      //      });
-      //  }, [id]);
+      const [selectedImage, setSelectedImage] = useState(null);
       
-
-      // useEffect(() => {
-      //   if (!id) return;  // Prevent fetching when id is undefined
-      
-      //   getProductById(id)
-      //     .then((data) => {
-      //       const formatDate = (date) => {
-      //         const d = new Date(date);
-      //         const year = d.getFullYear();
-      //         const month = String(d.getMonth() + 1).padStart(2, "0");
-      //         const day = String(d.getDate()).padStart(2, "0");
-      //         return `${year}-${month}-${day}`;
-      //       };
-      
-      //       setProduct({
-      //         productName: data.productName || "",
-      //         productCatagory: data.productCatagory || "SHORTIES",
-      //         productMeasuringUnitType: data.productMeasuringUnitType || "NUMBER",
-      //         todayPrice: data.todayPrice || 0,
-      //         lastUpdatedPrice: data.lastUpdatedPrice || 0,
-      //         productStatus: data.productStatus || false,
-      //         lastUpdatedDate: data.lastUpdatedDate ? formatDate(data.lastUpdatedDate) : formatDate(new Date()),
-      //         imageUrl: data.imageUrl || "",
-      //       });
-      //     })
-      //     .catch((error) => {
-      //       console.error("Error fetching product:", error);
-      //     });
-      // }, [id]);
-      
-
       useEffect(() => {
-        console.log("Received item:", item); // Log full item details
-        console.log("Extracted ID:", id); // Check if id exists
-    
-        if (!id) {
+          console.log("Received item:", item); // Log full item details
+          console.log("Extracted ID:", id); // Check if id exists
+          if (!id) {
             console.log("No ID provided, skipping fetch.");
             return;
-        }
-    
-        console.log(`Fetching product with ID: ${id}`);
-    
-        getProductById(id)
+          }
+          console.log(`Fetching product with ID: ${id}`);
+
+          getProductById(id)
             .then((data) => {
                 console.log("Fetched Product Data:", JSON.stringify(data, null, 2));
-    
                 const formatDate = (date) => {
                     const d = new Date(date);
                     const year = d.getFullYear();
@@ -112,8 +45,7 @@ export default function UpdateItem({ item, onClose}) {
                     const day = String(d.getDate()).padStart(2, "0");
                     return `${year}-${month}-${day}`;
                 };
-    
-                 const formattedProduct = {
+                const formattedProduct = {
                      productName: data.productName || "",
                      productCatagory: data.productCatagory || "SHORTIES",
                      productMeasuringUnitType: data.productMeasuringUnitType || "NUMBER",
@@ -123,82 +55,56 @@ export default function UpdateItem({ item, onClose}) {
                      lastUpdatedDate: data.lastUpdatedDate ? formatDate(data.lastUpdatedDate) : formatDate(new Date()),
                      imageUrl: data.imageUrl || "",
                  };
-    
-                
-                
-
                 console.log("Formatted Product Data:", JSON.stringify(formattedProduct, null, 2));
-    
                 setProduct(formattedProduct);
             })
             .catch((error) => {
                 console.error("Error fetching product:", error);
             });
-    }, [id]);
+        }, [id]);
     
-    
+        const handleInputChange = (e) => {
+          const { name, value } = e.target;
+          setProduct((prevProduct) => ({
+            ...prevProduct,
+            [name]: value,
+          }));
+        };
 
+        const handleImageChange = (e) => {
+          setSelectedImage(e.target.files[0]);
+        };
 
-  const handleInputChange = (e) => {
-     const { name, value } = e.target;
-     setProduct((prevProduct) => ({
-       ...prevProduct,
-       [name]: value,
-     }));
-    };
+        const handleSubmit = async (e) => {
+          e.preventDefault();
+          const formData = new FormData();
+          formData.append("productName", product.productName);
+          formData.append("productCatagory", product.productCatagory);
+          formData.append("productMeasuringUnitType",product.productMeasuringUnitType);
+          formData.append("price", product.lastUpdatedPrice);
+          formData.append("productStatus", product.productStatus);
+          formData.append("date", product.lastUpdatedDate); 
+          if (selectedImage) {
+            formData.append("imageFile", selectedImage);
+            console.log("FormData Contents:", formData);
+          }try {
+            const response = await updateProduct(id, formData);
+            console.log("Update Response:", response);
+            alert("Product updated successfully!");
+            onClose();
+        } catch (error) {
+            console.error("Error updating product:", error);
+        }
+        };
 
-  const handleImageChange = (e) => {
-    setSelectedImage(e.target.files[0]);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("productName", product.productName);
-    formData.append("productCatagory", product.productCatagory);
-    formData.append(
-      "productMeasuringUnitType",
-      product.productMeasuringUnitType
-    );
-
-    console.log("Price:", product.lastUpdatedPrice);
-    console.log("Date:", product.lastUpdatedDate);
-
-    formData.append("todayPrice", product.lastUpdatedPrice);
-    formData.append("productStatus", product.productStatus);
-    formData.append("date", product.lastUpdatedDate); // Corrected here
-    if (selectedImage) {
-      formData.append("imageFile", selectedImage);
-      console.log("FormData Contents:", formData);
-    }
-
-    // try {
-    //     await updateProduct(id, formData); // Call the update function from the controller
-    //     alert("Product updated successfully!");
-    //     //setShowUpdateItem(false); // Close popup instead of navigating
-    //     onClose();
-    //   } catch (error) {
-    //     console.error("Error updating product:", error);
-    //   }
-
-    try {
-      const response = await updateProduct(id, formData);
-      console.log("Update Response:", response);
-      alert("Product updated successfully!");
-      onClose();
-  } catch (error) {
-      console.error("Error updating product:", error);
-  }
-    };
-
-  const imageName = product.imageUrl
-    ? product.imageUrl.split("\\").pop()
-    : null;
-  const imageSrc = selectedImage
-    ? URL.createObjectURL(selectedImage)
-    : imageName
-    ? `http://localhost:8080/api/v1/product/url/${imageName}`
-    : UploadImage;
+        const imageName = product.imageUrl
+          ? product.imageUrl.split("\\").pop()
+          : null;
+        const imageSrc = selectedImage
+          ? URL.createObjectURL(selectedImage)
+          : imageName
+          ? `http://localhost:8080/api/v1/product/url/${imageName}`
+          : UploadImage;
 
   return (
     <div>
