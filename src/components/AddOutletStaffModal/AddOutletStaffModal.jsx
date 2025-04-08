@@ -86,7 +86,7 @@ function AddOutletStaffModal({ isOpen, onClose, outlets }) {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2 hover:bg-gray-400"
+                            className="px-4 py-2 border border-pink-500 text-pink-500 rounded hover:bg-pink-100 mr-2" // Added mr-2 for right margin
                         >
                             Cancel
                         </button>
@@ -95,7 +95,7 @@ function AddOutletStaffModal({ isOpen, onClose, outlets }) {
                             onClick={handleSave}
                             className="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600"
                         >
-                            Save
+                            Save Staff
                         </button>
                     </div>
                 </form>

@@ -85,7 +85,7 @@ const AboutPage = () => {
                             <div className="flex flex-col md:grid md:grid-cols-2 gap-6 md:gap-8 items-center">
                                 <div className="relative h-48 md:h-64 w-full rounded-xl overflow-hidden">
                                     <img
-                                        src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1670&q=80"
+                                        src="https://images.pexels.com/photos/3023479/pexels-photo-3023479.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
                                         alt="Hand kneading dough"
                                         className="w-full h-full object-cover"
                                     />
@@ -138,7 +138,7 @@ const AboutPage = () => {
                                     {owner.bio}
                                 </p>
                                 <div className="mt-4 md:mt-6 flex justify-center md:justify-start gap-4">
-                                    <a href="#" className="flex items-center gap-2 text-[#D4A373] hover:text-[#b8864f]">
+                                    <a href="https://www.facebook.com/share/1A15pUTE1L/?mibextid=wwXIfr" className="flex items-center gap-2 text-[#D4A373] hover:text-[#b8864f]" target={"_blank"}>
                                         <span className="text-sm md:text-base">Facebook</span>
                                         <svg className="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>

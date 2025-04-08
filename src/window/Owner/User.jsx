@@ -1,6 +1,7 @@
 import React from 'react';
 import useUserController from "../../api/user_service/UserController.jsx";
 import LoadingWheel from "../../components/loadingWheel/LoadingWheel.jsx";
+import "../../websiteComponents/Scrollbar.css";
 
 const User = () => {
   const {
@@ -100,9 +101,9 @@ const User = () => {
         </div>
 
         {/* Users Table */}
-        <div className="overflow-x-auto rounded-lg border border-pink-500">
+        <div className="overflow-x-auto rounded-lg border border-pink-500 max-h-[500px]">
           <table className="min-w-full">
-            <thead className="bg-gray-200">
+            <thead className="bg-gray-200 sticky top-0">
             <tr>
               {['User ID','Name','Phone','Status','Role','Actions'].map(h => (
                   <th key={h} className="px-4 py-3 text-left text-sm font-semibold text-gray-700">{h}</th>

@@ -3,6 +3,8 @@ import OutletList from "../../components/OutletList/OutletList.jsx";
 import { getAllOutlets } from "../../api/outlet_service/outletController.js";
 import OutletModal from "../../components/OutletModal/OutletModal";
 import AddOutletStaffModal from "../../components/AddOutletStaffModal/AddOutletStaffModal";
+import "../../websiteComponents/Scrollbar.css";
+
 
 function Outlet() {
     const [outlets, setOutlets] = useState([]);
@@ -27,8 +29,9 @@ function Outlet() {
 
     return (
         <div className="p-6">
+
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold">Outlets</h1>
+                <h1 className="text-3xl mb-4">Outlet Details</h1>
                 <div>
                     <button
                         onClick={() => setIsModalOpen(true)}
