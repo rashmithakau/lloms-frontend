@@ -37,7 +37,7 @@ function Outlet() {
         <div className="p-2">
             <h1 className="text-3xl mb-4"> Details</h1>
 
-            <CardContainer h="90vh" className="overflow-y-auto pr-2">
+            <CardContainer h="75vh" className="overflow-y-auto pr-2">
                 {loading ? (
                     <div className="text-center text-gray-600 py-5 text-lg">
                         <LoadingWheel />
