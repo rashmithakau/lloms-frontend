@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import LoadingPopup from "../Popup/LoadingPopup/LoadingPopup"; // Loading Popup for status updates
+import LoadingPopup from "../Popup/LoadingPopup/LoadingPopup";
+import { saveReturn } from "../../api/outlet_service/returnController" // adjust path if needed
 
-const PlaceReturnOrderPopup = ({ onClose }) => {
+const PlaceReturnOrderPopup = ({ onClose, products, outletId }) => {
   const [orderLoading, setOrderLoading] = useState(false);
-  const [returnReasons, setReturnReasons] = useState({}); // State to hold return reasons for each item
-  const [orderItems] = useState([
-    { id: 1, name: "Apple Cake", price: 10 },
-    { id: 2, name: "Chocalate Cake", price: 20 },
-  ]);
+  const [returnReasons, setReturnReasons] = useState({});
+
+  const [orderItems] = useState(
+    products.map((item) => ({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      reason: ""
+    }))
+  );
+
+  console.log("Order Items:", orderItems);
 
   const handleReturnReasonChange = (itemId, reason) => {
     setReturnReasons((prevReasons) => ({
@@ -17,7 +25,7 @@ const PlaceReturnOrderPopup = ({ onClose }) => {
     }));
   };
 
-  const handleSubmitReturnOrder = () => {
+  const handleSubmitReturnOrder = async () => {
     const incompleteItems = orderItems.filter(
       (item) => !returnReasons[item.id]
     );
@@ -26,23 +34,44 @@ const PlaceReturnOrderPopup = ({ onClose }) => {
       Swal.fire({
         icon: "error",
         title: "Return Reason Required",
-        text: `Please provide a reason for all the selected items.`,
+        text: "Please provide a reason for all the selected items.",
       });
       return;
     }
 
-    setOrderLoading(true);
+    const returnItems = orderItems.map((item) => ({
+      productId: item.id,
+      quantity: 1, // default quantity (can be dynamic if needed)
+      reason: returnReasons[item.id],
+    }));
 
-    // Simulating order submission
-    setTimeout(() => {
+    const payload = {
+      returnId: 0,
+      returnDate: new Date(),
+      outletId: outletId, // use actual outlet ID from props
+      outletReturnStatus: "Pending",
+      returnItems,
+    };
+
+    setOrderLoading(true);
+    try {
+        console.log("Payload:", payload);
+      await saveReturn(payload);
       setOrderLoading(false);
       Swal.fire({
         icon: "success",
         title: "Return Order Submitted",
-        text: `Return order has been submitted.`,
+        text: "Return order has been submitted successfully.",
       });
-      onClose(); // Close the popup after submission
-    }, 1000); // Simulate a delay
+      onClose();
+    } catch (error) {
+      setOrderLoading(false);
+      Swal.fire({
+        icon: "error",
+        title: "Error Submitting Return",
+        text: error.message || "Something went wrong.",
+      });
+    }
   };
 
   return (
@@ -55,7 +84,9 @@ const PlaceReturnOrderPopup = ({ onClose }) => {
           ×
         </button>
 
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6">Place Return Order</h2>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+          Place Return Order
+        </h2>
 
         {/* Table for displaying items and return reason */}
         <div className="mb-4 overflow-x-auto">
