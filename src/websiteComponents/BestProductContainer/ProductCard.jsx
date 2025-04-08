@@ -1,20 +1,25 @@
 import React from "react";
+import defaultImage from "../../assets/Empty image.jpg";
 
-const ProductCard = ({ image, title }) => (
-    <div className="w-[250px] h-[250px] rounded-[10px] overflow-hidden shadow-lg">
-        <img
-            src={image}
-            alt={title}
-            onError={(e) => {
-                e.currentTarget.onerror = null;
-                e.currentTarget.src = "https://via.placeholder.com/250x200?text=No+Image";
-            }}
-            className="w-full h-[200px] object-cover"
-        />
-        <div className="bg-[#F4952C] text-white text-center py-3 text-lg font-semibold">
-            {title}
+const Product_Card = ({ item }) => {
+    const imageName = item.imageUrl ? item.imageUrl.split("\\").pop() : null;
+    const imageSrc = imageName
+        ? `http://localhost:8080/api/v1/product/url/${imageName}`
+        : defaultImage;
+
+    return (
+        <div className="w-full h-[250px] rounded-[10px] overflow-hidden shadow-lg m-5">
+            <img
+                src={imageSrc}
+                alt={item.productName}
+                className="w-full h-[200px] object-cover"
+            />
+            <p className="bg-[#F4952C] text-white text-center py-3 text-lg font-semibold">
+                {item.productName} <br />
+
+            </p>
         </div>
-    </div>
-);
+    );
+};
 
-export default ProductCard;
+export default Product_Card;
