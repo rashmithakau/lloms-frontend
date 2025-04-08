@@ -90,7 +90,7 @@ function Return() {
           setProducts={setOrderItems}
         />
         <ActionContainer>
-          <ReturnAction onClear={handleClearOrder} />
+          <ReturnAction onClear={handleClearOrder} products={orderItems}/>
         </ActionContainer>
       </div>
     </div>
