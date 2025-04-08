@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Navbar from "../websiteComponents/navbar/Navbar.jsx";
 import Footer from "../websiteComponents/footer/Footer.jsx";
 import "../websiteComponents/scrollbar.css";
@@ -11,6 +12,18 @@ const owner = {
 };
 
 const AboutPage = () => {
+    const location = useLocation();
+
+    // Handle scrolling to sections based on URL hash
+    useEffect(() => {
+        if (location.hash) {
+            const element = document.getElementById(location.hash.slice(1));
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, [location]);
+
     return (
         <div className="bg-white min-h-screen flex flex-col">
             {/* Sticky Navbar */}
@@ -18,9 +31,9 @@ const AboutPage = () => {
                 <Navbar />
             </div>
 
-            <main className="flex-1 pt-16"> {/* Added padding-top for fixed navbar */}
-                {/* Hero Section */}
-                <section className="relative py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+            <main className="flex-1 pt-16">
+                {/* Mission Section */}
+                <section id="mission" className="relative py-12 md:py-20 px-4 sm:px-6 lg:px-8">
                     <div className="max-w-6xl mx-auto">
                         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
                             <div className="space-y-4 md:space-y-8 order-2 lg:order-1">
@@ -46,8 +59,8 @@ const AboutPage = () => {
                     </div>
                 </section>
 
-                {/* Philosophy Section */}
-                <section className="bg-[#FFF8F0] py-12 md:py-20">
+                {/* Culture Section */}
+                <section id="culture" className="bg-[#FFF8F0] py-12 md:py-20">
                     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                             {[
@@ -77,8 +90,8 @@ const AboutPage = () => {
                     </div>
                 </section>
 
-                {/* Process Section */}
-                <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+                {/* Story Section */}
+                <section id="story" className="py-12 md:py-20 px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto text-center">
                         <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12">Our Baking Process</h2>
                         <div className="space-y-12">
@@ -120,7 +133,7 @@ const AboutPage = () => {
                 </section>
 
                 {/* Owner Section */}
-                <section className="py-12 md:py-20 bg-[#D4A373]/10">
+                <section id="owner" className="py-12 md:py-20 bg-[#D4A373]/10">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
                             <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-xl">
@@ -138,7 +151,7 @@ const AboutPage = () => {
                                     {owner.bio}
                                 </p>
                                 <div className="mt-4 md:mt-6 flex justify-center md:justify-start gap-4">
-                                    <a href="https://www.facebook.com/share/1A15pUTE1L/?mibextid=wwXIfr" className="flex items-center gap-2 text-[#D4A373] hover:text-[#b8864f]" target={"_blank"}>
+                                    <a href="https://www.facebook.com/share/1A15pUTE1L/?mibextid=wwXIfr" className="flex items-center gap-2 text-[#D4A373] hover:text-[#b8864f]" target="_blank">
                                         <span className="text-sm md:text-base">Facebook</span>
                                         <svg className="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
