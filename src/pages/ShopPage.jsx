@@ -1,28 +1,29 @@
-
-import React, { useEffect, useState } from "react";
-import Navbar from "../websiteComponents/navbar/Navbar";
-import Footer from "../websiteComponents/footer/Footer";
-import Product_Card from "../websiteComponents/ProductCard/Product_Card";
-import "../websiteComponents/scrollbar.css";
-import { getAllProducts } from "../api/product-service/productController";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import Navbar from '../websiteComponents/navbar/Navbar';
+import Footer from '../websiteComponents/footer/Footer';
+import Product_Card from '../websiteComponents/ProductCard/Product_Card';
+import '../websiteComponents/scrollbar.css';
+import { getAllProducts } from '../api/product-service/productController';
 
 const ShopPage = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const searchQuery = searchParams.get('search') || '';
+
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterCategory, setFilterCategory] = useState([]);
-  const [sortOrder, setSortOrder] = useState("");
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [sortOrder, setSortOrder] = useState('');
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
         const data = await getAllProducts();
-        const activeProducts = data.filter(
-            (item) => item.productStatus === true
-        );
+        const activeProducts = data.filter((item) => item.productStatus === true);
         setItems(activeProducts);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error('Error fetching products:', error);
       } finally {
         setLoading(false);
       }
@@ -40,22 +41,25 @@ const ShopPage = () => {
   };
 
   const filteredProducts = items.filter((product) => {
-    if (filterCategory.length === 0) return true;
-    return filterCategory.includes(product.productCatagory);
+    const matchesCategory =
+        filterCategory.length === 0 || filterCategory.includes(product.productCatagory);
+    const matchesSearch = product.productName
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
   });
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sortOrder === "lowToHigh") return a.price - b.price;
-    if (sortOrder === "highToLow") return b.price - a.price;
+    if (sortOrder === 'lowToHigh') return a.price - b.price;
+    if (sortOrder === 'highToLow') return b.price - a.price;
     return 0;
   });
 
   const getCategoryCounts = () => {
-    const counts = items.reduce((acc, product) => {
+    const counts = filteredProducts.reduce((acc, product) => {
       acc[product.productCatagory] = (acc[product.productCatagory] || 0) + 1;
       return acc;
     }, {});
-
     return Object.keys(counts).map((category) => ({
       name: category,
       count: counts[category],
@@ -66,17 +70,22 @@ const ShopPage = () => {
 
   return (
       <div className="bg-[#e9e3e3]">
-
         <div className="fixed top-0 left-0 right-0 z-50">
           <Navbar />
         </div>
-        <div className="pt-16"> {/* Added padding-top to account for fixed navbar */}
-          <br />
+        <div className="pt-16">
           <div className="text-center mb-8 px-4">
+            <br/>
+            <br/>
             <h2 className="text-[#F4952C] font-pacifico text-2xl md:text-3xl">Best Sellings</h2>
             <h3 className="text-black font-quicksand text-xl md:text-2xl font-semibold mt-2">
               We Care About Our Customers <br /> Experience Too
             </h3>
+            {searchQuery && (
+                <p className="text-gray-600 mt-4">
+                  Showing results for: "{searchQuery}"
+                </p>
+            )}
           </div>
 
           {loading ? (
@@ -121,11 +130,17 @@ const ShopPage = () => {
                       <option value="highToLow">Price: High to Low</option>
                     </select>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    {sortedProducts.map((item) => (
-                        <Product_Card key={item.productId} item={item} />
-                    ))}
-                  </div>
+                  {sortedProducts.length === 0 ? (
+                      <div className="text-center py-8">
+                        <p className="text-gray-600">No products found matching your criteria.</p>
+                      </div>
+                  ) : (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                        {sortedProducts.map((item) => (
+                            <Product_Card key={item.productId} item={item} />
+                        ))}
+                      </div>
+                  )}
                 </div>
               </div>
           )}
