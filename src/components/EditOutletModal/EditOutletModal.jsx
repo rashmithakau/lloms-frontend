@@ -5,8 +5,7 @@ const EditOutletModal = ({ isOpen, onClose, outlet, onSaveSuccess }) => {
     const [formData, setFormData] = useState({
         outletName: "",
         location: "",
-        status: "Active",
-        imageUrl: "", // Added imageUrl
+        status: "Active", // Default matches enum
     });
 
     useEffect(() => {
@@ -14,8 +13,7 @@ const EditOutletModal = ({ isOpen, onClose, outlet, onSaveSuccess }) => {
             setFormData({
                 outletName: outlet.outletName || "",
                 location: outlet.location || "",
-                status: outlet.status || "Active",
-                imageUrl: outlet.imageUrl || "", // Include current imageUrl
+                status: outlet.status || "Active", // Match backend enum casing
             });
         }
     }, [outlet]);
@@ -23,7 +21,11 @@ const EditOutletModal = ({ isOpen, onClose, outlet, onSaveSuccess }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await updateOutlet(outlet.id, formData);
+            // Use outlet.outletId instead of outlet.id
+            if (!outlet || !outlet.outletId) {
+                throw new Error("Outlet ID is missing");
+            }
+            await updateOutlet(outlet.outletId, formData);
             onSaveSuccess();
             onClose();
         } catch (error) {
