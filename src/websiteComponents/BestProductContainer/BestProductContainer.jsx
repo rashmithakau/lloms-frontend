@@ -1,36 +1,22 @@
-import React, { useState, useEffect } from "react";
-import ProductCard from "./ProductCard";
-import { getAllProducts } from "../../api/product-service/productController.js"; // Adjust the path to your API utility file
-
-const BASE_URL = "http://localhost:8080/api/v1/product";
-
-// Function to shuffle an array using Fisher-Yates algorithm
-const shuffleArray = (array) => {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-};
+import React, { useEffect, useState } from "react";
+import Product_Card from "./ProductCard.jsx";
+import { getAllProducts } from "../../api/product-service/productController";
 
 const BestProductContainer = () => {
-    // State to hold the 8 random products
     const [products, setProducts] = useState([]);
-    // State to manage loading
     const [isLoading, setIsLoading] = useState(true);
+    const [sortOrder, setSortOrder] = useState("");
 
-    // Fetch products on component mount
     useEffect(() => {
         const fetchProducts = async () => {
-            setIsLoading(true);
             try {
                 const data = await getAllProducts();
-                if (data && data.length > 0) {
-                    // Shuffle the products and select the first 8
-                    const shuffled = shuffleArray(data);
-                    const selectedProducts = shuffled.slice(0, 8);
-                    setProducts(selectedProducts);
+                const activeProducts = data.filter((item) => item.productStatus === true);
+                if (activeProducts.length > 0) {
+                    const shuffled = [...activeProducts].sort(() => Math.random() - 0.5);
+                    setProducts(shuffled.slice(0, 8));
+                } else {
+                    setProducts([]);
                 }
             } catch (error) {
                 console.error("Failed to fetch products:", error);
@@ -39,37 +25,49 @@ const BestProductContainer = () => {
             }
         };
         fetchProducts();
-    }, []); // Empty dependency array ensures this runs once on mount
+    }, []);
+
+    const sortedProducts = sortOrder
+        ? [...products].sort((a, b) => {
+            if (sortOrder === "lowToHigh") {
+                return a.price - b.price;
+            } else if (sortOrder === "highToLow") {
+                return b.price - a.price;
+            }
+            return 0;
+        })
+        : products;
 
     return (
-        <div>
-            <br />
-            <div className="text-center mb-8">
-                <h2 className="text-[#F4952C] font-pacifico text-3xl">Best Products</h2>
-                <h3 className="text-black font-quicksand text-2xl font-semibold mt-2">
-                    Best Products This Week!
-                </h3>
-            </div>
-
+        <div className="max-w-7xl mx-auto">
             {isLoading ? (
                 <div className="flex justify-center items-center h-40">
-                    <div className="loader border-t-4 border-orange-500 border-solid rounded-full w-12 h-12 animate-spin"></div>
+                    <div className="loader border-t-4 border-orange-500 rounded-full w-12 h-12 animate-spin"></div>
                 </div>
             ) : (
-                <div className="flex justify-center px-5 mt-5">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-                        {products.map((p) => (
-                            <ProductCard
-                                key={p.productId} // Unique identifier from the backend
-                                image={`${BASE_URL}/url/${p.imageUrl}`} // Full image URL
-                                title={p.productName} // Product name from the backend
-                            />
-                        ))}
+                <div>
+                    <div className="text-center mb-8">
+                        <h2 className="text-[#F4952C] font-pacifico text-3xl">Best Products</h2>
+                        <h3 className="text-black font-quicksand text-2xl font-semibold mt-2">
+                            Best Products This Week!
+                        </h3>
                     </div>
+
+                    {sortedProducts.length === 0 ? (
+                        <div className="text-center py-8">
+                            <p className="text-gray-600">No products found matching your criteria.</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                            {sortedProducts.map((item) => (
+                                <Product_Card key={item.productId} item={item} />
+                            ))}
+                        </div>
+                    )}
                 </div>
-            )}
+                )}
         </div>
-    );
+);
 };
 
 export default BestProductContainer;
