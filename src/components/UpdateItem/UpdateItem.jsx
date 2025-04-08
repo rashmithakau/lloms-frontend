@@ -4,9 +4,12 @@ import UploadImage from "../../assets/icons/LoadImage.png"
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { getProductById, updateProduct } from '../../api/product-service/productController';
+import LoadingWheel from '../loadingWheel/LoadingWheel';
 
 export default function UpdateItem({ item, onClose}) {
-  
+
+      const [loading, setLoading] = useState(true);
+
       const id = item?.productId; 
 
       const handleClose = () => {
@@ -34,7 +37,7 @@ export default function UpdateItem({ item, onClose}) {
             return;
           }
           console.log(`Fetching product with ID: ${id}`);
-
+          setLoading(true); // Start loading
           getProductById(id)
             .then((data) => {
                 console.log("Fetched Product Data:", JSON.stringify(data, null, 2));
@@ -57,9 +60,11 @@ export default function UpdateItem({ item, onClose}) {
                  };
                 console.log("Formatted Product Data:", JSON.stringify(formattedProduct, null, 2));
                 setProduct(formattedProduct);
+                setLoading(false); // Stop loading after data is set
             })
             .catch((error) => {
                 console.error("Error fetching product:", error);
+                setLoading(false); // Also stop loading on error
             });
         }, [id]);
     
@@ -109,6 +114,11 @@ export default function UpdateItem({ item, onClose}) {
   return (
     <div>
       <div className="fixed inset-0 backdrop-blur-sm flex justify-center items-center z-50">
+      {loading ? (
+      <div>
+        <LoadingWheel/>
+      </div>
+    ) : (
               <div className="w-[600px] h-[660px] bg-white border border-gray-300 rounded-2xl shadow-lg shadow-gray-100 p-6 mt-3">
               <div className="flex justify-between">
                 <div></div>
@@ -255,7 +265,9 @@ export default function UpdateItem({ item, onClose}) {
               </form>
             
             </div>
+    )}
           </div>
+                      
     </div>
   )
 }
