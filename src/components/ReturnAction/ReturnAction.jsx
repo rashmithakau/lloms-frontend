@@ -4,11 +4,14 @@ import BorderButton from "../buttons/BorderButton";
 import IconNavButton from "../buttons/IconNavButton";
 import ReturnHistoryPopupForOutlet from "../ReturnHistoryPopupForOutlet/ReturnHistoryPopupForOutlet";
 import PlaceReturnOrderPopup from "../PlaceReturnOrderPopup/PlaceReturnOrderPopup";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
 
 function ReturnAction({ onClear, products }) {
   const [showModal, setShowModal] = useState(false);
   const [showReturnPopup, setShowReturnPopup] = useState(false);
   const [returnEnabled, setReturnEnabled] = useState(false);
+  const { outletId } = useContext(AuthContext);
 
   useEffect(() => {
     setReturnEnabled(products.length > 0);
@@ -43,7 +46,7 @@ function ReturnAction({ onClear, products }) {
           <PlaceReturnOrderPopup
             onClose={() => setShowReturnPopup(false)}
             products={products}
-            outletId={1} // Pass correct outlet ID here
+            outletId={outletId} // Pass correct outlet ID here
           />
         )}
       </div>
