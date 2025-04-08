@@ -1,4 +1,3 @@
-// src/components/ProductCard.jsx
 import React from "react";
 
 const ProductCard = ({ image, title }) => (
@@ -8,8 +7,7 @@ const ProductCard = ({ image, title }) => (
             alt={title}
             onError={(e) => {
                 e.currentTarget.onerror = null;
-                e.currentTarget.src =
-                    "https://via.placeholder.com/250x200?text=No+Image";
+                e.currentTarget.src = "https://via.placeholder.com/250x200?text=No+Image";
             }}
             className="w-full h-[200px] object-cover"
         />
