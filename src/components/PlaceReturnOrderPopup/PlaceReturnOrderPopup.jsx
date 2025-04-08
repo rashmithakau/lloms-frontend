@@ -39,8 +39,12 @@ const PlaceReturnOrderPopup = ({ onClose, products, outletId }) => {
       return;
     }
 
+    console.log("Order items"+orderItems);
+
     const returnItems = orderItems.map((item) => ({
       productId: item.id,
+        productName: item.name,
+        unitPrice: item.price,
       quantity: 1, // default quantity (can be dynamic if needed)
       reason: returnReasons[item.id],
     }));
