@@ -75,9 +75,27 @@ export const getAlleOutletsForOwner = async () => {
     return response.data.data;
   } catch (error) {
     console.error(
-      "Error fetching outlets:",
-      error.response?.data || error.message
+        "Error fetching outlets:",
+        error.response?.data || error.message
     );
     throw error;
   }
-};
+}
+  export const updateOutlet = async (outletId, updatedData) => {
+    try {
+      const response = await axios.put(
+          `${BASE_URL}/update-outlet?outlet-id=${outletId}`,
+          updatedData,
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+      );
+      return response.data.data;
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || error.message;
+      console.error("Error updating outlet:", errorMessage);
+      throw new Error(errorMessage);
+    }
+  };
