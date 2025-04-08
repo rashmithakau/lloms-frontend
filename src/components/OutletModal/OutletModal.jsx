@@ -59,13 +59,12 @@ const OutletModal = ({ isOpen, onClose, onSaveSuccess }) => {
 
                     <div className="mb-4">
                         <label className="block mb-2">Status</label>
-                        <select
-                            className="w-full p-2 border rounded"
-                            value={formData.status}
-                            onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                        >
-                            <option value="Inactive">Inactive</option>
-                        </select>
+                        <input
+                            type="text"
+                            className="w-full p-2 border rounded bg-gray-100"
+                            value="Inactive"
+                            readOnly
+                        />
                     </div>
 
                     <div className="mb-4">

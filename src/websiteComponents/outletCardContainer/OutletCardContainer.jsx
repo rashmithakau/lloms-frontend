@@ -99,7 +99,8 @@ const OutletCardContainer = () => {
                                 >
                                     {outlets.map((outlet) => (
                                         <SwiperSlide key={outlet.outletId}>
-                                            <OutletCard outlet={outlet} />
+                                            <OutletCard outlet={outlet}
+                                            />
                                         </SwiperSlide>
                                     ))}
                                 </Swiper>
