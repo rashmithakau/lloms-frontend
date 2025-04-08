@@ -13,6 +13,7 @@ const PlaceReturnOrderPopup = ({ onClose, products, outletId }) => {
       id: item.id,
       name: item.name,
       price: item.price,
+      quantity: item.quantity,
     }))
   );
 
@@ -41,7 +42,7 @@ const PlaceReturnOrderPopup = ({ onClose, products, outletId }) => {
       productId: item.id,
       productName: item.name,
       unitPrice: item.price,
-      quantity: 1, // fixed quantity
+      quantity: item.quantity , 
       reason: returnReasons[item.id],
     }));
 
@@ -61,9 +62,9 @@ const PlaceReturnOrderPopup = ({ onClose, products, outletId }) => {
         outletId: outletId,
         productList: orderItems.map((item) => ({
           productId: item.id,
-          stockQuantity: 1, // same as above
+          stockQuantity: item.quantity, // same as above
         })),
-        increase: true,
+        increase: false,
       };
 
       await updateProductStock(updateDto);
