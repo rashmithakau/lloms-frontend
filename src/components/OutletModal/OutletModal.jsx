@@ -64,7 +64,6 @@ const OutletModal = ({ isOpen, onClose, onSaveSuccess }) => {
                             value={formData.status}
                             onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                         >
-                            <option value="Active">Active</option>
                             <option value="Inactive">Inactive</option>
                         </select>
                     </div>
