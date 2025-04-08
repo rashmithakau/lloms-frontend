@@ -4,7 +4,7 @@ import CardContainer from "../../components/cardContainer/CardContainer";
 import LoadingWheel from "../../components/loadingWheel/LoadingWheel";
 import ItemDisplayCard from "../../components/itemDisplayCard/ItemDisplayCard";
 import AddNewItemButton from "../../components/AddNewItemButton";
-import UpdateItem from "../../components/UpdateItem/UpdateItem";
+import UpdateItemFac from "../../components/UpdateItem/UpdateItemFac";
 
 function Product() {
   const [items, setItems] = useState([]);
@@ -77,7 +77,7 @@ function Product() {
 
         {/* Conditionally render the UpdateItem popup */}
               {showUpdatePopup && (
-                <UpdateItem item={selectedItem} onClose={handleClosePopup} />
+                <UpdateItemFac item={selectedItem} onClose={handleClosePopup} />
               )}
 
     </div>

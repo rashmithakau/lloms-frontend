@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { getProductById, updateProduct } from '../../api/product-service/productController';
 import LoadingWheel from '../loadingWheel/LoadingWheel';
 
-export default function UpdateItem({ item, onClose}) {
+export default function UpdateItemFac({ item, onClose}) {
 
       const [loading, setLoading] = useState(true);
 
@@ -179,21 +179,17 @@ export default function UpdateItem({ item, onClose}) {
                       </select>
 
                     <label className="text-gray-700 text-lg font-medium ml-5">Status</label>
-                      <select 
+                      <input 
                         className="md:w-[250px] sm:w-[150px] w-[100px] h-[30px] border border-gray-300 rounded-md bg-gray-100 text-gray-600 focus:outline-none px-3"
                         name="productStatus"
-                        value={product.productStatus.toString()}
-                        onChange={(e) =>
-                            setProduct({
-                            ...product,
-                            productStatus: e.target.value === "true",
-                            })
-                        }
-                      >
-                            <option value="">--</option>
+                        value={product.productStatus.toString() ? "Active" : "Inactive"}
+                        readOnly
+                    
+                      />
+                            {/* <option value="">--</option>
                             <option value="true">Active</option>
                             <option value="false">Inactive</option>
-                      </select>  
+                      </select>   */}
 
                       <label className="text-gray-700 text-lg font-medium ml-5">Today Price (RS.)</label>
                       <input
