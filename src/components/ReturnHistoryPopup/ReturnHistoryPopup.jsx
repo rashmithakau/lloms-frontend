@@ -1,41 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import LoadingWheel from "../loadingWheel/LoadingWheel"; 
+import LoadingWheel from "../loadingWheel/LoadingWheel";
 import LoadingPopup from "../Popup/LoadingPopup/LoadingPopup"; // Loading Popup for status updates
+import axios from "axios"; // Assuming you are using axios for API calls
 
 const ReturnHistoryPopup = ({ onClose }) => {
   const [orderLoading, setOrderLoading] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(null);
-  const [returnItems, setReturnItems] = useState([]);
+  const [returns, setReturns] = useState([]); // State to store fetched return data
   const [loadingItems, setLoadingItems] = useState(false);
 
-  // Dummy return history data
-  const returns = [
-    {
-      returnId: "R001",
-      outletName: "Hakmana Outlet",
-      returnDate: "2025-04-06",
-      status: "Rejected",
-    },
-    {
-      returnId: "R002",
-      outletName: "Weligama Outlet",
-      returnDate: "2025-03-30",
-      status: "Approved",
-    },
-    {
-      returnId: "R003",
-      outletName: "Baddegama Outlet",
-      returnDate: "2025-03-28",
-      status: "Rejected",
-    },
-  ];
+  // Fetch return history data from the API
+  useEffect(() => {
+    const fetchReturns = async () => {
+      try {
+        const response = await axios.get("http://localhost:8088/api/v1/return/all-not-pending");
+        if (response.data && response.data.data) {
+          setReturns(response.data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching return data:", error);
+        Swal.fire("Error", "Failed to load return data", "error");
+      }
+    };
 
-  // Dummy return items data (to be displayed when clicking "See More")
-  const dummyReturnItems = [
-    { id: 1, name: "Apple Cake", price: 10, quantity: 2, returnReason: "Damaged" },
-    { id: 2, name: "Chocalate Cake", price: 20, quantity: 1, returnReason: "Wrong Size" },
-  ];
+    fetchReturns();
+  }, []);
 
   // Function to sort returns by date
   const sortReturns = (returns) => {
@@ -49,15 +39,8 @@ const ReturnHistoryPopup = ({ onClose }) => {
   const toggleDrawer = (returnId) => {
     if (openDrawer === returnId) {
       setOpenDrawer(null);
-      setReturnItems([]);
     } else {
       setOpenDrawer(returnId);
-      // Simulate fetching return items data (in real app, an API call would be here)
-      setLoadingItems(true);
-      setTimeout(() => {
-        setReturnItems(dummyReturnItems);
-        setLoadingItems(false);
-      }, 1000); // Simulating a delay (e.g., fetching data)
     }
   };
 
@@ -94,8 +77,8 @@ const ReturnHistoryPopup = ({ onClose }) => {
                       <td className="py-3 px-6">{index + 1}</td>
                       <td className="py-3 px-6">{returnItem.returnId}</td>
                       <td className="py-3 px-6">{returnItem.outletName}</td>
-                      <td className="py-3 px-6">{returnItem.returnDate}</td>
-                      <td className="py-3 px-6">{returnItem.status}</td>
+                      <td className="py-3 px-6">{new Date(returnItem.returnDate).toLocaleDateString()}</td>
+                      <td className="py-3 px-6">{returnItem.outletReturnStatus}</td>
                       <td className="py-3 px-6 text-center">
                         <button
                           className={`${
@@ -125,12 +108,12 @@ const ReturnHistoryPopup = ({ onClose }) => {
                                     </tr>
                                   </thead>
                                   <tbody className="text-gray-600 text-sm">
-                                    {returnItems.map((item) => (
-                                      <tr key={item.id}>
-                                        <td className="py-3 px-6">{item.name}</td>
-                                        <td className="py-3 px-6">Rs.{item.price}</td>
+                                    {returnItem.returnItems.map((item) => (
+                                      <tr key={item.productId}>
+                                        <td className="py-3 px-6">{item.productName}</td>
+                                        <td className="py-3 px-6">Rs.{item.unitPrice}</td>
                                         <td className="py-3 px-6">{item.quantity}</td>
-                                        <td className="py-3 px-6">{item.returnReason}</td>
+                                        <td className="py-3 px-6">{item.reason}</td>
                                       </tr>
                                     ))}
                                   </tbody>
@@ -155,5 +138,3 @@ const ReturnHistoryPopup = ({ onClose }) => {
 };
 
 export default ReturnHistoryPopup;
-
-

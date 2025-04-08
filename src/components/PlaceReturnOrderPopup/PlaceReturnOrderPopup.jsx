@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import LoadingPopup from "../Popup/LoadingPopup/LoadingPopup";
-import { saveReturn } from "../../api/outlet_service/returnController" // adjust path if needed
+import { saveReturn } from "../../api/outlet_service/returnController";
+import { updateProductStock } from "../../api/product-service/stockController";
 
 const PlaceReturnOrderPopup = ({ onClose, products, outletId }) => {
   const [orderLoading, setOrderLoading] = useState(false);
@@ -12,11 +13,8 @@ const PlaceReturnOrderPopup = ({ onClose, products, outletId }) => {
       id: item.id,
       name: item.name,
       price: item.price,
-      reason: ""
     }))
   );
-
-  console.log("Order Items:", orderItems);
 
   const handleReturnReasonChange = (itemId, reason) => {
     setReturnReasons((prevReasons) => ({
@@ -39,34 +37,44 @@ const PlaceReturnOrderPopup = ({ onClose, products, outletId }) => {
       return;
     }
 
-    console.log("Order items"+orderItems);
-
     const returnItems = orderItems.map((item) => ({
       productId: item.id,
-        productName: item.name,
-        unitPrice: item.price,
-      quantity: 1, // default quantity (can be dynamic if needed)
+      productName: item.name,
+      unitPrice: item.price,
+      quantity: 1, // fixed quantity
       reason: returnReasons[item.id],
     }));
 
     const payload = {
       returnId: 0,
       returnDate: new Date(),
-      outletId: outletId, // use actual outlet ID from props
+      outletId: outletId,
       outletReturnStatus: "Pending",
       returnItems,
     };
 
     setOrderLoading(true);
     try {
-        console.log("Payload:", payload);
       await saveReturn(payload);
+
+      const updateDto = {
+        outletId: outletId,
+        productList: orderItems.map((item) => ({
+          productId: item.id,
+          stockQuantity: 1, // same as above
+        })),
+        increase: true,
+      };
+
+      await updateProductStock(updateDto);
+
       setOrderLoading(false);
       Swal.fire({
         icon: "success",
         title: "Return Order Submitted",
         text: "Return order has been submitted successfully.",
       });
+
       onClose();
     } catch (error) {
       setOrderLoading(false);
@@ -80,7 +88,7 @@ const PlaceReturnOrderPopup = ({ onClose, products, outletId }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md">
-      <div className="bg-white p-6 rounded-3xl max-h-[90vh] w-[90%] md:w-[60%] shadow-2xl relative border border-gray-200">
+      <div className="bg-white p-6 rounded-3xl max-h-[90vh] w-[90%] md:w-[60%] shadow-2xl relative border border-gray-200 overflow-y-auto">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl font-bold"
@@ -92,7 +100,6 @@ const PlaceReturnOrderPopup = ({ onClose, products, outletId }) => {
           Place Return Order
         </h2>
 
-        {/* Table for displaying items and return reason */}
         <div className="mb-4 overflow-x-auto">
           <table className="min-w-full table-auto">
             <thead>
@@ -107,6 +114,8 @@ const PlaceReturnOrderPopup = ({ onClose, products, outletId }) => {
                   <td className="px-4 py-2">{item.name}</td>
                   <td className="px-4 py-2">
                     <textarea
+                      id={`reason-${item.id}`}
+                      aria-label={`Return reason for ${item.name}`}
                       value={returnReasons[item.id] || ""}
                       onChange={(e) =>
                         handleReturnReasonChange(item.id, e.target.value)
@@ -122,7 +131,6 @@ const PlaceReturnOrderPopup = ({ onClose, products, outletId }) => {
           </table>
         </div>
 
-        {/* Submit Button */}
         <div className="mt-4 flex justify-end">
           <button
             onClick={handleSubmitReturnOrder}

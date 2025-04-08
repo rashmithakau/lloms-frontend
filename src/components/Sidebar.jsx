@@ -1,25 +1,50 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import LogoutButton from "./buttons/LogoutButton";
 import SliderNavButton from "./buttons/IconNavButton";
-import ProfilePhoto from "./ProfilePhoto";
 import { motion } from "framer-motion";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
+import axios from "axios";
+import Swal from "sweetalert2"; // Assuming Swal is imported for error handling
 
-const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, sliderNotExpandWidth , user}) => 
-  {
-  const { logoutUser } = useContext(AuthContext);
+const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, sliderNotExpandWidth, user }) => {
+  const { logoutUser, outletId } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [outletName, setOutletName] = useState();
+  const [loading, setLoading] = useState(false); // Added loading state
 
   const handleLogout = () => {
     logoutUser();
     navigate("/login");
   };
 
-  const navItems=navItemList;
-  console.log(navItems);
+  const navItems = navItemList;
 
+  useEffect(() => {
+    const fetchOutletData = async () => {
+      setLoading(true); // Start loading
+      if(outletId != -1){
+        try {
+          const response = await axios.get("http://localhost:8088/api/v1/outlet/get-outlet-by-id", {
+            params: { "outlet-id": 1 },
+          });
+
+          if (response.data && response.data.data.outletName) {
+            setOutletName(response.data.data.outletName); // Set the outlet name
+            console.log(response.data.data); // Display the fetched data
+          } 
+        } catch (error) {
+          console.error("Error fetching outlet data:", error);
+          Swal.fire("Error", "Failed to load outlet data", "error");
+        } finally {
+          setLoading(false); // End loading
+        }
+      }
+      setLoading(false); // End loading
+    };
+    fetchOutletData();
+  }, [outletId]); // Run when `outletId` changes
 
   return (
     <motion.div
@@ -49,21 +74,38 @@ const Sidebar = ({ isOpen, toggleSidebar, navItemList = [], sliderExpandWidth, s
       </div>
 
       {/* Profile Section */}
-      {isOpen && (
+      {isOpen && !loading && (
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }} // Increased duration for profile section
-          className="flex flex-col items-center justify-center p-10 bg-pink-50 rounded-lg shadow-md m-5 h-60 "
+          className="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-purple-100 via-pink-100 to-pink-200 rounded-lg shadow-xl m-5 h-60 space-y-4"
         >
-          <ProfilePhoto
-            src="src/assets/profileImages/mathara.jpg"
-            alt="User Profile"
-            size={10}
-            border={true}
-          />
-          <h2 className="mt-4 text-lg font-semibold text-pink-700 opacity-60">{user}</h2>
+          {/* Profile Photo */}
+          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-pink-300 mb-4">
+            <img
+              src="src/assets/profileImages/mathara.jpg" // Replace this with dynamic profile photo path if needed
+              alt="User Profile"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Name Section */}
+          <div className="text-center">
+            {/* User Name */}
+            <h1 className="text-xl font-semibold text-pink-700 opacity-90 transition-transform duration-300 transform hover:scale-105">{user}</h1>
+            
+            {/* Outlet Name */}
+            <h2 className="mt-2 text-lg font-medium text-pink-500 opacity-80 transition-transform duration-300 transform hover:scale-105">{outletName}</h2>
+          </div>
         </motion.div>
+      )}
+
+      {/* Loading State */}
+      {loading && (
+        <div className="flex items-center justify-center h-full">
+          <span className="text-pink-600 text-lg"></span>
+        </div>
       )}
 
       {/* Navigation */}
