@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { getProductById, updateProduct } from '../../api/product-service/productController';
 import LoadingWheel from '../loadingWheel/LoadingWheel';
+import Swal from "sweetalert2";
 
 export default function UpdateItemFac({ item, onClose}) {
 
@@ -95,7 +96,13 @@ export default function UpdateItemFac({ item, onClose}) {
           }try {
             const response = await updateProduct(id, formData);
             console.log("Update Response:", response);
-            alert("Product updated successfully!");
+            Swal.fire({
+              title: "success",
+              text: "Product updated successfully!",
+              icon: success,
+              confirmButtonText: "OK",
+              confirmButtonColor: "#ff69b4", // Pink color
+            });
             onClose();
         } catch (error) {
             console.error("Error updating product:", error);
