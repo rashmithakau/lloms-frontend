@@ -1,28 +1,43 @@
 import React, { useState, useEffect } from "react";
 import InventoryDataRow from "./InventoryDataRow";
 import { getAllProductsByOutletId } from "../../api/product-service/productController";
+import { getAllOutlets } from "../../api/outlet_service/outletController";
 import LoadingWheel from "../loadingWheel/LoadingWheel";
 
-function InventoryTable({ outletId: initialOutletId, type }) {
+function InventoryTable({ type }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [outletId, setOutletId] = useState(initialOutletId); // Handle outlet ID change
+  const [outlets, setOutlets] = useState([]);
+  const [outletId, setOutletId] = useState(null);
 
-  // Handle outlet ID change
-  const handleOutletChange = (event) => {
-    setOutletId(parseInt(event.target.value)); // Set outletId based on selected value
-  };
+  // Fetch outlets
+  useEffect(() => {
+    const fetchOutlets = async () => {
+      try {
+        const outletData = await getAllOutlets();
+        setOutlets(outletData);
+        if (outletData.length > 0) {
+          setOutletId(outletData[0].outletId); // set default outlet
+        }
+      } catch (error) {
+        console.error("Error fetching outlets:", error);
+      }
+    };
+    fetchOutlets();
+  }, []);
 
+  // Fetch inventory items based on outletId
   useEffect(() => {
     const fetchItems = async () => {
-      setLoading(true); // Set loading to true before fetching data
+      if (!outletId) return;
+      setLoading(true);
       try {
         const data = await getAllProductsByOutletId(outletId);
         setItems(data);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
-        setLoading(false); // Ensure loading is false after data is fetched
+        setLoading(false);
       }
     };
     fetchItems();
@@ -34,20 +49,21 @@ function InventoryTable({ outletId: initialOutletId, type }) {
       <div className="flex justify-between items-center my-6">
         {type !== "outlet" && (
           <select
-            value={outletId}
-            onChange={handleOutletChange}
+            value={outletId || ""}
+            onChange={(e) => setOutletId(parseInt(e.target.value))}
             className="py-2 px-4 border border-gray-300 rounded-lg bg-white text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-100 cursor-pointer"
           >
-            <option value={101}>Matara</option>
-            <option value={102}>Galle</option>
-            <option value={103}>Hikkaduwa</option>
-            <option value={104}>Hakmana</option>
-            <option value={105}>Hambanthota</option>
-            <option value={106}>Mirissa</option>
+            {outlets.map((outlet) => (
+              <option key={outlet.outletId} value={outlet.outletId}>
+                {outlet.outletName}
+              </option>
+            ))}
           </select>
         )}
         <div className="text-lg font-semibold">
-          {loading ? "Total Products: Calculating..." : `Total Products: ${items.length}`}
+          {loading
+            ? "Total Products: Calculating..."
+            : `Total Products: ${items.length}`}
         </div>
       </div>
 
