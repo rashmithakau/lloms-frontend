@@ -1,2 +1,5 @@
 @import "tailwindcss";
-@import 'daisyui/dist/full.css'
+* {
+    font-family: 'Poppins', sans-serif;
+  }
+
